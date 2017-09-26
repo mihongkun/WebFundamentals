@@ -1,63 +1,60 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-sw/src/lib/strategies.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-sw/src/lib/strategies.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import {
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-sw/src/lib/strategies.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import {
   CacheFirst, CacheOnly, NetworkFirst,
   NetworkOnly, StaleWhileRevalidate,
-} from '../../../workbox-runtime-caching/src/index.js';
+} from &#x27;../../../workbox-runtime-caching/src/index.js&#x27;;
 import {CacheExpirationPlugin} from
-  '../../../workbox-cache-expiration/src/index.js';
+  &#x27;../../../workbox-cache-expiration/src/index.js&#x27;;
 import {BroadcastCacheUpdatePlugin} from
-  '../../../workbox-broadcast-cache-update/src/index.js';
+  &#x27;../../../workbox-broadcast-cache-update/src/index.js&#x27;;
 import {CacheableResponsePlugin} from
-  '../../../workbox-cacheable-response/src/index.js';
-import {RequestWrapper} from '../../../workbox-runtime-caching/src/index.js';
+  &#x27;../../../workbox-cacheable-response/src/index.js&#x27;;
+import {RequestWrapper} from &#x27;../../../workbox-runtime-caching/src/index.js&#x27;;
 
 /**
  * StrategyOptions is just a JavaScript object, but the structure
  * explains the options for runtime strategies used in workbox-sw.
  *
- * See the example of how this can be used with the `cacheFirst()` caching
+ * See the example of how this can be used with the &#x60;cacheFirst()&#x60; caching
  * strategy.
  *
  * @example
- * const workboxSW = new WorkboxSW();
- * const cacheFirstStrategy = workboxSW.strategies.cacheFirst({
- *   cacheName: 'example-cache',
+ * const workboxSW &#x3D; new WorkboxSW();
+ * const cacheFirstStrategy &#x3D; workboxSW.strategies.cacheFirst({
+ *   cacheName: &#x27;example-cache&#x27;,
  *   cacheExpiration: {
  *     maxEntries: 10,
  *     maxAgeSeconds: 7 * 24 * 60 * 60
  *   },
  *   broadcastCacheUpdate: {
- *     channelName: 'example-channel-name'
+ *     channelName: &#x27;example-channel-name&#x27;
  *   },
  *   cacheableResponse: {
  *     statuses: [0, 200, 404],
  *     headers: {
- *       'Example-Header-1': 'Header-Value-1',
- *       'Example-Header-2': 'Header-Value-2'
+ *       &#x27;Example-Header-1&#x27;: &#x27;Header-Value-1&#x27;,
+ *       &#x27;Example-Header-2&#x27;: &#x27;Header-Value-2&#x27;
  *     }
  *   }
  *   plugins: [
@@ -73,19 +70,19 @@ import {RequestWrapper} from '../../../workbox-runtime-caching/src/index.js';
  * @property {Number} cacheExpiration.maxEntries
  * The maximum number of entries to store in a cache.
  * @property {Number} cacheExpiration.maxAgeSeconds
- * The maximum lifetime of a request to stay in the cache before it's removed.
+ * The maximum lifetime of a request to stay in the cache before it&#x27;s removed.
  * @property {Object} broadcastCacheUpdate Defining
  * this object will add a broadcast cache update plugin.
  * @property {String} broadcastCacheUpdate.channelName
  * The name of the broadcast channel to dispatch messages on.
- * @property {Array&lt;plugins>} plugins For
+ * @property {Array&amp;lt;plugins&gt;} plugins For
  * any additional plugins you wish to add, simply include them in this
  * array.
  * @property {Object} cacheableResponse Specifies types of responses to cache
  * by status codes, headers, or both.
- * @property {Array&lt;Number>} cacheableResponse.statuses An array of status
+ * @property {Array&amp;lt;Number&gt;} cacheableResponse.statuses An array of status
  * codes to cache.
- * @property {Array&lt;Object>} cacheableResponse.headers An array of
+ * @property {Array&amp;lt;Object&gt;} cacheableResponse.headers An array of
  * header-value pairs for HTTP headers to cache. See the example, above.
  * @memberof module:workbox-sw.Strategies
  */
@@ -95,7 +92,7 @@ import {RequestWrapper} from '../../../workbox-runtime-caching/src/index.js';
  * workbox-sw.
  *
  * You would never access this class directly but instead use with
- * `workboxSW.strategies.&lt;Strategy Name>`.
+ * &#x60;workboxSW.strategies.&amp;lt;Strategy Name&gt;&#x60;.
  *
  * @memberof module:workbox-sw
  */
@@ -105,8 +102,8 @@ class Strategies {
    * @param {String} [input.cacheId] The cacheId to be applied to the run
    * time strategies cache names.
    */
-  constructor({cacheId} = {}) {
-    this._cacheId = cacheId;
+  constructor({cacheId} &#x3D; {}) {
+    this._cacheId &#x3D; cacheId;
   }
 
   /**
@@ -114,15 +111,15 @@ class Strategies {
    * run-time caching strategy.
    *
    * @example
-   * const = new WorkboxSW();
-   * const cacheFirstStrategy = workboxSW.strategies.cacheFirst();
+   * const &#x3D; new WorkboxSW();
+   * const cacheFirstStrategy &#x3D; workboxSW.strategies.cacheFirst();
    *
-   * workboxSW.router.registerRoute('/styles/*', cacheFirstStrategy);
+   * workboxSW.router.registerRoute(&#x27;/styles/*&#x27;, cacheFirstStrategy);
    *
    * @param {module:workbox-sw.Strategies.StrategyOptions} [options] To
    * define any additional caching or broadcast plugins pass in option values.
    * @return {module:workbox-runtime-caching.CacheFirst} An instance of a
-   * `CacheFirst` handler.
+   * &#x60;CacheFirst&#x60; handler.
    */
   cacheFirst(options) {
     return this._getCachingMechanism(CacheFirst, options);
@@ -133,15 +130,15 @@ class Strategies {
    * run-time caching strategy.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * const cacheOnlyStrategy = workboxSW.strategies.cacheOnly();
+   * const workboxSW &#x3D; new WorkboxSW();
+   * const cacheOnlyStrategy &#x3D; workboxSW.strategies.cacheOnly();
    *
-   * workboxSW.router.registerRoute('/styles/*', cacheOnlyStrategy);
+   * workboxSW.router.registerRoute(&#x27;/styles/*&#x27;, cacheOnlyStrategy);
    *
    * @param {module:workbox-sw.Strategies.StrategyOptions} [options] To
    * define any additional caching or broadcast plugins pass in option values.
    * @return {module:workbox-runtime-caching.CacheOnly} An instance of a
-   * `CacheOnly` handler.
+   * &#x60;CacheOnly&#x60; handler.
    */
   cacheOnly(options) {
     return this._getCachingMechanism(CacheOnly, options);
@@ -152,15 +149,15 @@ class Strategies {
    * run-time caching strategy.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * const networkFirstStrategy = workboxSW.strategies.networkFirst();
+   * const workboxSW &#x3D; new WorkboxSW();
+   * const networkFirstStrategy &#x3D; workboxSW.strategies.networkFirst();
    *
-   * workboxSW.router.registerRoute('/blog/', networkFirstStrategy);
+   * workboxSW.router.registerRoute(&#x27;/blog/&#x27;, networkFirstStrategy);
    *
    * @param {module:workbox-sw.Strategies.StrategyOptions} [options] To
    * define any additional caching or broadcast plugins pass in option values.
    * @return {module:workbox-runtime-caching.NetworkFirst} An instance of a
-   * `NetworkFirst` handler.
+   * &#x60;NetworkFirst&#x60; handler.
    */
   networkFirst(options) {
     return this._getCachingMechanism(NetworkFirst, options);
@@ -171,15 +168,15 @@ class Strategies {
    * run-time caching strategy.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * const networkOnlyStrategy = workboxSW.strategies.networkOnly();
+   * const workboxSW &#x3D; new WorkboxSW();
+   * const networkOnlyStrategy &#x3D; workboxSW.strategies.networkOnly();
    *
-   * workboxSW.router.registerRoute('/admin/', networkOnlyStrategy);
+   * workboxSW.router.registerRoute(&#x27;/admin/&#x27;, networkOnlyStrategy);
    *
    * @param {module:workbox-sw.Strategies.StrategyOptions} [options] To
    * define any additional caching or broadcast plugins pass in option values.
    * @return {module:workbox-runtime-caching.NetworkOnly} An instance of a
-   * `NetworkOnly` handler.
+   * &#x60;NetworkOnly&#x60; handler.
    */
   networkOnly(options) {
     return this._getCachingMechanism(NetworkOnly, options);
@@ -190,16 +187,16 @@ class Strategies {
    * run-time caching strategy.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * const staleWhileRevalidateStrategy =
+   * const workboxSW &#x3D; new WorkboxSW();
+   * const staleWhileRevalidateStrategy &#x3D;
    *  workboxSW.strategies.staleWhileRevalidate();
    *
-   * workboxSW.router.registerRoute('/styles/*', staleWhileRevalidateStrategy);
+   * workboxSW.router.registerRoute(&#x27;/styles/*&#x27;, staleWhileRevalidateStrategy);
    *
    * @param {module:workbox-sw.Strategies.StrategyOptions} [options] To
    * define any additional caching or broadcast plugins pass in option values.
    * @return {module:workbox-runtime-caching.StaleWhileRevalidate}
-   *  An instance of a `StaleWhileRevalidate` handler.
+   *  An instance of a &#x60;StaleWhileRevalidate&#x60; handler.
    */
   staleWhileRevalidate(options) {
     return this._getCachingMechanism(StaleWhileRevalidate, options);
@@ -215,28 +212,28 @@ class Strategies {
    * @return {Handler} A handler instance configured with the appropriate
    * behaviours
    */
-  _getCachingMechanism(HandlerClass, options = {}) {
-    const pluginParamsToClass = {
-      'cacheExpiration': CacheExpirationPlugin,
-      'broadcastCacheUpdate': BroadcastCacheUpdatePlugin,
-      'cacheableResponse': CacheableResponsePlugin,
+  _getCachingMechanism(HandlerClass, options &#x3D; {}) {
+    const pluginParamsToClass &#x3D; {
+      &#x27;cacheExpiration&#x27;: CacheExpirationPlugin,
+      &#x27;broadcastCacheUpdate&#x27;: BroadcastCacheUpdatePlugin,
+      &#x27;cacheableResponse&#x27;: CacheableResponsePlugin,
     };
 
-    const wrapperOptions = {
+    const wrapperOptions &#x3D; {
       plugins: [],
       cacheId: this._cacheId,
     };
 
-    if (options['cacheName']) {
-      wrapperOptions['cacheName'] = options['cacheName'];
+    if (options[&#x27;cacheName&#x27;]) {
+      wrapperOptions[&#x27;cacheName&#x27;] &#x3D; options[&#x27;cacheName&#x27;];
     }
 
     // Iterate over known plugins and add them to Request Wrapper options.
-    const pluginKeys = Object.keys(pluginParamsToClass);
-    pluginKeys.forEach((pluginKey) => {
+    const pluginKeys &#x3D; Object.keys(pluginParamsToClass);
+    pluginKeys.forEach((pluginKey) &#x3D;&gt; {
       if (options[pluginKey]) {
-        const PluginClass = pluginParamsToClass[pluginKey];
-        const pluginParams = options[pluginKey];
+        const PluginClass &#x3D; pluginParamsToClass[pluginKey];
+        const pluginParams &#x3D; options[pluginKey];
 
         wrapperOptions.plugins.push(new PluginClass(pluginParams));
       }
@@ -244,12 +241,12 @@ class Strategies {
 
     // Add custom plugins.
     if (options.plugins) {
-      options.plugins.forEach((plugin) => {
+      options.plugins.forEach((plugin) &#x3D;&gt; {
         wrapperOptions.plugins.push(plugin);
       });
     }
 
-    options.requestWrapper = new RequestWrapper(wrapperOptions);
+    options.requestWrapper &#x3D; new RequestWrapper(wrapperOptions);
     // Pass through the initial options to the underlying Handler constructor
     // to allow for Handler-specific customization.
     return new HandlerClass(options);
@@ -258,9 +255,12 @@ class Strategies {
 
 export default Strategies;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

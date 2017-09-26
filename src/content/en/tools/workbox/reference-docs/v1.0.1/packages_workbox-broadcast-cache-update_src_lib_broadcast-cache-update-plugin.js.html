@@ -1,75 +1,72 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-broadcast-cache-update/src/lib/broadcast-cache-update-plugin.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-broadcast-cache-update/src/lib/broadcast-cache-update-plugin.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-broadcast-cache-update/src/lib/broadcast-cache-update-plugin.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import BroadcastCacheUpdate from './broadcast-cache-update';
-import assert from '../../../../lib/assert';
+import BroadcastCacheUpdate from &#x27;./broadcast-cache-update&#x27;;
+import assert from &#x27;../../../../lib/assert&#x27;;
 
 /**
  * Can be used to compare two [Responses](https://developer.mozilla.org/en-US/docs/Web/API/Response)
  * and uses the {@link https://developers.google.com/web/updates/2016/09/broadcastchannel|Broadcast Channel API}
  * to notify interested parties when those responses differ.
  *
- * For efficiency's sake, the underlying response bodies are not compared;
+ * For efficiency&#x27;s sake, the underlying response bodies are not compared;
  * only specific response headers are checked.
  *
  * This class is meant to be automatically invoked as a plugin by a
  * {@link module:workbox-runtime-caching.RequestWrapper|RequestWrapper}, which
- * is used by the `workbox-sw` and `workbox-runtime-caching` modules.
+ * is used by the &#x60;workbox-sw&#x60; and &#x60;workbox-runtime-caching&#x60; modules.
  *
- * If you would like to use this functionality outside of the `RequestWrapper`
+ * If you would like to use this functionality outside of the &#x60;RequestWrapper&#x60;
  * context, please use the
  * [BroadcastCacheUpdate]{@link
  *  module:workbox-broadcast-cache-update.BroadcastCacheUpdate}
  * class directly.
  *
- * @example &lt;caption>Add a BroadcastCacheUpdatePlugin to a `RequestWrapper` to
- * dispatch messages on a cache update.&lt;/caption>
+ * @example &amp;lt;caption&gt;Add a BroadcastCacheUpdatePlugin to a &#x60;RequestWrapper&#x60; to
+ * dispatch messages on a cache update.&amp;lt;/caption&gt;
  *
- * const requestWrapper = new workbox.runtimeCaching.RequestWrapper({
- *   cacheName: 'runtime-cache',
+ * const requestWrapper &#x3D; new workbox.runtimeCaching.RequestWrapper({
+ *   cacheName: &#x27;runtime-cache&#x27;,
  *   plugins: [
- *     new workbox.broadcastCacheUpdate.Plugin({channelName: 'cache-updates'})
+ *     new workbox.broadcastCacheUpdate.Plugin({channelName: &#x27;cache-updates&#x27;})
  *   ]
  * });
- * const route = new workbox.routing.RegExpRoute({
- *   match: ({url}) => url.domain === 'example.com',
+ * const route &#x3D; new workbox.routing.RegExpRoute({
+ *   match: ({url}) &#x3D;&gt; url.domain &#x3D;&#x3D;&#x3D; &#x27;example.com&#x27;,
  *   handler: new workbox.runtimeCaching.StaleWhileRevalidate({requestWrapper})
  * });
  *
@@ -77,8 +74,8 @@ import assert from '../../../../lib/assert';
  */
 class BroadcastCacheUpdatePlugin extends BroadcastCacheUpdate {
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox-sw` and `workbox-runtime-caching` handlers when an entry is
+   * A &quot;lifecycle&quot; callback that will be triggered automatically by the
+   * &#x60;workbox-sw&#x60; and &#x60;workbox-runtime-caching&#x60; handlers when an entry is
    * added to a cache.
    *
    * @private
@@ -89,7 +86,7 @@ class BroadcastCacheUpdatePlugin extends BroadcastCacheUpdate {
    * @param {string} input.url The cache key URL.
    */
   cacheDidUpdate({cacheName, oldResponse, newResponse, url}) {
-    assert.isType({cacheName}, 'string');
+    assert.isType({cacheName}, &#x27;string&#x27;);
     assert.isInstance({newResponse}, Response);
 
     if (oldResponse) {
@@ -105,9 +102,12 @@ class BroadcastCacheUpdatePlugin extends BroadcastCacheUpdate {
 
 export default BroadcastCacheUpdatePlugin;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

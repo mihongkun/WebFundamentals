@@ -1,49 +1,46 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-background-sync/src/lib/background-sync-queue.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-background-sync/src/lib/background-sync-queue.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import RequestManager from './request-manager';
-import RequestQueue from './request-queue';
-import {maxAge, defaultDBName} from './constants';
-import {isType, isInstance} from '../../../../lib/assert';
-import IDBHelper from '../../../../lib/idb-helper';
-import {cleanupQueue} from './queue-utils';
-import {getResponse} from './response-manager';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-background-sync/src/lib/background-sync-queue.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import RequestManager from &#x27;./request-manager&#x27;;
+import RequestQueue from &#x27;./request-queue&#x27;;
+import {maxAge, defaultDBName} from &#x27;./constants&#x27;;
+import {isType, isInstance} from &#x27;../../../../lib/assert&#x27;;
+import IDBHelper from &#x27;../../../../lib/idb-helper&#x27;;
+import {cleanupQueue} from &#x27;./queue-utils&#x27;;
+import {getResponse} from &#x27;./response-manager&#x27;;
 
 /**
  * Use the instance of this class to push the failed requests into the queue.
  *
  * @example
  * When you want to push the requests manually
- * let bgQueue = new workbox.backgroundSync.Queue();
- * self.addEventListener('fetch', function(e) {
- *   if (!e.request.url.startsWith('https://jsonplaceholder.typicode.com')) {
+ * let bgQueue &#x3D; new workbox.backgroundSync.Queue();
+ * self.addEventListener(&#x27;fetch&#x27;, function(e) {
+ *   if (!e.request.url.startsWith(&#x27;https://jsonplaceholder.typicode.com&#x27;)) {
  *     return;
  *   }
  *
- *   const clone = e.request.clone();
- *   e.respondWith(fetch(e.request).catch((err)=>{
+ *   const clone &#x3D; e.request.clone();
+ *   e.respondWith(fetch(e.request).catch((err)&#x3D;&gt;{
  *     bgQueue.pushIntoQueue({
  *       request: clone,
  *     });
@@ -58,58 +55,58 @@ class Queue {
    * Creates an instance of Queue with the given options
    *
    * @param {Object} [input]
-   * @param {Number} [input.maxRetentionTime = 5 days] Time for which a queued
+   * @param {Number} [input.maxRetentionTime &#x3D; 5 days] Time for which a queued
    * request will live in the queue(irrespective of failed/success of replay).
    * @param {Object} [input.callbacks] Callbacks for successfull/failed
    * replay of a request as well as modifying before enqueue/dequeue-ing.
    * @param {Fuction} [input.callbacks.replayDidSucceed]
    * Invoked with params (hash:string, response:Response) after a request is
    * successfully replayed.
-   * @param {Fuction&lt;string>} [input.callbacks.replayDidFail]
+   * @param {Fuction&amp;lt;string&gt;} [input.callbacks.replayDidFail]
    * Invoked with param (hash:string) after a replay attempt has failed.
-   * @param {Fuction&lt;Object>} [input.callbacks.requestWillEnqueue]
+   * @param {Fuction&amp;lt;Object&gt;} [input.callbacks.requestWillEnqueue]
    * Invoked with param (reqData:Object) before a failed request is saved to
    * the queue. Use this to modify the saved data.
-   * @param {Fuction&lt;Object>} [input.callbacks.requestWillDequeue]
+   * @param {Fuction&amp;lt;Object&gt;} [input.callbacks.requestWillDequeue]
    * Invoked with param (reqData:Object) before a failed request is retrieved
    * from the queue. Use this to modify the data before the request is replayed.
    * @param {string} [input.queueName] Queue name inside db in which
    * requests will be queued.
-   * @param {BroadcastChannel=} [input.broadcastChannel] BroadcastChannel
+   * @param {BroadcastChannel&#x3D;} [input.broadcastChannel] BroadcastChannel
    * which will be used to publish messages when the request will be queued.
    */
   constructor({
     broadcastChannel,
     callbacks,
     queueName,
-    dbName = defaultDBName,
-    maxRetentionTime = maxAge,
-  } = {}) {
+    dbName &#x3D; defaultDBName,
+    maxRetentionTime &#x3D; maxAge,
+  } &#x3D; {}) {
   if (queueName) {
-    isType({queueName}, 'string');
+    isType({queueName}, &#x27;string&#x27;);
   }
 
     if (maxRetentionTime) {
-      isType({maxRetentionTime}, 'number');
+      isType({maxRetentionTime}, &#x27;number&#x27;);
     }
 
     if (broadcastChannel) {
       isInstance({broadcastChannel}, BroadcastChannel);
     }
 
-    isType({dbName}, 'string');
+    isType({dbName}, &#x27;string&#x27;);
 
-    this._dbName = dbName;
-    this._queue = new RequestQueue({
+    this._dbName &#x3D; dbName;
+    this._queue &#x3D; new RequestQueue({
       config: {
         maxAge: maxRetentionTime,
       },
       queueName,
-      idbQDb: new IDBHelper(this._dbName, 1, 'QueueStore'),
+      idbQDb: new IDBHelper(this._dbName, 1, &#x27;QueueStore&#x27;),
       broadcastChannel,
       callbacks,
     });
-    this._requestManager = new RequestManager({
+    this._requestManager &#x3D; new RequestManager({
       callbacks,
       queue: this._queue,
     });
@@ -168,9 +165,12 @@ class Queue {
 
 export default Queue;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

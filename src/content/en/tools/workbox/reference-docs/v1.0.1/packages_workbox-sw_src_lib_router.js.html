@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-sw/src/lib/router.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-sw/src/lib/router.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-sw/src/lib/router.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -46,25 +43,25 @@ import {
   RegExpRoute,
   Route,
   NavigationRoute,
-} from '../../../workbox-routing/src/index.js';
-import ErrorFactory from './error-factory.js';
+} from &#x27;../../../workbox-routing/src/index.js&#x27;;
+import ErrorFactory from &#x27;./error-factory.js&#x27;;
 
 /**
  * Adds a friendly API on top of the router from the
  * {@link module:workbox-routing|workbox-routing module}.
  *
- * @example &lt;caption>How to define a simple route with caching
- * strategy.&lt;/caption>
+ * @example &amp;lt;caption&gt;How to define a simple route with caching
+ * strategy.&amp;lt;/caption&gt;
  *
- * const workboxSW = new WorkboxSW();
- * workboxSW.router.registerRoute('/about',
+ * const workboxSW &#x3D; new WorkboxSW();
+ * workboxSW.router.registerRoute(&#x27;/about&#x27;,
  *  workboxSW.strategies.cacheFirst());
  *
- * @example &lt;caption>How to define a simple route with custom caching
- * strategy.&lt;/caption>
+ * @example &amp;lt;caption&gt;How to define a simple route with custom caching
+ * strategy.&amp;lt;/caption&gt;
  *
- * const workboxSW = new WorkboxSW();
- * workboxSW.router.registerRoute('/about', (args) => {
+ * const workboxSW &#x3D; new WorkboxSW();
+ * workboxSW.router.registerRoute(&#x27;/about&#x27;, (args) &#x3D;&gt; {
  *   // The requested URL
  *   console.log(args.url);
  *
@@ -83,7 +80,7 @@ import ErrorFactory from './error-factory.js';
  */
 class Router extends SWRoutingRouter {
   /**
-   * Constructs a light wrapper on top of the underlying `Router`.
+   * Constructs a light wrapper on top of the underlying &#x60;Router&#x60;.
    * @param {String} revisionedCacheName The cache name used for entries cached
    *        via precache().
    * @param {boolean} handleFetch Determines if the router should handle fetch
@@ -91,33 +88,33 @@ class Router extends SWRoutingRouter {
    */
   constructor(revisionedCacheName, handleFetch) {
     super({handleFetch});
-    this._revisionedCacheName = revisionedCacheName;
+    this._revisionedCacheName &#x3D; revisionedCacheName;
   }
 
   /**
    * @param {String|RegExp|Route} capture The capture for a route can be one
    * of three types.
-   * 1. It can be an Express style route, like `'/path/to/:anything'` for
-   *    same-origin or `'https://cross-origin.com/path/to/:anything'` for
+   * 1. It can be an Express style route, like &#x60;&#x27;/path/to/:anything&#x27;&#x60; for
+   *    same-origin or &#x60;&#x27;https://cross-origin.com/path/to/:anything&#x27;&#x60; for
    *    cross-origin routes.
    * 1. A regular expression that will be tested against request URLs. For
    *    cross-origin routes, you must use a RegExp that matches the start of the
-   *    full URL, like `new RegExp('https://cross-origin\.com/')`.
+   *    full URL, like &#x60;new RegExp(&#x27;https://cross-origin\.com/&#x27;)&#x60;.
    * 1. A [Route]{@link module:workbox-routing.Route} instance.
    * @param {function|module:workbox-runtime-caching.Handler} handler The
    * handler to use to provide a response if the route matches. The handler
-   * argument is ignored if you pass in a Route object, otherwise it's required.
+   * argument is ignored if you pass in a Route object, otherwise it&#x27;s required.
    */
   registerRoute(capture, handler) {
-    if (typeof handler === 'function') {
-      handler = {
+    if (typeof handler &#x3D;&#x3D;&#x3D; &#x27;function&#x27;) {
+      handler &#x3D; {
         handle: handler,
       };
     }
 
-    if (typeof capture === 'string') {
-      if (capture.length === 0) {
-        throw ErrorFactory.createError('empty-express-string');
+    if (typeof capture &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
+      if (capture.length &#x3D;&#x3D;&#x3D; 0) {
+        throw ErrorFactory.createError(&#x27;empty-express-string&#x27;);
       }
 
       super.registerRoute({
@@ -130,45 +127,45 @@ class Router extends SWRoutingRouter {
     } else if (capture instanceof Route) {
       super.registerRoute({route: capture});
     } else {
-      throw ErrorFactory.createError('unsupported-route-type');
+      throw ErrorFactory.createError(&#x27;unsupported-route-type&#x27;);
     }
   }
 
   /**
    * A shortcut used to register a
    * [NavigationRoute]{@link module:workbox-routing.NavigationRoute} instance
-   * that will respond to navigation requests using a cache entry for `url`.
+   * that will respond to navigation requests using a cache entry for &#x60;url&#x60;.
    *
    * This is useful when following the [App Shell pattern](https://developers.google.com/web/fundamentals/architecture/app-shell#example-html-for-appshell),
    * in which the previously cached shell is returned for all navigations.
    *
-   * The `url` value should correspond to an entry that's already in the cache,
+   * The &#x60;url&#x60; value should correspond to an entry that&#x27;s already in the cache,
    * perhaps a URL that is managed by
    * [precache()]{@link module:workbox-sw.WorkboxSW#precache}. Using a URL that
-   * isn't already cached will lead to failed navigations.
+   * isn&#x27;t already cached will lead to failed navigations.
    *
    * @param {String} url The URL of the already cached HTML resource.
    * @param {Object} [options]
-   * @param {Array&lt;RegExp>} [options.blacklist] Defaults to an empty blacklist.
-   * @param {Array&lt;RegExp>} [options.whitelist] Defaults to `[/./]`, which will
+   * @param {Array&amp;lt;RegExp&gt;} [options.blacklist] Defaults to an empty blacklist.
+   * @param {Array&amp;lt;RegExp&gt;} [options.whitelist] Defaults to &#x60;[/./]&#x60;, which will
    *        match all request URLs.
    * @param {String} [options.cacheName] The name of the cache which contains
-   *        the cached response for `url`. Defaults to the name of the cache
+   *        the cached response for &#x60;url&#x60;. Defaults to the name of the cache
    *        used by precache().
    */
-  registerNavigationRoute(url, options = {}) {
-    if (typeof url !== 'string') {
-      throw ErrorFactory.createError('navigation-route-url-string');
+  registerNavigationRoute(url, options &#x3D; {}) {
+    if (typeof url !&#x3D;&#x3D; &#x27;string&#x27;) {
+      throw ErrorFactory.createError(&#x27;navigation-route-url-string&#x27;);
     }
 
     // Allow folks to explicitly pass in a null/undefined cacheName option if
     // they want that behavior.
-    const cacheName = 'cacheName' in options ?
+    const cacheName &#x3D; &#x27;cacheName&#x27; in options ?
       options.cacheName :
       this._revisionedCacheName;
 
     super.registerRoute({route: new NavigationRoute({
-      handler: () => caches.match(url, {cacheName}),
+      handler: () &#x3D;&gt; caches.match(url, {cacheName}),
       whitelist: options.whitelist || [/./],
       blacklist: options.blacklist || [],
     })});
@@ -177,9 +174,12 @@ class Router extends SWRoutingRouter {
 
 export default Router;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

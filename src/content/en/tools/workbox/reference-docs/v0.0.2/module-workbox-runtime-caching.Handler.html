@@ -1,550 +1,95 @@
----
-layout: jsdoc
-title: "Class: Handler"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Class: Handler</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-
-
-    
-        <h2>Handler</h2>
-        
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1><small><a href="module-workbox-runtime-caching.html">workbox-runtime-caching</a>.<wbr></small><span class="symbol-name">Handler</span></h1>
+            <div class="symbol-detail-labels"><span class="label label-kind"><small>class</small></span>&nbsp;&nbsp;&nbsp;<span class="label label-static"><small>static</small></span></div>
             <p>This a base class which each caching strategy extends.</p>
-        
-    
-
-    
-      
-
-      
-        <h2 class="subsection-title">Constructor</h2>
-
-        <div class="subsection-constructor">
-        
-
-<div class="collapsing-entry method-type-class start-open">
-
-
-    <h4 class="js-collapse-title" id="Handler">new Handler<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"></span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>Constructor for a new Handler instance.</p>
-  </div>
-
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">waitOnCache</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">boolean</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-                  <span class="param-attributes">(Optional)</span>
-                  
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>For handlers that write to the cache,
-       <code>true</code> means the method should wait for the cache.put() to complete
-       before returning. The default value of <code>false</code> means return without
-       waiting. It this value is true and the response can't be cached, an
-       error will be thrown.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">requestWrapper</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">RequestWrapper</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-                  <span class="param-attributes">(Optional)</span>
-                  
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>An optional <code>RequestWrapper</code>
-       that is used to configure the cache name and request plugins. If
-       not provided, a new <code>RequestWrapper</code> using the
-       <a href="#getDefaultCacheName">default cache name</a> will be used.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-</table>
-
-</div>
-
-</div>
-
+          </header>
+          <section>
+            <h2>Constructor</h2>
+            <section>
+              <h3 id="Handler" class="symbol-name">Handler</h3>
+              <p class="type-signature"> new Handler(input)
+              </p>
+              <p>Constructor for a new Handler instance.</p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+            </section>
+          </section>
+          <section>
+            <h2>Method</h2>
+            <section>
+              <h3 id="handle" class="symbol-name">handle</h3>
+              <div class="symbol-detail-labels"><span class="label label-virtual"><small>abstract</small></span></div>
+              <p class="type-signature"> handle(input)&nbsp;returns&nbsp;Promise containing Response</p>
+              <p>An abstract method that each subclass must implement.</p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Promise containing Response</code>&nbsp;
+                    <p>A promise resolving with a response.</p>
+                  </p>
+                </dd>
+              </dl>
+            </section>
+          </section>
         </div>
-      
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h2 class="subsection-title">Instance Methods</h2>
-
-        <div class="subsection-methods">
-        
-            
-
-<div class="collapsing-entry method-type-function ">
-
-
-    <h4 class="js-collapse-title" id="handle"><span class="type-attribs">(abstract) </span><span class="this">this.</span>handle<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"> <span class="return-arrow">&rarr;</span> Promise.&lt;Response></span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>An abstract method that each subclass must implement.</p>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
   </div>
+</body>
 
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">event</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">FetchEvent</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The event that triggered the service
-       worker's fetch handler.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">params</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-                  <span class="param-attributes">(Optional)</span>
-                  
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>Additional parameters that might be passed
-       in to the method. If used in conjunction with the
-       <a href="module-workbox-routing.Route.html#main">Route</a> class, then the return
-       value from the <code>match</code> function in the Route constructor
-       will be passed in as the <code>params</code> value.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-  <tr>
-  <th>Returns</th>
-  <td>
-  
-          
-
-
-
-<span class="param-type">Promise.&lt;Response></span>
-
-
-
-
-
-<div class="param-desc">
-    <p>A promise resolving with a response.</p>
-</div>
-
-
-      
-  </td>
-  </tr>
-
-
-</table>
-
-</div>
-
-</div>
-
-        
-        </div>
+</html>

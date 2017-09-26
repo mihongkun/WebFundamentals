@@ -1,31 +1,28 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-build/src/lib/utils/modify-url-prefix-transform.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-build/src/lib/utils/modify-url-prefix-transform.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-build/src/lib/utils/modify-url-prefix-transform.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>&#x27;use strict&#x27;;
 
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-const errors = require('../errors');
+const errors &#x3D; require(&#x27;../errors&#x27;);
 
 /**
  * Escaping user input to be treated as a literal string within a regular
@@ -38,43 +35,43 @@ const errors = require('../errors');
  * @return {string}        A string that is safe to use in a regular
  *                         expression.
  */
-const escapeRegExp = (string) => {
-  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&amp;');
+const escapeRegExp &#x3D; (string) &#x3D;&gt; {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, &#x27;\\$&amp;amp;&#x27;);
 };
 
-module.exports = (modifyUrlPrefix) => {
+module.exports &#x3D; (modifyUrlPrefix) &#x3D;&gt; {
   if (!modifyUrlPrefix ||
-      typeof modifyUrlPrefix !== 'object' ||
+      typeof modifyUrlPrefix !&#x3D;&#x3D; &#x27;object&#x27; ||
       Array.isArray(modifyUrlPrefix)) {
-    throw new Error(errors['modify-url-prefix-bad-prefixes']);
+    throw new Error(errors[&#x27;modify-url-prefix-bad-prefixes&#x27;]);
   }
 
   // If there are no entries in modifyUrlPrefix, just return an identity
   // function as a shortcut.
-  if (Object.keys(modifyUrlPrefix).length === 0) {
-    return (entry) => entry;
+  if (Object.keys(modifyUrlPrefix).length &#x3D;&#x3D;&#x3D; 0) {
+    return (entry) &#x3D;&gt; entry;
   }
 
-  Object.keys(modifyUrlPrefix).forEach((key) => {
-    if (typeof modifyUrlPrefix[key] !== 'string') {
-      throw new Error(errors['modify-url-prefix-bad-prefixes']);
+  Object.keys(modifyUrlPrefix).forEach((key) &#x3D;&gt; {
+    if (typeof modifyUrlPrefix[key] !&#x3D;&#x3D; &#x27;string&#x27;) {
+      throw new Error(errors[&#x27;modify-url-prefix-bad-prefixes&#x27;]);
     }
   });
 
-  // Escape the user input so it's safe to use in a regex.
-  const safeModifyUrlPrefixes = Object.keys(modifyUrlPrefix).map(escapeRegExp);
-  // Join all the `modifyUrlPrefix` keys so a single regex can be used.
-  const prefixMatchesStrings = safeModifyUrlPrefixes.join('|');
-  // Add `^` to the front the prefix matches so it only matches the start of
+  // Escape the user input so it&#x27;s safe to use in a regex.
+  const safeModifyUrlPrefixes &#x3D; Object.keys(modifyUrlPrefix).map(escapeRegExp);
+  // Join all the &#x60;modifyUrlPrefix&#x60; keys so a single regex can be used.
+  const prefixMatchesStrings &#x3D; safeModifyUrlPrefixes.join(&#x27;|&#x27;);
+  // Add &#x60;^&#x60; to the front the prefix matches so it only matches the start of
   // a string.
-  const modifyRegex = new RegExp(`^(${prefixMatchesStrings})`);
+  const modifyRegex &#x3D; new RegExp(&#x60;^(${prefixMatchesStrings})&#x60;);
 
-  return (manifest) => manifest.map((entry) => {
-    if (typeof entry.url !== 'string') {
-      throw new Error(errors['manifest-entry-bad-url']);
+  return (manifest) &#x3D;&gt; manifest.map((entry) &#x3D;&gt; {
+    if (typeof entry.url !&#x3D;&#x3D; &#x27;string&#x27;) {
+      throw new Error(errors[&#x27;manifest-entry-bad-url&#x27;]);
     }
 
-    entry.url = entry.url.replace(modifyRegex, (match) => {
+    entry.url &#x3D; entry.url.replace(modifyRegex, (match) &#x3D;&gt; {
       return modifyUrlPrefix[match];
     });
 
@@ -82,9 +79,12 @@ module.exports = (modifyUrlPrefix) => {
   });
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

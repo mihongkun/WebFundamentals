@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html devsite>
+
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: gulp-tasks/test.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: gulp-tasks/test.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
+ Copyright 2016 Google Inc. All Rights Reserved.
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+const seleniumAssistant &#x3D; require(&#x27;selenium-assistant&#x27;);
+const gulp &#x3D; require(&#x27;gulp&#x27;);
+const mocha &#x3D; require(&#x27;gulp-spawn-mocha&#x27;);
+const runSequence &#x3D; require(&#x27;run-sequence&#x27;);
+
+gulp.task(&#x27;download-browsers&#x27;, function() {
+  if (process.platform &#x3D;&#x3D;&#x3D; &#x27;win32&#x27;) {
+    // We only support CLI testing on Windows at the moment.
+    return Promise.resolve();
+  }
+
+  console.log(&#x27;    Starting browser download.....&#x27;);
+  return Promise.all([
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;stable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;beta&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;unstable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;stable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;beta&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;unstable&#x27;, 48),
+  ])
+  .then(() &#x3D;&gt; {
+    console.log(&#x27;    Browser download complete.&#x27;);
+  });
+});
+
+gulp.task(&#x27;mocha&#x27;, [&#x27;build&#x27;], () &#x3D;&gt; {
+  const mochaOptions &#x3D; {
+    env: {
+      projectOrStar: global.projectOrStar,
+    },
+  };
+
+  if (global.cliOptions.grep) {
+    mochaOptions.grep &#x3D; global.cliOptions.grep;
+  }
+
+  return gulp.src(&#x27;test/bootstrap.js&#x27;, {read: false})
+    .pipe(mocha(mochaOptions))
+    .once(&#x27;error&#x27;, (error) &#x3D;&gt; {
+      console.error(error);
+      process.exit(1);
+    });
+});
+
+gulp.task(&#x27;test&#x27;, [&#x27;lint&#x27;, &#x27;download-browsers&#x27;], (callback) &#x3D;&gt; {
+  runSequence(&#x27;mocha&#x27;, callback);
+});
+
+gulp.task(&#x27;test:dev&#x27;, (callback) &#x3D;&gt; {
+  // The TEST_BUNDLE environment variable controls whether the test web server
+  // responds with the prod (default) or dev versions of bundled libraries.
+  // Here, we want the dev bundles.
+  const savedTestBundleValue &#x3D; process.env.TEST_BUNDLE;
+  process.env.TEST_BUNDLE &#x3D; &#x27;dev&#x27;;
+  runSequence(&#x27;test&#x27;, (error) &#x3D;&gt; {
+    process.env.TEST_BUNDLE &#x3D; savedTestBundleValue;
+    callback(error);
+  });
+});
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

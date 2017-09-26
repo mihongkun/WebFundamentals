@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-runtime-caching/src/lib/constants.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-runtime-caching/src/lib/constants.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-runtime-caching/src/lib/constants.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -41,17 +38,17 @@ jsdocNav:
 /**
  * The default cache name, used by
  * {@link module:workbox-runtime-caching.RequestWrapper|RequestWrapper} when
- * there's no name provided.
+ * there&#x27;s no name provided.
  *
- * It combines a constant prefix with the service worker `scope`, ensuring
+ * It combines a constant prefix with the service worker &#x60;scope&#x60;, ensuring
  * that multiple service workers used on the same origin will have
  * different default caches.
  *
  * Calling this method without any parameters will return
- * `workbox-runtime-caching-&lt;service worker scope>`.
+ * &#x60;workbox-runtime-caching-&amp;lt;service worker scope&gt;&#x60;.
  *
  * If you pass in a cacheId, it will be prepended, returning:
- * `&lt;cacheid>-workbox-runtime-caching-&lt;service worker scope>`.
+ * &#x60;&amp;lt;cacheid&gt;-workbox-runtime-caching-&amp;lt;service worker scope&gt;&#x60;.
  *
  * @param {Object} input
  * @param {string} [input.cacheId] This will be prepended to the default cache
@@ -61,14 +58,14 @@ jsdocNav:
  *
  * @memberof module:workbox-runtime-caching
  */
-const getDefaultCacheName = ({cacheId} = {}) => {
-  let cacheName = `workbox-runtime-caching`;
+const getDefaultCacheName &#x3D; ({cacheId} &#x3D; {}) &#x3D;&gt; {
+  let cacheName &#x3D; &#x60;workbox-runtime-caching&#x60;;
   if (cacheId) {
-    cacheName = `${cacheId}-${cacheName}`;
+    cacheName &#x3D; &#x60;${cacheId}-${cacheName}&#x60;;
   }
 
-  if (self &amp;&amp; self.registration) {
-   cacheName += `-${self.registration.scope}`;
+  if (self &amp;amp;&amp;amp; self.registration) {
+   cacheName +&#x3D; &#x60;-${self.registration.scope}&#x60;;
   }
 
   return cacheName;
@@ -78,15 +75,15 @@ const getDefaultCacheName = ({cacheId} = {}) => {
  * A list of the callback method names that the RequestWrapper might trigger.
  *
  * @private
- * @type {Array.&lt;string>}
+ * @type {Array.&amp;lt;string&gt;}
  * @memberof module:workbox-runtime-caching
  */
-const pluginCallbacks = [
-  'cacheDidUpdate',
-  'cacheWillMatch',
-  'cacheWillUpdate',
-  'fetchDidFail',
-  'requestWillFetch',
+const pluginCallbacks &#x3D; [
+  &#x27;cacheDidUpdate&#x27;,
+  &#x27;cacheWillMatch&#x27;,
+  &#x27;cacheWillUpdate&#x27;,
+  &#x27;fetchDidFail&#x27;,
+  &#x27;requestWillFetch&#x27;,
 ];
 
 
@@ -95,9 +92,12 @@ export {
   pluginCallbacks,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

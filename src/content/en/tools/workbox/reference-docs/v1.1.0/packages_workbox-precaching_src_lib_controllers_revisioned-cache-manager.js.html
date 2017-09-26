@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-precaching/src/lib/controllers/revisioned-cache-manager.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-precaching/src/lib/controllers/revisioned-cache-manager.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import BaseCacheManager from './base-cache-manager';
-import RevisionDetailsModel from '../models/revision-details-model';
-import {defaultRevisionedCacheName} from '../constants';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-precaching/src/lib/controllers/revisioned-cache-manager.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import BaseCacheManager from &#x27;./base-cache-manager&#x27;;
+import RevisionDetailsModel from &#x27;../models/revision-details-model&#x27;;
+import {defaultRevisionedCacheName} from &#x27;../constants&#x27;;
 import StringCacheEntry from
-  '../models/precache-entries/string-cache-entry';
+  &#x27;../models/precache-entries/string-cache-entry&#x27;;
 import ObjectPrecacheEntry from
-  '../models/precache-entries/object-precache-entry';
-import {isInstance} from '../../../../../lib/assert';
-import logHelper from '../../../../../lib/log-helper';
-import WorkboxError from '../../../../../lib/workbox-error';
+  &#x27;../models/precache-entries/object-precache-entry&#x27;;
+import {isInstance} from &#x27;../../../../../lib/assert&#x27;;
+import logHelper from &#x27;../../../../../lib/log-helper&#x27;;
+import WorkboxError from &#x27;../../../../../lib/workbox-error&#x27;;
 
 /**
  * You can instantiate this class to add requests to a precache list and
@@ -53,69 +50,69 @@ class RevisionedCacheManager extends BaseCacheManager {
    * @param {String} [input.cacheName] The cache to be used for precaching.
    * @param {String} [input.cacheId] The cacheId is prepended to the
    * cache name. This is useful if you have multiple projects sharing
-   * the same `http://localhost` origin and want unique cache names.
-   * @param {Array&lt;Object>} [input.plugins] Any plugins that should be
-   * invoked by the underlying `RequestWrapper`.
+   * the same &#x60;http://localhost&#x60; origin and want unique cache names.
+   * @param {Array&amp;lt;Object&gt;} [input.plugins] Any plugins that should be
+   * invoked by the underlying &#x60;RequestWrapper&#x60;.
    */
-  constructor(input = {}) {
-    input.cacheName = input.cacheName || defaultRevisionedCacheName;
+  constructor(input &#x3D; {}) {
+    input.cacheName &#x3D; input.cacheName || defaultRevisionedCacheName;
 
     super(input);
 
-    this._revisionDetailsModel = new RevisionDetailsModel();
+    this._revisionDetailsModel &#x3D; new RevisionDetailsModel();
   }
 
   /**
    * This method will add the supplied entries to the install list and
    * can be called multiple times.
    *
-   * The `revisionedFiles` parameter of the input should contain an array
+   * The &#x60;revisionedFiles&#x60; parameter of the input should contain an array
    * of objects or strings.
    *
-   * Objects in this array should have a `url` and `revision` parameter where
+   * Objects in this array should have a &#x60;url&#x60; and &#x60;revision&#x60; parameter where
    * the revision is a hash, unique to the files contents, which changes
    * whenever the file is updated. (See our [getting started guide to learn
    * how to automate this](/#get-started)).
    *
-   * Strings should be URL's that contain revisioning information
-   * i.e. `/styles/main.abcd.css` instead of `/styles/main.css`. If you supply
-   * a URL which *isn't* revisioned, the `install()` step will **never** update
+   * Strings should be URL&#x27;s that contain revisioning information
+   * i.e. &#x60;/styles/main.abcd.css&#x60; instead of &#x60;/styles/main.css&#x60;. If you supply
+   * a URL which *isn&#x27;t* revisioned, the &#x60;install()&#x60; step will **never** update
    * the precached asset.
    *
    * @param {Object} input
-   * @param {Array&lt;String|Object>} input.revisionedFiles This should be an
+   * @param {Array&amp;lt;String|Object&gt;} input.revisionedFiles This should be an
    * array of either objects or strings.
    *
    * @example
    * revisionedManager.addToCacheList({
    *   revisionedFiles: [
-   *     '/styles/hello.1234.css',
+   *     &#x27;/styles/hello.1234.css&#x27;,
    *     {
-   *       url: '/images/logo.png',
-   *       revision: 'abcd1234'
+   *       url: &#x27;/images/logo.png&#x27;,
+   *       revision: &#x27;abcd1234&#x27;
    *     }
    *   ]
    * });
    */
-  addToCacheList({revisionedFiles} = {}) {
+  addToCacheList({revisionedFiles} &#x3D; {}) {
     isInstance({revisionedFiles}, Array);
     super._addEntries(revisionedFiles);
 
-    const urlsWithoutRevisionFields = revisionedFiles
-      .filter((entry) => typeof entry === 'string');
-    if (urlsWithoutRevisionFields.length > 0) {
+    const urlsWithoutRevisionFields &#x3D; revisionedFiles
+      .filter((entry) &#x3D;&gt; typeof entry &#x3D;&#x3D;&#x3D; &#x27;string&#x27;);
+    if (urlsWithoutRevisionFields.length &gt; 0) {
       logHelper.debug({
         that: this,
-        message: `Some precache entries are URLs without separate revision
+        message: &#x60;Some precache entries are URLs without separate revision
           fields. If the URLs themselves do not contain revisioning info,
-          like a hash or a version number, your users won't receive updates.`,
+          like a hash or a version number, your users won&#x27;t receive updates.&#x60;,
         data: {
-          'URLs without revision fields':
+          &#x27;URLs without revision fields&#x27;:
             JSON.stringify(urlsWithoutRevisionFields),
-          'Examples of safe, versioned URLs':
-            `'/path/file.abcd1234.css' or '/v1.0.0/file.js'`,
-          'Examples of dangerous, unversioned URLs':
-            `'index.html' or '/path/file.css' or '/latest/file.js'`,
+          &#x27;Examples of safe, versioned URLs&#x27;:
+            &#x60;&#x27;/path/file.abcd1234.css&#x27; or &#x27;/v1.0.0/file.js&#x27;&#x60;,
+          &#x27;Examples of dangerous, unversioned URLs&#x27;:
+            &#x60;&#x27;index.html&#x27; or &#x27;/path/file.css&#x27; or &#x27;/latest/file.js&#x27;&#x60;,
         },
       });
     }
@@ -128,24 +125,24 @@ class RevisionedCacheManager extends BaseCacheManager {
    * @private
    * @abstract
    * @param {String | Object} input Either a URL string
-   * or an object with a `url`, `revision` and optional `cacheBust` parameter.
+   * or an object with a &#x60;url&#x60;, &#x60;revision&#x60; and optional &#x60;cacheBust&#x60; parameter.
    * @return {BaseCacheEntry} Returns a parsed version of the file entry.
    */
   _parseEntry(input) {
-    if (input === null) {
-      throw new WorkboxError('unexpected-precache-entry', {input});
+    if (input &#x3D;&#x3D;&#x3D; null) {
+      throw new WorkboxError(&#x27;unexpected-precache-entry&#x27;, {input});
     }
 
     let precacheEntry;
     switch (typeof input) {
-      case 'string':
-        precacheEntry = new StringCacheEntry(input);
+      case &#x27;string&#x27;:
+        precacheEntry &#x3D; new StringCacheEntry(input);
         break;
-      case 'object':
-        precacheEntry = new ObjectPrecacheEntry(input);
+      case &#x27;object&#x27;:
+        precacheEntry &#x3D; new ObjectPrecacheEntry(input);
         break;
       default:
-        throw new WorkboxError('unexpected-precache-entry', {input});
+        throw new WorkboxError(&#x27;unexpected-precache-entry&#x27;, {input});
     }
 
     return precacheEntry;
@@ -153,7 +150,7 @@ class RevisionedCacheManager extends BaseCacheManager {
 
   /**
    * If a dupe entry exists, check the revision. If the revisions are the same
-   * it's simply a duplicate entry. If they are different, we have two
+   * it&#x27;s simply a duplicate entry. If they are different, we have two
    * identical requests with two different revisions which will put this
    * module into a bad state.
    *
@@ -162,8 +159,8 @@ class RevisionedCacheManager extends BaseCacheManager {
    * @param {BaseCacheEntry} previousEntry The entry that is currently cached.
    */
   _onDuplicateInstallEntryFound(newEntry, previousEntry) {
-    if (previousEntry.revision !== newEntry.revision) {
-      throw new WorkboxError('duplicate-entry-diff-revisions', {
+    if (previousEntry.revision !&#x3D;&#x3D; newEntry.revision) {
+      throw new WorkboxError(&#x27;duplicate-entry-diff-revisions&#x27;, {
         firstEntry: {
           url: previousEntry.request.url,
           revision: previousEntry.revision,
@@ -179,32 +176,32 @@ class RevisionedCacheManager extends BaseCacheManager {
   /**
    * This method confirms with a precacheEntry is already in the cache with the
    * appropriate revision.
-   * If the revision is known, the requested `precacheEntry.revision` is saved
-   * and the cache entry exists for the `precacheEntry.path` this method
+   * If the revision is known, the requested &#x60;precacheEntry.revision&#x60; is saved
+   * and the cache entry exists for the &#x60;precacheEntry.path&#x60; this method
    * will return true.
    *
    * @private
-   * @param {BaseCacheEntry} precacheEntry A entry with `path` and `revision`
+   * @param {BaseCacheEntry} precacheEntry A entry with &#x60;path&#x60; and &#x60;revision&#x60;
    * parameters.
-   * @return {Promise&lt;Boolean>} Returns true if the precacheEntry is already
+   * @return {Promise&amp;lt;Boolean&gt;} Returns true if the precacheEntry is already
    * cached, false otherwise.
    */
   async _isAlreadyCached(precacheEntry) {
-    const revisionDetails = await
+    const revisionDetails &#x3D; await
       this._revisionDetailsModel.get(precacheEntry.entryID);
-    if (revisionDetails !== precacheEntry.revision) {
+    if (revisionDetails !&#x3D;&#x3D; precacheEntry.revision) {
       return false;
     }
 
-    const openCache = await this._getCache();
-    const cachedResponse = await openCache.match(precacheEntry.request);
+    const openCache &#x3D; await this._getCache();
+    const cachedResponse &#x3D; await openCache.match(precacheEntry.request);
     return cachedResponse ? true : false;
   }
 
   /**
    * @private
-   * @param {BaseCacheEntry} precacheEntry A file entry with `path` and
-   * `revision` parameters.
+   * @param {BaseCacheEntry} precacheEntry A file entry with &#x60;path&#x60; and
+   * &#x60;revision&#x60; parameters.
    */
   async _onEntryCached(precacheEntry) {
     await this._revisionDetailsModel.put(
@@ -232,11 +229,11 @@ class RevisionedCacheManager extends BaseCacheManager {
   }
 
   /**
-   * This method will compare the currently cached requests's and determine
+   * This method will compare the currently cached requests&#x27;s and determine
    * which requests are no longer in the cache list and can be removed from the
    * cache.
    *
-   * This should be called in a service worker's activate event to avoid
+   * This should be called in a service worker&#x27;s activate event to avoid
    * removing requests that are still be used by currently open pages.
    *
    * @return {Promise} Promise that resolves once the cache entries have been
@@ -244,7 +241,7 @@ class RevisionedCacheManager extends BaseCacheManager {
    */
   cleanup() {
     return super.cleanup()
-    .then(() => {
+    .then(() &#x3D;&gt; {
       return this._close();
     });
   }
@@ -252,9 +249,12 @@ class RevisionedCacheManager extends BaseCacheManager {
 
 export default RevisionedCacheManager;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

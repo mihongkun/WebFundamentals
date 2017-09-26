@@ -1,34 +1,31 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-build/src/index.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-build/src/index.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-build/src/index.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>&#x27;use strict&#x27;;
 // This will be the logic that powers both module and CLI
-const generateSW = require('./lib/generate-sw');
-const getFileManifestEntries = require('./lib/get-file-manifest-entries');
-const generateFileManifest = require('./lib/generate-file-manifest');
-const injectManifest = require('./lib/inject-manifest');
+const generateSW &#x3D; require(&#x27;./lib/generate-sw&#x27;);
+const getFileManifestEntries &#x3D; require(&#x27;./lib/get-file-manifest-entries&#x27;);
+const generateFileManifest &#x3D; require(&#x27;./lib/generate-file-manifest&#x27;);
+const injectManifest &#x3D; require(&#x27;./lib/inject-manifest&#x27;);
 
 /**
  * # workbox-build
@@ -56,68 +53,71 @@ const injectManifest = require('./lib/inject-manifest');
  * See [getFileManifestEntries()]{@link
  *  module:workbox-build.getFileManifestEntries}.
  *
- * @example &lt;caption>Generate a complete service worker that will precache
- * the discovered assets.&lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Generate a complete service worker that will precache
+ * the discovered assets.&amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.generateSW({
- *   globDirectory: './build/',
- *   globPatterns: ['**\/*.{html,js,css}'],
- *   globIgnores: ['service-worker.js','admin.html'],
- *   swDest: './build/sw.js',
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   globPatterns: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;service-worker.js&#x27;,&#x27;admin.html&#x27;],
+ *   swDest: &#x27;./build/sw.js&#x27;,
  *   templatedUrls: {
- *     '/shell': ['shell.hbs', 'main.css', 'shell.css'],
+ *     &#x27;/shell&#x27;: [&#x27;shell.hbs&#x27;, &#x27;main.css&#x27;, &#x27;shell.css&#x27;],
  *   },
  * })
- * .then(() => {
- *   console.log('Service worker generated.');
+ * .then(() &#x3D;&gt; {
+ *   console.log(&#x27;Service worker generated.&#x27;);
  * });
  *
- * @example &lt;caption>Generate a file containing the assets to precache.
- * &lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Generate a file containing the assets to precache.
+ * &amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.generateFileManifest({
- *   globDirectory: './build/',
- *   globPatterns: ['**\/*.{html,js,css}'],
- *   globIgnores: ['service-worker.js','admin.html'],
- *   manifestDest: './build/scripts/manifest.js',
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   globPatterns: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;service-worker.js&#x27;,&#x27;admin.html&#x27;],
+ *   manifestDest: &#x27;./build/scripts/manifest.js&#x27;,
  *   templatedUrls: {
- *     '/shell': ['shell.hbs', 'main.css', 'shell.css'],
+ *     &#x27;/shell&#x27;: [&#x27;shell.hbs&#x27;, &#x27;main.css&#x27;, &#x27;shell.css&#x27;],
  *   },
  * })
- * .then(() => {
- *   console.log('Build file has been created.');
+ * .then(() &#x3D;&gt; {
+ *   console.log(&#x27;Build file has been created.&#x27;);
  * });
  *
- * @example &lt;caption>Get an Array of files with revision details.&lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Get an Array of files with revision details.&amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.getFileManifestEntries({
- *   globDirectory: './build/',
- *   globPatterns: ['**\/*.{html,js,css}'],
- *   globIgnores: ['service-worker.js','admin.html'],
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   globPatterns: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;service-worker.js&#x27;,&#x27;admin.html&#x27;],
  *   templatedUrls: {
- *     '/shell': ['shell.hbs', 'main.css', 'shell.css'],
+ *     &#x27;/shell&#x27;: [&#x27;shell.hbs&#x27;, &#x27;main.css&#x27;, &#x27;shell.css&#x27;],
  *   },
  * })
- * .then((fileDetails) => {
- *   // An array of file details include a `url` and `revision` parameter.
+ * .then((fileDetails) &#x3D;&gt; {
+ *   // An array of file details include a &#x60;url&#x60; and &#x60;revision&#x60; parameter.
  * });
  *
  * @module workbox-build
  */
 
-module.exports = {
+module.exports &#x3D; {
   generateSW,
   generateFileManifest,
   getFileManifestEntries,
   injectManifest,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

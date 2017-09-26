@@ -1,277 +1,95 @@
----
-layout: jsdoc
-title: "Class: CacheFirst"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Class: CacheFirst</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-
-
-    
-        <h2>CacheFirst <span class="extends">extends</span> Handler</span>
-        </h2>
-        
-            <p>An implementation of a <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network">cache-first</a>
-request strategy.</p>
-<p>The important thing to note with this caching strategy is that once a
-response is cached, it will not be updated. This is useful for assets
-that are revisioned as it caches the asset long term and doesn't waste
-the user's data.</p>
-        
-    
-
-    
-      
-          <h3>Example</h3>
-          
-    <pre class="prettyprint"><code>// Set up a route to match any requests made for URLs that end in .txt.
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1><small><a href="module-workbox-runtime-caching.html">workbox-runtime-caching</a>.<wbr></small><span class="symbol-name">CacheFirst</span></h1>
+            <div class="symbol-detail-labels"><span class="label label-kind"><small>class</small></span>&nbsp;&nbsp;&nbsp;<span class="label label-static"><small>static</small></span></div>
+            <p>An implementation of a <a href="https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network">cache-first</a> request strategy.</p>
+            <p>The important thing to note with this caching strategy is that once a response is cached, it will not be updated. This is useful for assets that are revisioned as it caches the asset long term and doesn't waste the user's data.</p>
+          </header>
+          <section>
+            <h2>Constructor</h2>
+            <section>
+              <h3 id="CacheFirst" class="symbol-name">CacheFirst</h3>
+              <p class="type-signature"> new CacheFirst()
+              </p>
+              <dl class="dl-compact">
+                <dt>Extends</dt>
+                <dd><small>Handler</small></dd>
+              </dl>
+              <section>
+                <h4>
+                  Example
+                </h4>
+                <div>
+                  <pre class="prettyprint"><code>// Set up a route to match any requests made for URLs that end in .txt.
 // The requests are handled with a cache-first strategy.
-const route = new goog.routing.RegExpRoute({
+const route &#x3D; new goog.routing.RegExpRoute({
   regExp: /\.txt$/,
   handler: new goog.runtimeCaching.CacheFirst(),
 });
 
-const router = new goog.routing.Router();
+const router &#x3D; new goog.routing.Router();
 router.registerRoute({route});</code></pre>
-
-      
-
-      
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h2 class="subsection-title">Instance Methods</h2>
-
-        <div class="subsection-methods">
-        
-            
-
-<div class="collapsing-entry method-type-function ">
-
-
-    <h4 class="js-collapse-title" id="handle"><span class="this">this.</span>handle<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"> <span class="return-arrow">&rarr;</span> Promise.&lt;Response></span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>The handle method will be called by the
-<a href="module-workbox-routing.Route.html#main">Route</a> class when a route matches a
-request.</p>
-  </div>
-
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">event</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">FetchEvent</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The event that triggered the service
-       worker's fetch handler.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-  <tr>
-  <th>Returns</th>
-  <td>
-  
-          
-
-
-
-<span class="param-type">Promise.&lt;Response></span>
-
-
-
-
-
-<div class="param-desc">
-    <p>The response, either from the cache,
-         or if that isn't available, from the network.</p>
-</div>
-
-
-      
-  </td>
-  </tr>
-
-
-</table>
-
-</div>
-
-</div>
-
-        
+                </div>
+              </section>
+            </section>
+          </section>
+          <section>
+            <h2>Method</h2>
+            <section>
+              <h3 id="handle" class="symbol-name">handle</h3>
+              <p class="type-signature"> handle(input)&nbsp;returns&nbsp;Promise containing Response</p>
+              <p>The handle method will be called by the
+                <a href="module-workbox-routing.Route.html">Route</a> class when a route matches a request.
+              </p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Promise containing Response</code>&nbsp;
+                    <p>The response, either from the cache, or if that isn't available, from the network.</p>
+                  </p>
+                </dd>
+              </dl>
+            </section>
+          </section>
         </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,30 +1,27 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-precaching/src/lib/controllers/base-cache-manager.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-precaching/src/lib/controllers/base-cache-manager.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import ErrorFactory from '../error-factory';
-import {RequestWrapper} from '../../../../workbox-runtime-caching/src/index';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-precaching/src/lib/controllers/base-cache-manager.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import ErrorFactory from &#x27;../error-factory&#x27;;
+import {RequestWrapper} from &#x27;../../../../workbox-runtime-caching/src/index&#x27;;
 /**
  * This class handles the shared logic for caching revisioned and unrevisioned
  * assets.
@@ -39,22 +36,22 @@ class BaseCacheManager {
    * @param {String} [input.cacheName] This is the cache name to store requested
    * assets.
    * @param {String} [input.cacheId] The cacheId can be used to ensure that
-   * multiple projects sharing `http://localhost` have unique cache names.
-   * @param {Array&lt;Object>} [input.plugins] Any plugins that should be
-   * invoked by the underlying `RequestWrapper`.
+   * multiple projects sharing &#x60;http://localhost&#x60; have unique cache names.
+   * @param {Array&amp;lt;Object&gt;} [input.plugins] Any plugins that should be
+   * invoked by the underlying &#x60;RequestWrapper&#x60;.
    */
-  constructor({cacheName, cacheId, plugins} = {}) {
-    if (cacheId &amp;&amp; (typeof cacheId !== 'string' || cacheId.length === 0)) {
-      throw ErrorFactory.createError('bad-cache-id');
+  constructor({cacheName, cacheId, plugins} &#x3D; {}) {
+    if (cacheId &amp;amp;&amp;amp; (typeof cacheId !&#x3D;&#x3D; &#x27;string&#x27; || cacheId.length &#x3D;&#x3D;&#x3D; 0)) {
+      throw ErrorFactory.createError(&#x27;bad-cache-id&#x27;);
     }
 
-    this._entriesToCache = new Map();
-    this._requestWrapper = new RequestWrapper({
+    this._entriesToCache &#x3D; new Map();
+    this._requestWrapper &#x3D; new RequestWrapper({
       cacheName,
       cacheId,
       plugins,
       fetchOptions: {
-        credentials: 'same-origin',
+        credentials: &#x27;same-origin&#x27;,
       },
     });
   }
@@ -65,13 +62,13 @@ class BaseCacheManager {
    * the install step.
    *
    * @private
-   * @param {Array&lt;String|Request|Object>} rawEntries A raw entry that can be
+   * @param {Array&amp;lt;String|Request|Object&gt;} rawEntries A raw entry that can be
    * parsed into a BaseCacheEntry by the inheriting CacheManager.
    */
   _addEntries(rawEntries) {
-    this._parsedCacheUrls = null;
+    this._parsedCacheUrls &#x3D; null;
 
-    rawEntries.forEach((rawEntry) => {
+    rawEntries.forEach((rawEntry) &#x3D;&gt; {
       this._addEntryToInstallList(
         this._parseEntry(rawEntry)
       );
@@ -87,15 +84,15 @@ class BaseCacheManager {
   }
 
   /**
-   * Returns an array of fully qualified URL's that will be cached by this
+   * Returns an array of fully qualified URL&#x27;s that will be cached by this
    * cache manager.
    *
-   * @return {Array&lt;String>} An array of URLs that will be cached.
+   * @return {Array&amp;lt;String&gt;} An array of URLs that will be cached.
    */
   getCachedUrls() {
     if (!this._parsedCacheUrls) {
-      this._parsedCacheUrls = Array.from(this._entriesToCache.keys())
-        .map((url) => new URL(url, location).href);
+      this._parsedCacheUrls &#x3D; Array.from(this._entriesToCache.keys())
+        .map((url) &#x3D;&gt; new URL(url, location).href);
     }
 
     return this._parsedCacheUrls;
@@ -108,10 +105,10 @@ class BaseCacheManager {
    * where two entries have the same URL but different revisions. For example
    * caching:
    * [
-   *   {url: '/hello.txt', revision: 'abcd1234'},
-   *   {url: '/hello.txt', revision: 'efgh5678'},
+   *   {url: &#x27;/hello.txt&#x27;, revision: &#x27;abcd1234&#x27;},
+   *   {url: &#x27;/hello.txt&#x27;, revision: &#x27;efgh5678&#x27;},
    * ]
-   * This will throw an error as the library can't determine the correct
+   * This will throw an error as the library can&#x27;t determine the correct
    * revision and this may cause issues in future when updating the service
    * worker with new revisions.
    *
@@ -120,10 +117,10 @@ class BaseCacheManager {
    * during the next install event.
    */
   _addEntryToInstallList(precacheEntry) {
-    const entryID = precacheEntry.entryID;
-    const previousEntry = this._entriesToCache.get(precacheEntry.entryID);
+    const entryID &#x3D; precacheEntry.entryID;
+    const previousEntry &#x3D; this._entriesToCache.get(precacheEntry.entryID);
     if (!previousEntry) {
-      // This entry isn't in the install list
+      // This entry isn&#x27;t in the install list
       this._entriesToCache.set(entryID, precacheEntry);
       return;
     }
@@ -139,12 +136,12 @@ class BaseCacheManager {
    * cached and up -to-date.
    */
   async install() {
-    if (this._entriesToCache.size === 0) {
+    if (this._entriesToCache.size &#x3D;&#x3D;&#x3D; 0) {
       return;
     }
 
-    const cachePromises = [];
-    this._entriesToCache.forEach((precacheEntry) => {
+    const cachePromises &#x3D; [];
+    this._entriesToCache.forEach((precacheEntry) &#x3D;&gt; {
       cachePromises.push(
         this._cacheEntry(precacheEntry)
       );
@@ -164,7 +161,7 @@ class BaseCacheManager {
    * and cached.
    */
   async _cacheEntry(precacheEntry) {
-    const isCached = await this._isAlreadyCached(precacheEntry);
+    const isCached &#x3D; await this._isAlreadyCached(precacheEntry);
     if (isCached) {
       return;
     }
@@ -179,15 +176,15 @@ class BaseCacheManager {
 
       return this._onEntryCached(precacheEntry);
     } catch (err) {
-      throw ErrorFactory.createError('request-not-cached', {
-        message: `Failed to get a cacheable response for ` +
-          `'${precacheEntry.request.url}': ${err.message}`,
+      throw ErrorFactory.createError(&#x27;request-not-cached&#x27;, {
+        message: &#x60;Failed to get a cacheable response for &#x60; +
+          &#x60;&#x27;${precacheEntry.request.url}&#x27;: ${err.message}&#x60;,
       });
     }
   }
 
   /**
-   * Compare the URL's and determines which assets are no longer required
+   * Compare the URL&#x27;s and determines which assets are no longer required
    * in the cache.
    *
    * This should be called in the service worker activate event.
@@ -197,19 +194,19 @@ class BaseCacheManager {
    */
   async cleanup() {
     if (!await caches.has(this.getCacheName())) {
-      // Cache doesn't exist, so nothing to delete
+      // Cache doesn&#x27;t exist, so nothing to delete
       return;
     }
 
-    const requestsCachedOnInstall = [];
-    this._entriesToCache.forEach((entry) => {
+    const requestsCachedOnInstall &#x3D; [];
+    this._entriesToCache.forEach((entry) &#x3D;&gt; {
       requestsCachedOnInstall.push(entry.request.url);
     });
 
-    const openCache = await this._getCache();
-    const allCachedRequests = await openCache.keys();
+    const openCache &#x3D; await this._getCache();
+    const allCachedRequests &#x3D; await openCache.keys();
 
-    const cachedRequestsToDelete = allCachedRequests.filter((cachedRequest) => {
+    const cachedRequestsToDelete &#x3D; allCachedRequests.filter((cachedRequest) &#x3D;&gt; {
       if (requestsCachedOnInstall.includes(cachedRequest.url)) {
         return false;
       }
@@ -217,7 +214,7 @@ class BaseCacheManager {
     });
 
     return Promise.all(
-      cachedRequestsToDelete.map((cachedRequest) => {
+      cachedRequestsToDelete.map((cachedRequest) &#x3D;&gt; {
         return openCache.delete(cachedRequest);
       })
     );
@@ -227,11 +224,11 @@ class BaseCacheManager {
    * A simple helper method to get the open cache used for precaching assets.
    *
    * @private
-   * @return {Promise&lt;Cache>} The cache to be used for precaching.
+   * @return {Promise&amp;lt;Cache&gt;} The cache to be used for precaching.
    */
   async _getCache() {
     if (!this._cache) {
-      this._cache = await caches.open(this.getCacheName());
+      this._cache &#x3D; await caches.open(this.getCacheName());
     }
 
     return this._cache;
@@ -244,19 +241,19 @@ class BaseCacheManager {
    * @private
    * @abstract
    * @param {String | Request | Object} input Either a URL string, a Request
-   * or an object with a `url`, `revision` and optional `cacheBust` parameter.
+   * or an object with a &#x60;url&#x60;, &#x60;revision&#x60; and optional &#x60;cacheBust&#x60; parameter.
    * @return {BaseCacheEntry} Returns a parsed version of the file entry.
    */
   _parseEntry(input) {
-    throw ErrorFactory.createError('should-override');
+    throw ErrorFactory.createError(&#x27;should-override&#x27;);
   }
 
   /**
    * Called in case subclasses have cache entries that are to be installed
-   * but have the same "entryID".
+   * but have the same &quot;entryID&quot;.
    * This means that the user is trying to cache the same thing twice.
    * Subclasses can use this method to throw an error if there is an edge
-   * case that can't be handled.
+   * case that can&#x27;t be handled.
    *
    * @private
    * @abstract
@@ -264,7 +261,7 @@ class BaseCacheManager {
    * @param {BaseCacheEntry} previous The entry that is currently cached.
    */
   _onDuplicateEntryFound(newEntry, previous) {
-    throw ErrorFactory.createError('should-override');
+    throw ErrorFactory.createError(&#x27;should-override&#x27;);
   }
 
   /**
@@ -273,13 +270,13 @@ class BaseCacheManager {
    *
    * @private
    * @abstract
-   * @param {BaseCacheEntry} precacheEntry A file entry with `path` and
-   * `revision` parameters.
-   * @return {Promise&lt;Boolean>} Returns true is the fileEntry is already
+   * @param {BaseCacheEntry} precacheEntry A file entry with &#x60;path&#x60; and
+   * &#x60;revision&#x60; parameters.
+   * @return {Promise&amp;lt;Boolean&gt;} Returns true is the fileEntry is already
    * cached, false otherwise.
    */
   _isAlreadyCached(precacheEntry) {
-    throw ErrorFactory.createError('should-override');
+    throw ErrorFactory.createError(&#x27;should-override&#x27;);
   }
 
   /**
@@ -288,21 +285,24 @@ class BaseCacheManager {
    *
    * @private
    * @abstract
-   * @param {BaseCacheEntry} precacheEntry A file entry with `path` and
-   * `revision` parameters.
-   * @return {Promise} Returns a Promise that resolves once it's work has
+   * @param {BaseCacheEntry} precacheEntry A file entry with &#x60;path&#x60; and
+   * &#x60;revision&#x60; parameters.
+   * @return {Promise} Returns a Promise that resolves once it&#x27;s work has
    * been done.
    */
   _onEntryCached(precacheEntry) {
-    throw ErrorFactory.createError('should-override');
+    throw ErrorFactory.createError(&#x27;should-override&#x27;);
   }
 }
 
 export default BaseCacheManager;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

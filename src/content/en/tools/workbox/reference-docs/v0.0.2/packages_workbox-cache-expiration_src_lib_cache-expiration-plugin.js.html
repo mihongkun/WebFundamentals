@@ -1,58 +1,56 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-cache-expiration/src/lib/cache-expiration-plugin.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-cache-expiration/src/lib/cache-expiration-plugin.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-cache-expiration/src/lib/cache-expiration-plugin.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import CacheExpiration from './cache-expiration';
-import assert from '../../../../lib/assert';
+import CacheExpiration from &#x27;./cache-expiration&#x27;;
+import assert from &#x27;../../../../lib/assert&#x27;;
 
 /**
- * The `CacheExpirationPlugin` class allows you define an expiration and / or
+ * The &#x60;CacheExpirationPlugin&#x60; class allows you define an expiration and / or
  * limit on the responses cached.
  *
  * This class is meant to be automatically invoked as a plugin to a
  * {@link module:workbox-runtime-caching.RequestWrapper|RequestWrapper}, which
- * is used by the `workbox-sw` and `workbox-runtime-caching` modules.
+ * is used by the &#x60;workbox-sw&#x60; and &#x60;workbox-runtime-caching&#x60; modules.
  *
- * If you would like to use this functionality outside of the `RequestWrapper`
- * context, please use the `CacheExpiration` class directly.
+ * If you would like to use this functionality outside of the &#x60;RequestWrapper&#x60;
+ * context, please use the &#x60;CacheExpiration&#x60; class directly.
  *
  * @example
- * const plugin = new workbox.cacheExpiration.CacheExpirationPlugin({
+ * const plugin &#x3D; new workbox.cacheExpiration.CacheExpirationPlugin({
  *   maxEntries: 2,
  *   maxAgeSeconds: 10,
  * });
@@ -61,22 +59,22 @@ import assert from '../../../../lib/assert';
  */
 class CacheExpirationPlugin extends CacheExpiration {
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox.runtimeCaching` handlers when a `Response` is about to be returned
+   * A &quot;lifecycle&quot; callback that will be triggered automatically by the
+   * &#x60;workbox.runtimeCaching&#x60; handlers when a &#x60;Response&#x60; is about to be returned
    * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
-   * the handler. It allows the `Response` to be inspected for freshness and
-   * prevents it from being used if the `Response`'s `Date` header value is
-   * older than the configured `maxAgeSeconds`.
+   * the handler. It allows the &#x60;Response&#x60; to be inspected for freshness and
+   * prevents it from being used if the &#x60;Response&#x60;&#x27;s &#x60;Date&#x60; header value is
+   * older than the configured &#x60;maxAgeSeconds&#x60;.
    *
    * @private
    * @param {Object} input
-   * @param {Response} input.cachedResponse The `Response` object that's been
+   * @param {Response} input.cachedResponse The &#x60;Response&#x60; object that&#x27;s been
    *        read from a cache and whose freshness should be checked.
    * @param {Number} [input.now] A timestamp. Defaults to the current time.
-   * @return {Response|null} Either the `cachedResponse`, if it's fresh, or
-   *          `null` if the `Response` is older than `maxAgeSeconds`.
+   * @return {Response|null} Either the &#x60;cachedResponse&#x60;, if it&#x27;s fresh, or
+   *          &#x60;null&#x60; if the &#x60;Response&#x60; is older than &#x60;maxAgeSeconds&#x60;.
    */
-  cacheWillMatch({cachedResponse, now} = {}) {
+  cacheWillMatch({cachedResponse, now} &#x3D; {}) {
     if (this.isResponseFresh({cachedResponse, now})) {
       return cachedResponse;
     }
@@ -85,8 +83,8 @@ class CacheExpirationPlugin extends CacheExpiration {
   }
 
   /**
-   * A "lifecycle" callback that will be triggered automatically by the
-   * `workbox.runtimeCaching` handlers when an entry is added to a cache.
+   * A &quot;lifecycle&quot; callback that will be triggered automatically by the
+   * &#x60;workbox.runtimeCaching&#x60; handlers when an entry is added to a cache.
    *
    * @private
    * @param {Object} input
@@ -95,12 +93,12 @@ class CacheExpirationPlugin extends CacheExpiration {
    * @param {string} input.url The URL for the cache entry.
    * @param {Number} [input.now] A timestamp. Defaults to the current time.
    */
-  async cacheDidUpdate({cacheName, newResponse, url, now} = {}) {
-    assert.isType({cacheName}, 'string');
+  async cacheDidUpdate({cacheName, newResponse, url, now} &#x3D; {}) {
+    assert.isType({cacheName}, &#x27;string&#x27;);
     assert.isInstance({newResponse}, Response);
 
-    if (typeof now === 'undefined') {
-      now = Date.now();
+    if (typeof now &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      now &#x3D; Date.now();
     }
 
     await this.updateTimestamp({cacheName, url, now});
@@ -110,9 +108,12 @@ class CacheExpirationPlugin extends CacheExpiration {
 
 export default CacheExpirationPlugin;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

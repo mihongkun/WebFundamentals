@@ -1,146 +1,36 @@
----
-layout: jsdoc
-title: "Module: workbox-webpack-plugin"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Module: workbox-webpack-plugin</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1><small></small><span class="symbol-name">workbox-webpack-plugin</span></h1>
+            <div class="symbol-detail-labels"><span class="label label-kind"><small>module</small></span></div>
+            <p>Use the instance of this in the plugins array of the webpack config.</p>
+          </header>
+          <section>
+            <h2>Class</h2>
+            <section id='members-links'>
+              <h3 class="class-list"><a href="module-workbox-webpack-plugin-WorkboxBuildWebpackPlugin.html">WorkboxBuildWebpackPlugin</a></h3>
+              <p>Creates an instance of WorkboxBuildWebpackPlugin.</p>
+            </section>
+          </section>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
-
-    
-        
-            
-        
-    
-
-    
-        
-            <div class="description"><p>Use the instance of this in the plugins array of the webpack config.</p></div>
-        
-
-        
-            
-
-<div class="collapsing-entry method-type-module ">
-
-
-
-<div class="collapse-details js-collapse-details">
-
-
-
-
-    <h5>Example</h5>
-    
-    <pre class="prettyprint"><code>const WorkboxBuildWebpackPlugin = require('workbox-webpack-plugin');
-.
-.
-module.exports = {
-  entry: {
-    app: './step1/app.js'
-  },
-  output: {
-    path: __dirname + '/step1/public/js',
-    publicPath: '/public/js/',
-    filename: '[name].js',
-  },
-  plugins: [
-   new WorkboxBuildWebpackPlugin({
-     globDirectory: './build/',
-     globPatterns: ['**\/*.{html,js,css}'],
-     globIgnores: ['admin.html'],
-     swSrc: './src/sw.js',
-     swDest: './build/sw.js',
-    });
-  ]
-}</code></pre>
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-</table>
-
-</div>
-
-</div>
+</html>

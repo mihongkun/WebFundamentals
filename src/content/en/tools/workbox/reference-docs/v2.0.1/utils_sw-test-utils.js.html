@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html devsite>
+
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: utils/sw-test-utils.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: utils/sw-test-utils.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>importScripts(&#x27;/node_modules/mocha/mocha.js&#x27;);
+importScripts(&#x27;/node_modules/chai/chai.js&#x27;);
+importScripts(&#x27;/node_modules/sw-testing-helpers/build/browser/mocha-utils.js&#x27;);
+importScripts(&#x27;/node_modules/sinon/pkg/sinon-no-sourcemaps.js&#x27;);
+
+/* globals mocha */
+/* eslint-disable no-unused-vars */
+
+self.expect &#x3D; self.chai.expect;
+self.chai.should();
+mocha.setup({
+  ui: &#x27;bdd&#x27;,
+  reporter: null,
+});
+
+// This is a bit of a hack, but means workbox-runtime-caching can
+// stub out fetch without triggering a mocha global leak.
+// This thread inspired this &quot;solution&quot;:
+// https://github.com/sinonjs/sinon/issues/143
+self.fetch &#x3D; fetch;
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

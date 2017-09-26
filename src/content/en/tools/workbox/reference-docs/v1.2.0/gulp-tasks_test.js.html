@@ -1,115 +1,115 @@
----
-layout: jsdoc
-title: "Source: gulp-tasks/test.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: gulp-tasks/test.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: gulp-tasks/test.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-const seleniumAssistant = require('selenium-assistant');
-const gulp = require('gulp');
-const mocha = require('gulp-spawn-mocha');
-const runSequence = require('run-sequence');
+const seleniumAssistant &#x3D; require(&#x27;selenium-assistant&#x27;);
+const gulp &#x3D; require(&#x27;gulp&#x27;);
+const mocha &#x3D; require(&#x27;gulp-spawn-mocha&#x27;);
+const runSequence &#x3D; require(&#x27;run-sequence&#x27;);
 
-gulp.task('download-browsers', function() {
-  if (process.platform === 'win32') {
+gulp.task(&#x27;download-browsers&#x27;, function() {
+  if (process.platform &#x3D;&#x3D;&#x3D; &#x27;win32&#x27;) {
     // We only support CLI testing on Windows at the moment.
     return Promise.resolve();
   }
 
-  console.log('    Starting browser download.....');
+  console.log(&#x27;    Starting browser download.....&#x27;);
   return Promise.all([
-    seleniumAssistant.downloadLocalBrowser('firefox', 'stable', 48),
-    seleniumAssistant.downloadLocalBrowser('firefox', 'beta', 48),
-    seleniumAssistant.downloadLocalBrowser('firefox', 'unstable', 48),
-    seleniumAssistant.downloadLocalBrowser('chrome', 'stable', 48),
-    seleniumAssistant.downloadLocalBrowser('chrome', 'beta', 48),
-    seleniumAssistant.downloadLocalBrowser('chrome', 'unstable', 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;stable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;beta&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;firefox&#x27;, &#x27;unstable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;stable&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;beta&#x27;, 48),
+    seleniumAssistant.downloadLocalBrowser(&#x27;chrome&#x27;, &#x27;unstable&#x27;, 48),
   ])
-  .then(() => {
-    console.log('    Browser download complete.');
+  .then(() &#x3D;&gt; {
+    console.log(&#x27;    Browser download complete.&#x27;);
   });
 });
 
-gulp.task('mocha', ['build'], () => {
-  const mochaOptions = {
+gulp.task(&#x27;mocha&#x27;, [&#x27;build&#x27;], () &#x3D;&gt; {
+  const mochaOptions &#x3D; {
     env: {
       projectOrStar: global.projectOrStar,
     },
   };
 
   if (global.cliOptions.grep) {
-    mochaOptions.grep = global.cliOptions.grep;
+    mochaOptions.grep &#x3D; global.cliOptions.grep;
   }
 
-  return gulp.src('test/bootstrap.js', {read: false})
+  return gulp.src(&#x27;test/bootstrap.js&#x27;, {read: false})
     .pipe(mocha(mochaOptions))
-    .once('error', (error) => {
+    .once(&#x27;error&#x27;, (error) &#x3D;&gt; {
       console.error(error);
       process.exit(1);
     });
 });
 
-gulp.task('test', ['lint', 'download-browsers'], (callback) => {
-  runSequence('mocha', callback);
+gulp.task(&#x27;test&#x27;, [&#x27;lint&#x27;, &#x27;download-browsers&#x27;], (callback) &#x3D;&gt; {
+  runSequence(&#x27;mocha&#x27;, callback);
 });
 
-const testInEnv = (env, callback) => {
-  const supportedEnvs = ['dev', 'prod'];
+const testInEnv &#x3D; (env, callback) &#x3D;&gt; {
+  const supportedEnvs &#x3D; [&#x27;dev&#x27;, &#x27;prod&#x27;];
   if (!supportedEnvs.includes(env)) {
-    throw Error(`Environment ${env} is not supported. ` +
-      `Please use one of: ${JSON.stringify(supportedEnvs)}`);
+    throw Error(&#x60;Environment ${env} is not supported. &#x60; +
+      &#x60;Please use one of: ${JSON.stringify(supportedEnvs)}&#x60;);
   }
 
-  process.env.WB_TEST_BUNDLE = env;
-  runSequence('test', (error) => {
+  process.env.WB_TEST_BUNDLE &#x3D; env;
+  runSequence(&#x27;test&#x27;, (error) &#x3D;&gt; {
     delete process.env.WB_TEST_BUNDLE;
     callback(error);
   });
 };
 
-gulp.task('test:prod', (callback) => {
-  testInEnv('prod', callback);
+gulp.task(&#x27;test:prod&#x27;, (callback) &#x3D;&gt; {
+  testInEnv(&#x27;prod&#x27;, callback);
 });
 
-gulp.task('test:dev', (callback) => {
-  testInEnv('dev', callback);
+gulp.task(&#x27;test:dev&#x27;, (callback) &#x3D;&gt; {
+  testInEnv(&#x27;dev&#x27;, callback);
 });
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

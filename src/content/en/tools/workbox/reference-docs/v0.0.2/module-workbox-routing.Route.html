@@ -1,339 +1,87 @@
----
-layout: jsdoc
-title: "Class: Route"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Class: Route</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-
-
-    
-        <h2>Route</h2>
-        
-            <p>A <code>Route</code> allows you to tell a service worker that it should handle
-certain network requests using a specific response strategy.</p>
-<p>Instead of implementing your own handlers, you can use one of the
-pre-defined runtime caching strategies from the
-<a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a> module.</p>
-<p>While you can use <code>Route</code> directly, the
-<a href="module-workbox-routing.RegExpRoute.html#main">RegExpRoute</a>
-and <a href="module-workbox-routing.ExpressRoute.html#main">ExpressRoute</a> subclasses
-provide a convenient wrapper with a nicer interface for using regular
-expressions or Express-style routes as the <code>match</code> criteria.</p>
-        
-    
-
-    
-      
-          <h3>Example</h3>
-          
-    <pre class="prettyprint"><code>// Any navigate requests for URLs that start with /path/to/ will match.
-const route = new workbox.routing.Route({
-  match: ({url, event}) => {
-    return event.request.mode === 'navigate' &amp;&amp;
-           url.pathname.startsWith('/path/to/');
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1><small><a href="module-workbox-routing.html">workbox-routing</a>.<wbr></small><span class="symbol-name">Route</span></h1>
+            <div class="symbol-detail-labels"><span class="label label-kind"><small>class</small></span>&nbsp;&nbsp;&nbsp;<span class="label label-static"><small>static</small></span></div>
+            <p>A <code>Route</code> allows you to tell a service worker that it should handle certain network requests using a specific response strategy.</p>
+            <p>Instead of implementing your own handlers, you can use one of the pre-defined runtime caching strategies from the
+              <a href="module-workbox-runtime-caching.html">workbox-runtime-caching</a> module.</p>
+            <p>While you can use <code>Route</code> directly, the
+              <a href="module-workbox-routing.RegExpRoute.html">RegExpRoute</a> and <a href="module-workbox-routing.ExpressRoute.html">ExpressRoute</a> subclasses provide a convenient wrapper with a nicer interface for using regular expressions or Express-style
+              routes as the <code>match</code> criteria.</p>
+          </header>
+          <section>
+            <h2>Constructor</h2>
+            <section>
+              <h3 id="Route" class="symbol-name">Route</h3>
+              <p class="type-signature"> new Route(input)
+              </p>
+              <p>Constructor for Route class.</p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+              </dl>
+              <section>
+                <h4>
+                  Example
+                </h4>
+                <div>
+                  <pre class="prettyprint"><code>// Any navigate requests for URLs that start with /path/to/ will match.
+const route &#x3D; new workbox.routing.Route({
+  match: ({url, event}) &#x3D;&gt; {
+    return event.request.mode &#x3D;&#x3D;&#x3D; &#x27;navigate&#x27; &amp;&amp;
+           url.pathname.startsWith(&#x27;/path/to/&#x27;);
   },
-  handler: ({event}) => {
-    // Do something that returns a Promise.&lt;Response>, like:
+  handler: ({event}) &#x3D;&gt; {
+    // Do something that returns a Promise.&lt;Response&gt;, like:
     return caches.match(event.request);
   },
 });
 
-const router = new workbox.routing.Router();
+const router &#x3D; new workbox.routing.Router();
 router.registerRoute({route});</code></pre>
-
-      
-
-      
-        <h2 class="subsection-title">Constructor</h2>
-
-        <div class="subsection-constructor">
-        
-
-<div class="collapsing-entry method-type-class start-open">
-
-
-    <h4 class="js-collapse-title" id="Route">new Route<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"></span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>Constructor for Route class.</p>
-  </div>
-
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">match</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">function</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The function that determines whether the
-route matches. The function is passed an object with two properties:
-<code>url</code>, which is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/URL">URL</a>,
-and <code>event</code>, which is a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent">FetchEvent</a>.
-<code>match</code> should return a truthy value when the route applies, and
-that value is passed on to the handle function.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">handler</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-workbox-routing.html#.RouteHandler">RouteHandler</a></span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The handler to
-use to provide a response if the route matches.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">method</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-
-            
-                
-                
-
-                
-
-                
-                
-                  <span class="param-attributes">(Optional)</span>
-                  
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>Only match requests that use this
-HTTP method. Defaults to <code>'GET'</code> if not specified.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-</table>
-
-</div>
-
-</div>
-
+                </div>
+              </section>
+            </section>
+          </section>
+          <section>
+          </section>
         </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

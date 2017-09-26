@@ -1,37 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-cache-expiration/src/index.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-cache-expiration/src/index.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-cache-expiration/src/index.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -43,38 +41,38 @@ jsdocNav:
  * The cache expiration plugin allows you define an expiration and/or
  * limit on the responses cached.
  *
- * This can be used to ensure that responses aren't used when they are stale
- * and that the cache size doesn't grow endlessly.
+ * This can be used to ensure that responses aren&#x27;t used when they are stale
+ * and that the cache size doesn&#x27;t grow endlessly.
  *
- * @example &lt;caption>Used as an automatically invoked "plugin".&lt;/caption>
+ * @example &amp;lt;caption&gt;Used as an automatically invoked &quot;plugin&quot;.&amp;lt;/caption&gt;
  *
- * // Add cache expiration plugin to `RequestWrapper`.
- * const requestWrapper = new goog.runtimeCaching.RequestWrapper({
- *   cacheName: 'runtime-cache',
+ * // Add cache expiration plugin to &#x60;RequestWrapper&#x60;.
+ * const requestWrapper &#x3D; new goog.runtimeCaching.RequestWrapper({
+ *   cacheName: &#x27;runtime-cache&#x27;,
  *   plugins: [
  *     // The cache size will be capped at 10 entries.
  *     new goog.cacheExpiration.Plugin({maxEntries: 10})
  *   ]
  * });
  *
- * // Add `RequestWrapper` to a runtime cache handler.
- * const route = new goog.routing.RegExpRoute({
- *   match: ({url}) => url.domain === 'example.com',
+ * // Add &#x60;RequestWrapper&#x60; to a runtime cache handler.
+ * const route &#x3D; new goog.routing.RegExpRoute({
+ *   match: ({url}) &#x3D;&gt; url.domain &#x3D;&#x3D;&#x3D; &#x27;example.com&#x27;,
  *   handler: new goog.runtimeCaching.StaleWhileRevalidate({requestWrapper})
  * });
  *
- * @example &lt;caption>To use the cache expiration as it's own module, you can
- * call the &lt;code>expireEntries()&lt;/code> method to clean up the cache.&lt;/caption>
+ * @example &amp;lt;caption&gt;To use the cache expiration as it&#x27;s own module, you can
+ * call the &amp;lt;code&gt;expireEntries()&amp;lt;/code&gt; method to clean up the cache.&amp;lt;/caption&gt;
  * expirationPlugin.expireEntries({
- *   cacheName: 'example-cache-name'
+ *   cacheName: &#x27;example-cache-name&#x27;
  * });
  *
  * @module workbox-cache-expiration
  */
 
-import {timestampPropertyName, urlPropertyName} from './lib/constants';
-import CacheExpiration from './lib/cache-expiration';
-import CacheExpirationPlugin from './lib/cache-expiration-plugin';
+import {timestampPropertyName, urlPropertyName} from &#x27;./lib/constants&#x27;;
+import CacheExpiration from &#x27;./lib/cache-expiration&#x27;;
+import CacheExpirationPlugin from &#x27;./lib/cache-expiration-plugin&#x27;;
 
 export {
   timestampPropertyName,
@@ -83,9 +81,12 @@ export {
   CacheExpirationPlugin,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

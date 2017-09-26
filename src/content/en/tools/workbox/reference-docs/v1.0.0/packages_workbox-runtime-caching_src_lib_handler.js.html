@@ -1,44 +1,41 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-runtime-caching/src/lib/handler.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-runtime-caching/src/lib/handler.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-runtime-caching/src/lib/handler.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import RequestWrapper from './request-wrapper';
+import RequestWrapper from &#x27;./request-wrapper&#x27;;
 
 /**
  * This a base class which each caching strategy extends.
@@ -51,24 +48,24 @@ class Handler {
    *
    * @param {Object} input
    * @param {boolean} [input.waitOnCache] For handlers that write to the cache,
-   * `true` means the method should wait for the `cache.put()` call to
-   * complete before returning. The default value of `false` means
+   * &#x60;true&#x60; means the method should wait for the &#x60;cache.put()&#x60; call to
+   * complete before returning. The default value of &#x60;false&#x60; means
    * return without waiting. It this value is true and the response
-   * can't be cached, an error will be thrown.
+   * can&#x27;t be cached, an error will be thrown.
    * @param {module:workbox-runtime-caching.RequestWrapper}
-   * [input.requestWrapper] An optional `RequestWrapper` that is used to
+   * [input.requestWrapper] An optional &#x60;RequestWrapper&#x60; that is used to
    * configure the cache name and request plugins. If not provided, a
-   * new `RequestWrapper` using the [default cache name](#getDefaultCacheName)
+   * new &#x60;RequestWrapper&#x60; using the [default cache name](#getDefaultCacheName)
    * will be used.
    */
-  constructor({requestWrapper, waitOnCache} = {}) {
+  constructor({requestWrapper, waitOnCache} &#x3D; {}) {
     if (requestWrapper) {
-      this.requestWrapper = requestWrapper;
+      this.requestWrapper &#x3D; requestWrapper;
     } else {
-      this.requestWrapper = new RequestWrapper();
+      this.requestWrapper &#x3D; new RequestWrapper();
     }
 
-    this.waitOnCache = Boolean(waitOnCache);
+    this.waitOnCache &#x3D; Boolean(waitOnCache);
   }
 
   /**
@@ -77,24 +74,27 @@ class Handler {
    * @abstract
    * @param {Object} input
    * @param {FetchEvent} input.event The event that triggered the service
-   *        worker's fetch handler.
+   *        worker&#x27;s fetch handler.
    * @param {Object} [input.params] Additional parameters that might be passed
    *        in to the method. If used in conjunction with the
    *        {@link module:workbox-routing.Route|Route} class, then the return
-   *        value from the `match` function in the Route constructor
-   *        will be passed in as the `params` value.
-   * @return {Promise.&lt;Response>} A promise resolving with a response.
+   *        value from the &#x60;match&#x60; function in the Route constructor
+   *        will be passed in as the &#x60;params&#x60; value.
+   * @return {Promise.&amp;lt;Response&gt;} A promise resolving with a response.
    */
-  handle({event, params} = {}) {
-    throw Error('This abstract method must be implemented in a subclass.');
+  handle({event, params} &#x3D; {}) {
+    throw Error(&#x27;This abstract method must be implemented in a subclass.&#x27;);
   }
 }
 
 export default Handler;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

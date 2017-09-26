@@ -1,64 +1,61 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-runtime-caching/src/lib/cache-only.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-runtime-caching/src/lib/cache-only.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-runtime-caching/src/lib/cache-only.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import Handler from './handler';
-import assert from '../../../../lib/assert';
+import Handler from &#x27;./handler&#x27;;
+import assert from &#x27;../../../../lib/assert&#x27;;
 
 /**
  * An implementation of a [cache-only](https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-only)
  * request strategy.
  *
- * The advantage to using this versus directly calling `caches.match()` is that
+ * The advantage to using this versus directly calling &#x60;caches.match()&#x60; is that
  * it will use the cache configuration and trigger the plugins defined in
- * the underlying `RequestWrapper` which accounts for behaviors like cache
+ * the underlying &#x60;RequestWrapper&#x60; which accounts for behaviors like cache
  * expiration.
  *
  * @example
  * // Set up a route to match any requests made for URLs that end in .txt.
  * // The requests are handled with a cache-only strategy.
- * const route = new workbox.routing.RegExpRoute({
+ * const route &#x3D; new workbox.routing.RegExpRoute({
  *   regExp: /\.txt$/,
  *   handler: new workbox.runtimeCaching.CacheOnly(),
  * });
  *
- * const router = new workbox.routing.Router();
+ * const router &#x3D; new workbox.routing.Router();
  * router.registerRoute({route});
  *
  * @memberof module:workbox-runtime-caching
@@ -72,10 +69,10 @@ class CacheOnly extends Handler {
    *
    * @param {Object} input
    * @param {FetchEvent} input.event The event that triggered the service
-   *        worker's fetch handler.
-   * @return {Promise.&lt;Response>} The response from the cache or null.
+   *        worker&#x27;s fetch handler.
+   * @return {Promise.&amp;lt;Response&gt;} The response from the cache or null.
    */
-  async handle({event} = {}) {
+  async handle({event} &#x3D; {}) {
     assert.isInstance({event}, FetchEvent);
 
     return await this.requestWrapper.match({request: event.request});
@@ -84,9 +81,12 @@ class CacheOnly extends Handler {
 
 export default CacheOnly;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

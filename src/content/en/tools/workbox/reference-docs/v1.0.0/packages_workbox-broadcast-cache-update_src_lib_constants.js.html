@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-broadcast-cache-update/src/lib/constants.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-broadcast-cache-update/src/lib/constants.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-broadcast-cache-update/src/lib/constants.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -40,35 +37,35 @@ jsdocNav:
 
 /**
  * This is a static variable for the cache updated message type. Useful for
- * comparing to the messages `type` parameter to identify the kind of message.
+ * comparing to the messages &#x60;type&#x60; parameter to identify the kind of message.
  *
  * @type {string}
  *
  * @example
- * // Prints 'CACHE_UPDATED'
+ * // Prints &#x27;CACHE_UPDATED&#x27;
  * console.log(workbox.broadcastCacheUpdate.cacheUpdatedMessageType);
  *
  * @memberof module:workbox-broadcast-cache-update
  */
-const cacheUpdatedMessageType = 'CACHE_UPDATED';
+const cacheUpdatedMessageType &#x3D; &#x27;CACHE_UPDATED&#x27;;
 
 /**
- * The default headers to compare when determining whether two `Response`
+ * The default headers to compare when determining whether two &#x60;Response&#x60;
  * objects are different.
  *
  * @private
- * @type {Array&lt;string>}
+ * @type {Array&amp;lt;string&gt;}
  *
  * @memberof module:workbox-broadcast-cache-update
  */
-const defaultHeadersToCheck = [
-  'content-length',
-  'etag',
-  'last-modified',
+const defaultHeadersToCheck &#x3D; [
+  &#x27;content-length&#x27;,
+  &#x27;etag&#x27;,
+  &#x27;last-modified&#x27;,
 ];
 
 /**
- * The value `'workbox-broadcast-cache-update'`, used as the `meta` field of the
+ * The value &#x60;&#x27;workbox-broadcast-cache-update&#x27;&#x60;, used as the &#x60;meta&#x60; field of the
  * update message.
  *
  * @private
@@ -76,7 +73,7 @@ const defaultHeadersToCheck = [
  *
  * @memberof module:workbox-broadcast-cache-update
  */
-const defaultSource = 'workbox-broadcast-cache-update';
+const defaultSource &#x3D; &#x27;workbox-broadcast-cache-update&#x27;;
 
 export {
   cacheUpdatedMessageType,
@@ -84,9 +81,12 @@ export {
   defaultSource,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

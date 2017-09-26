@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: utils/server-instance.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: utils/server-instance.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: utils/server-instance.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
  http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -40,142 +37,142 @@ jsdocNav:
 
 /* eslint-disable require-jsdoc, no-console */
 
-const cookieParser = require('cookie-parser');
-const express = require('express');
-const fs = require('fs');
-const glob = require('glob');
-const handlebars = require('handlebars');
-const path = require('path');
-const serveIndex = require('serve-index');
-const serveStatic = require('serve-static');
+const cookieParser &#x3D; require(&#x27;cookie-parser&#x27;);
+const express &#x3D; require(&#x27;express&#x27;);
+const fs &#x3D; require(&#x27;fs&#x27;);
+const glob &#x3D; require(&#x27;glob&#x27;);
+const handlebars &#x3D; require(&#x27;handlebars&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const serveIndex &#x3D; require(&#x27;serve-index&#x27;);
+const serveStatic &#x3D; require(&#x27;serve-static&#x27;);
 
 class ServerInstance {
   constructor() {
-    this._server = null;
-    this._sockets = [];
+    this._server &#x3D; null;
+    this._sockets &#x3D; [];
 
-    this._app = express();
+    this._app &#x3D; express();
     this._app.use(cookieParser());
 
-    this._counter = 1;
+    this._counter &#x3D; 1;
 
     // Test iframe is used by sw-testing-helpers to scope service workers
-    this._app.get('/test/iframe/:random', function(req, res) {
-      res.sendFile(path.join(__dirname, 'test-iframe.html'));
+    this._app.get(&#x27;/test/iframe/:random&#x27;, function(req, res) {
+      res.sendFile(path.join(__dirname, &#x27;test-iframe.html&#x27;));
     });
 
-    this._app.get('/__echo/filename/:file', function(req, res) {
-      res.setHeader('Cache-Control', 'max-age=' + (24 * 60 * 60));
+    this._app.get(&#x27;/__echo/filename/:file&#x27;, function(req, res) {
+      res.setHeader(&#x27;Cache-Control&#x27;, &#x27;max-age&#x3D;&#x27; + (24 * 60 * 60));
       res.send(req.params.file);
     });
 
-    this._app.get('/__echo/counter', (req, res) => {
-      res.setHeader('Cache-Control', 'no-cache');
-      res.type('text').send(JSON.stringify(this._counter++));
+    this._app.get(&#x27;/__echo/counter&#x27;, (req, res) &#x3D;&gt; {
+      res.setHeader(&#x27;Cache-Control&#x27;, &#x27;no-cache&#x27;);
+      res.type(&#x27;text&#x27;).send(JSON.stringify(this._counter++));
     });
 
-    this._app.get('/__echo/date/:file', function(req, res) {
-      res.setHeader('Cache-Control', 'max-age=' + (24 * 60 * 60));
-      res.send(`${req.params.file}-${Date.now()}`);
+    this._app.get(&#x27;/__echo/date/:file&#x27;, function(req, res) {
+      res.setHeader(&#x27;Cache-Control&#x27;, &#x27;max-age&#x3D;&#x27; + (24 * 60 * 60));
+      res.send(&#x60;${req.params.file}-${Date.now()}&#x60;);
     });
 
-    this._app.all('/__echo/date-with-cors/:file', function(req, res) {
-      res.setHeader('Access-Control-Allow-Methods',
-        'POST, GET, PUT, DELETE, OPTIONS');
-      res.setHeader('Cache-Control', 'max-age=' + (24 * 60 * 60));
-      res.setHeader('Access-Control-Allow-Origin', '*');
-      res.send(`${req.params.file}-${Date.now()}`);
+    this._app.all(&#x27;/__echo/date-with-cors/:file&#x27;, function(req, res) {
+      res.setHeader(&#x27;Access-Control-Allow-Methods&#x27;,
+        &#x27;POST, GET, PUT, DELETE, OPTIONS&#x27;);
+      res.setHeader(&#x27;Cache-Control&#x27;, &#x27;max-age&#x3D;&#x27; + (24 * 60 * 60));
+      res.setHeader(&#x27;Access-Control-Allow-Origin&#x27;, &#x27;*&#x27;);
+      res.send(&#x60;${req.params.file}-${Date.now()}&#x60;);
     });
 
-    this._app.get('/__test/404/', function(req, res) {
-      res.status(404).send('404');
+    this._app.get(&#x27;/__test/404/&#x27;, function(req, res) {
+      res.status(404).send(&#x27;404&#x27;);
     });
 
-    this._app.get('/__test/redirect/:statusCode/', function(req, res) {
-      const statusCode = parseInt(req.params.statusCode, 10);
+    this._app.get(&#x27;/__test/redirect/:statusCode/&#x27;, function(req, res) {
+      const statusCode &#x3D; parseInt(req.params.statusCode, 10);
       res.redirect(
         statusCode,
-        `/__echo/filename/${statusCode}`
+        &#x60;/__echo/filename/${statusCode}&#x60;
       );
     });
 
-    this._app.get('/__test/cookie/:id', function(req, res) {
+    this._app.get(&#x27;/__test/cookie/:id&#x27;, function(req, res) {
       res.send(JSON.stringify(req.cookies));
     });
 
     function respondWithScriptMatchingPattern(pattern, res) {
-      const repoRoot = path.join(__dirname, '..');
-      const devScript = glob.sync(pattern, {
+      const repoRoot &#x3D; path.join(__dirname, &#x27;..&#x27;);
+      const devScript &#x3D; glob.sync(pattern, {
         cwd: repoRoot,
         root: repoRoot,
       });
 
-      if (devScript.length === 0) {
-        const errMsg = `No built module found for pattern '${pattern}'.`;
+      if (devScript.length &#x3D;&#x3D;&#x3D; 0) {
+        const errMsg &#x3D; &#x60;No built module found for pattern &#x27;${pattern}&#x27;.&#x60;;
         console.log(errMsg);
         res.status(500).send(errMsg);
         return;
       }
 
-      // We can't send a redirect here, as they're not allowed for resources
+      // We can&#x27;t send a redirect here, as they&#x27;re not allowed for resources
       // pulled in via importScripts().
-      res.setHeader('Content-Type', 'application/javascript');
+      res.setHeader(&#x27;Content-Type&#x27;, &#x27;application/javascript&#x27;);
       res.send(fs.readFileSync(devScript[0]));
     }
 
     // Used to return the latest iife bundle for a given package, without
     // having to specify the version string.
     // This is used within unit tests.
-    this._app.get('/__test/bundle/:pkg', function(req, res) {
+    this._app.get(&#x27;/__test/bundle/:pkg&#x27;, function(req, res) {
       // By default, the prod bundles of our library code is used, with the
       // primary consumer being our test suite. This can be overridden by
-      // setting a TEST_BUNDLE environment variable to 'dev' prior to
+      // setting a TEST_BUNDLE environment variable to &#x27;dev&#x27; prior to
       // starting the test suite.
-      const build = process.env.WB_TEST_BUNDLE || 'prod';
-      const pkg = req.params.pkg;
-      const pattern = `packages/${pkg}/build/importScripts/*${build}*.js`;
+      const build &#x3D; process.env.WB_TEST_BUNDLE || &#x27;prod&#x27;;
+      const pkg &#x3D; req.params.pkg;
+      const pattern &#x3D; &#x60;packages/${pkg}/build/importScripts/*${build}*.js&#x60;;
       respondWithScriptMatchingPattern(pattern, res);
     });
 
     // Harness to kick off all the in-browser tests for a given package.
     // It will pick up a list of all the top-level .js files and automatically
-    // inject them into the HTML as &lt;script> tags.
-    this._app.get('/__test/mocha/browser/:pkg', function(req, res) {
-      const pkg = req.params.pkg;
-      const pattern = `packages/${pkg}/test/browser/*.js`;
-      const repoRoot = path.join(__dirname, '..');
-      const scripts = glob.sync(pattern, {
+    // inject them into the HTML as &amp;lt;script&gt; tags.
+    this._app.get(&#x27;/__test/mocha/browser/:pkg&#x27;, function(req, res) {
+      const pkg &#x3D; req.params.pkg;
+      const pattern &#x3D; &#x60;packages/${pkg}/test/browser/*.js&#x60;;
+      const repoRoot &#x3D; path.join(__dirname, &#x27;..&#x27;);
+      const scripts &#x3D; glob.sync(pattern, {
         cwd: repoRoot,
         root: repoRoot,
-      }).map((script) => {
-        // Converts packages/&lt;pkg name>/test/sw/&lt;filename>.js
-        // to      /packages/&lt;pkg name>/test/sw/&lt;filename>.js
-        return `/${script}`;
+      }).map((script) &#x3D;&gt; {
+        // Converts packages/&amp;lt;pkg name&gt;/test/sw/&amp;lt;filename&gt;.js
+        // to      /packages/&amp;lt;pkg name&gt;/test/sw/&amp;lt;filename&gt;.js
+        return &#x60;/${script}&#x60;;
       });
-      if (scripts.length === 0) {
-        const errMsg = `No test scripts match the pattern '${pattern}'.`;
+      if (scripts.length &#x3D;&#x3D;&#x3D; 0) {
+        const errMsg &#x3D; &#x60;No test scripts match the pattern &#x27;${pattern}&#x27;.&#x60;;
         console.log(errMsg);
         res.status(500).send(errMsg);
         return;
       }
 
-      let config = {};
+      let config &#x3D; {};
       try {
         // Read JSON file to avoid the require cache
-        config =
+        config &#x3D;
           JSON.parse(
             fs.readFileSync(
-              path.join(__dirname, '..', 'packages', pkg, 'test', 'config.json')
-            , 'utf-8')
+              path.join(__dirname, &#x27;..&#x27;, &#x27;packages&#x27;, pkg, &#x27;test&#x27;, &#x27;config.json&#x27;)
+            , &#x27;utf-8&#x27;)
           );
       } catch (err) {
         // NOOP
       }
 
-      const source = fs.readFileSync(path.join(
-        __dirname, '..', 'templates', 'test-browser.hbs'), 'utf-8');
-      const template = handlebars.compile(source);
-      const html = template({
+      const source &#x3D; fs.readFileSync(path.join(
+        __dirname, &#x27;..&#x27;, &#x27;templates&#x27;, &#x27;test-browser.hbs&#x27;), &#x27;utf-8&#x27;);
+      const template &#x3D; handlebars.compile(source);
+      const html &#x3D; template({
         scripts,
         config,
         pkg,
@@ -184,106 +181,109 @@ class ServerInstance {
       res.send(html);
     });
 
-    this._app.get('/__test/mocha/sw/:pkg', function(req, res) {
-      const pkg = req.params.pkg;
-      const pattern = `packages/${pkg}/test/sw/*.js`;
-      const scriptPaths = glob.sync(pattern).map((script) => {
-        // Converts packages/&lt;pkg name>/test/sw/&lt;filename>.js
-        // to      /packages/&lt;pkg name>/test/sw/&lt;filename>.js
-        return `/${script}`;
+    this._app.get(&#x27;/__test/mocha/sw/:pkg&#x27;, function(req, res) {
+      const pkg &#x3D; req.params.pkg;
+      const pattern &#x3D; &#x60;packages/${pkg}/test/sw/*.js&#x60;;
+      const scriptPaths &#x3D; glob.sync(pattern).map((script) &#x3D;&gt; {
+        // Converts packages/&amp;lt;pkg name&gt;/test/sw/&amp;lt;filename&gt;.js
+        // to      /packages/&amp;lt;pkg name&gt;/test/sw/&amp;lt;filename&gt;.js
+        return &#x60;/${script}&#x60;;
       });
 
-      const source = fs.readFileSync(path.join(
-        __dirname, '..', 'templates', 'test-sw.hbs'), 'utf-8');
-      const template = handlebars.compile(source);
-      const html = template({scripts: scriptPaths, pkg});
+      const source &#x3D; fs.readFileSync(path.join(
+        __dirname, &#x27;..&#x27;, &#x27;templates&#x27;, &#x27;test-sw.hbs&#x27;), &#x27;utf-8&#x27;);
+      const template &#x3D; handlebars.compile(source);
+      const html &#x3D; template({scripts: scriptPaths, pkg});
 
       res.send(html);
     });
 
-    this._app.get('/__test/mocha/sw-utils.js', function(req, res) {
-      const source = fs.readFileSync(path.join(
-        __dirname, 'sw-test-utils.js'), 'utf-8');
+    this._app.get(&#x27;/__test/mocha/sw-utils.js&#x27;, function(req, res) {
+      const source &#x3D; fs.readFileSync(path.join(
+        __dirname, &#x27;sw-test-utils.js&#x27;), &#x27;utf-8&#x27;);
 
         res.send(source);
     });
 
     // Redirect /packages/:pkg/test/browser/ to the /__test/mocha/browser/:pkg
-    // templated page, but only if there's no
+    // templated page, but only if there&#x27;s no
     // /packages/:pkg/test/browser/index.html
-    this._app.get('/packages/:pkg/test/browser/', function(req, res, next) {
-      const index = path.join(__dirname, '..', 'packages', req.params.pkg,
-        'test', 'browser', 'index.html');
+    this._app.get(&#x27;/packages/:pkg/test/browser/&#x27;, function(req, res, next) {
+      const index &#x3D; path.join(__dirname, &#x27;..&#x27;, &#x27;packages&#x27;, req.params.pkg,
+        &#x27;test&#x27;, &#x27;browser&#x27;, &#x27;index.html&#x27;);
       if (fs.existsSync(index)) {
         next();
       } else {
-        res.redirect(301, `/__test/mocha/browser/${req.params.pkg}`);
+        res.redirect(301, &#x60;/__test/mocha/browser/${req.params.pkg}&#x60;);
       }
     });
 
-    this._app.get('/packages/:pkg/test/sw/', function(req, res, next) {
-      const index = path.join(__dirname, '..', 'packages', req.params.pkg,
-        'test', 'browser', 'index.html');
+    this._app.get(&#x27;/packages/:pkg/test/sw/&#x27;, function(req, res, next) {
+      const index &#x3D; path.join(__dirname, &#x27;..&#x27;, &#x27;packages&#x27;, req.params.pkg,
+        &#x27;test&#x27;, &#x27;browser&#x27;, &#x27;index.html&#x27;);
       if (fs.existsSync(index)) {
         next();
       } else {
-        res.redirect(301, `/__test/mocha/sw/${req.params.pkg}`);
+        res.redirect(301, &#x60;/__test/mocha/sw/${req.params.pkg}&#x60;);
       }
     });
   }
 
   start(rootDirectory, port) {
-    if (typeof port === 'undefined') {
-      port = 0;
+    if (typeof port &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      port &#x3D; 0;
     }
 
     if (this._server) {
-      return Promise.reject(new Error('Server already started.'));
+      return Promise.reject(new Error(&#x27;Server already started.&#x27;));
     }
 
-    this._app.use('/', express.static(rootDirectory, {
-      setHeaders: (res) => {
-        res.append('Set-Cookie', `swtesting=${Date.now()}; Path=/;`);
-        res.setHeader('Service-Worker-Allowed', '/');
+    this._app.use(&#x27;/&#x27;, express.static(rootDirectory, {
+      setHeaders: (res) &#x3D;&gt; {
+        res.append(&#x27;Set-Cookie&#x27;, &#x60;swtesting&#x3D;${Date.now()}; Path&#x3D;/;&#x60;);
+        res.setHeader(&#x27;Service-Worker-Allowed&#x27;, &#x27;/&#x27;);
       },
     }));
 
     this._app.use(serveStatic(rootDirectory));
-    this._app.use(serveIndex(rootDirectory, {view: 'details'}));
+    this._app.use(serveIndex(rootDirectory, {view: &#x27;details&#x27;}));
 
-    return new Promise((resolve, reject) => {
-      this._server = this._app.listen(port, 'localhost', () => {
+    return new Promise((resolve, reject) &#x3D;&gt; {
+      this._server &#x3D; this._app.listen(port, &#x27;localhost&#x27;, () &#x3D;&gt; {
         if (process.env.TRAVIS) {
-          console.log(`[Debug Info] Test Server: ` +
-            `http://localhost:${this._server.address().port}`);
-          console.log('');
+          console.log(&#x60;[Debug Info] Test Server: &#x60; +
+            &#x60;http://localhost:${this._server.address().port}&#x60;);
+          console.log(&#x27;&#x27;);
         }
         resolve(this._server.address().port);
       });
 
-      this._server.on('connection', (socket) => {
+      this._server.on(&#x27;connection&#x27;, (socket) &#x3D;&gt; {
         this._sockets.push(socket);
       });
     });
   }
 
   stop() {
-    return new Promise((resolve) => {
-      this._sockets.forEach((socket) => {
+    return new Promise((resolve) &#x3D;&gt; {
+      this._sockets.forEach((socket) &#x3D;&gt; {
         socket.destroy();
       });
 
       this._server.close(resolve);
-      this._server = null;
+      this._server &#x3D; null;
     });
   }
 }
 
-module.exports = ServerInstance;
+module.exports &#x3D; ServerInstance;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

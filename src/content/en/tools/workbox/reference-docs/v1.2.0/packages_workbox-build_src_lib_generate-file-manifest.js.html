@@ -1,33 +1,30 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-build/src/lib/generate-file-manifest.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-build/src/lib/generate-file-manifest.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-build/src/lib/generate-file-manifest.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>&#x27;use strict&#x27;;
 
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>'use strict';
-
-const getFileManifestEntries = require('./get-file-manifest-entries');
-const writeFileManifest = require('./utils/write-file-manifest');
-const errors = require('./errors');
+const getFileManifestEntries &#x3D; require(&#x27;./get-file-manifest-entries&#x27;);
+const writeFileManifest &#x3D; require(&#x27;./utils/write-file-manifest&#x27;);
+const errors &#x3D; require(&#x27;./errors&#x27;);
 
 /**
  * This method will generate a file manifest that can be used in a service
@@ -37,26 +34,26 @@ const errors = require('./errors');
  * @param {String} [input.format] There are some options for how the file
  * manifest is formatted in the final output. The format can be one of the
  * following values:
- * - **'iife'** - Output the manifest as an
+ * - **&#x27;iife&#x27;** - Output the manifest as an
  * [immediately invoked function](https://en.wikipedia.org/wiki/Immediately-invoked_function_expression).
- * - **'es'** - Output as an ES2015 module.
+ * - **&#x27;es&#x27;** - Output as an ES2015 module.
  *
- * Default value is 'iife'.
+ * Default value is &#x27;iife&#x27;.
  * @param {String} input.manifestDest The file path and name where the file
- * manifest should be written (i.e. `./build/precache-manifest.js`).
+ * manifest should be written (i.e. &#x60;./build/precache-manifest.js&#x60;).
  * @param {String} input.globDirectory The directory you wish to run the
- * `globPatterns` against.
- * @param {Array&lt;String>} input.globPatterns Files matching against any of
+ * &#x60;globPatterns&#x60; against.
+ * @param {Array&amp;lt;String&gt;} input.globPatterns Files matching against any of
  * these glob patterns will be included in the file manifest.
- * @param {String|Array&lt;String>} [input.globIgnores] Files matching against any
+ * @param {String|Array&amp;lt;String&gt;} [input.globIgnores] Files matching against any
  * of these glob patterns will be excluded from the file manifest, even if the
- * file matches against a `globPatterns` pattern.
- * @param {Object&lt;String,Array|String>} [input.templatedUrls]
+ * file matches against a &#x60;globPatterns&#x60; pattern.
+ * @param {Object&amp;lt;String,Array|String&gt;} [input.templatedUrls]
  * If a URL is rendered with templates on the server, its contents may
  * depend on multiple files. This maps URLs to an array of file names, or to a
- * string value, that uniquely determines the URL's contents.
+ * string value, that uniquely determines the URL&#x27;s contents.
  * @param {String} [input.modifyUrlPrefix] An object of key value pairs
- * where URL's starting with the key value will be replaced with the
+ * where URL&#x27;s starting with the key value will be replaced with the
  * corresponding value.
  * @param {number} [input.maximumFileSizeToCacheInBytes] This value can be used
  * to determine the maximum size of files that will be precached.
@@ -65,47 +62,50 @@ const errors = require('./errors');
  * @param {RegExp} [input.dontCacheBustUrlsMatching] Assets that match this
  * regex will not have their revision details included in the precache. This
  * is useful for assets that have revisioning details in the filename.
- * @param {Array&lt;ManifestTransform>} [input.manifestTransforms] A list of
+ * @param {Array&amp;lt;ManifestTransform&gt;} [input.manifestTransforms] A list of
  * manifest transformations, which will be applied sequentially against the
- * generated manifest. If `modifyUrlPrefix` or `dontCacheBustUrlsMatching` are
+ * generated manifest. If &#x60;modifyUrlPrefix&#x60; or &#x60;dontCacheBustUrlsMatching&#x60; are
  * also specified, their corresponding transformations will be applied first.
  * @return {Promise} The returned promise resolves once the manifest file has
  * been generated.
  *
- * @example &lt;caption>Generate a build manifest of static assets, which can
- * used with a service worker.&lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Generate a build manifest of static assets, which can
+ * used with a service worker.&amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.generateFileManifest({
- *   manifestDest: './build/manifest.js'
- *   globDirectory: './build/',
- *   globPatterns: ['**\/*.{html,js,css}'],
- *   globIgnores: ['admin.html'],
- *   format: 'iife', // alternatively, use 'es'
+ *   manifestDest: &#x27;./build/manifest.js&#x27;
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   globPatterns: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;admin.html&#x27;],
+ *   format: &#x27;iife&#x27;, // alternatively, use &#x27;es&#x27;
  * })
- * .then(() => {
- *   console.log('Build Manifest generated.');
+ * .then(() &#x3D;&gt; {
+ *   console.log(&#x27;Build Manifest generated.&#x27;);
  * });
  *
  * @memberof module:workbox-build
  */
-const generateFileManifest = (input) => {
-  if (!input || typeof input !== 'object' || Array.isArray(input)) {
+const generateFileManifest &#x3D; (input) &#x3D;&gt; {
+  if (!input || typeof input !&#x3D;&#x3D; &#x27;object&#x27; || Array.isArray(input)) {
     return Promise.reject(
-      new Error(errors['invalid-generate-file-manifest-arg']));
+      new Error(errors[&#x27;invalid-generate-file-manifest-arg&#x27;]));
   }
 
   return getFileManifestEntries(input)
-  .then((fileEntries) => {
+  .then((fileEntries) &#x3D;&gt; {
     return writeFileManifest(input.manifestDest, fileEntries, input.format);
   });
 };
 
-module.exports = generateFileManifest;
+module.exports &#x3D; generateFileManifest;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

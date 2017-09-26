@@ -1,28 +1,26 @@
----
-layout: jsdoc
-title: "Source: lib/log-group.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: lib/log-group.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/* eslint-disable no-console */
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: lib/log-group.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/* eslint-disable no-console */
 
 /**
  * A simple helper to manage the print of a set of logs
@@ -33,20 +31,20 @@ class LogGroup {
    * @param {string} input.title
    * @param {boolean} input.isPrimary
    */
-  constructor({title, isPrimary} = {}) {
-    this._isPrimary = isPrimary || false;
-    this._groupTitle = title || '';
-    this._logs = [];
-    this._childGroups = [];
+  constructor({title, isPrimary} &#x3D; {}) {
+    this._isPrimary &#x3D; isPrimary || false;
+    this._groupTitle &#x3D; title || &#x27;&#x27;;
+    this._logs &#x3D; [];
+    this._childGroups &#x3D; [];
 
-    this._isFirefox = false;
+    this._isFirefox &#x3D; false;
     if (/Firefox\/\d*\.\d*/.exec(navigator.userAgent)) {
-      this._isFirefox = true;
+      this._isFirefox &#x3D; true;
     }
 
-    this._isEdge = false;
+    this._isEdge &#x3D; false;
     if (/Edge\/\d*\.\d*/.exec(navigator.userAgent)) {
-      this._isEdge = true;
+      this._isEdge &#x3D; true;
     }
   }
 
@@ -61,7 +59,7 @@ class LogGroup {
    * @param {object} group
    */
   addChildGroup(group) {
-    if (group._logs.length === 0) {
+    if (group._logs.length &#x3D;&#x3D;&#x3D; 0) {
       return;
     }
 
@@ -79,11 +77,11 @@ class LogGroup {
 
     this._openGroup();
 
-    this._logs.forEach((logDetails) => {
+    this._logs.forEach((logDetails) &#x3D;&gt; {
       this._printLogDetails(logDetails);
     });
 
-    this._childGroups.forEach((group) => {
+    this._childGroups.forEach((group) &#x3D;&gt; {
       group.print();
     });
 
@@ -97,25 +95,25 @@ class LogGroup {
    */
   _printEdgeFriendly() {
     // Edge has no support for colors at all and poor support for groups.
-    this._logs.forEach((logDetails, index) => {
+    this._logs.forEach((logDetails, index) &#x3D;&gt; {
       // Message can be an object - i.e. an error.
-      let message = logDetails.message;
-      if (typeof message === 'string') {
+      let message &#x3D; logDetails.message;
+      if (typeof message &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
         // Replace the %c value with an empty string.
-        message = message.replace(/%c/g, '');
+        message &#x3D; message.replace(/%c/g, &#x27;&#x27;);
       }
-      const logArgs = [message];
+      const logArgs &#x3D; [message];
       if (logDetails.error) {
         logArgs.push(logDetails.error);
       }
       if (logDetails.args) {
         logArgs.push(logDetails.args);
       }
-      const logFunc = logDetails.logFunc || console.log;
+      const logFunc &#x3D; logDetails.logFunc || console.log;
       logFunc(...logArgs);
     });
 
-    this._childGroups.forEach((group, index) => {
+    this._childGroups.forEach((group, index) &#x3D;&gt; {
        group.print();
     });
   }
@@ -125,14 +123,14 @@ class LogGroup {
    * @param {object} logDetails
    */
   _printLogDetails(logDetails) {
-    const logFunc = logDetails.logFunc ? logDetails.logFunc : console.log;
-    let message = logDetails.message;
-    let allArguments = [message];
-    if (logDetails.colors &amp;&amp; !this._isEdge) {
-      allArguments = allArguments.concat(logDetails.colors);
+    const logFunc &#x3D; logDetails.logFunc ? logDetails.logFunc : console.log;
+    let message &#x3D; logDetails.message;
+    let allArguments &#x3D; [message];
+    if (logDetails.colors &amp;amp;&amp;amp; !this._isEdge) {
+      allArguments &#x3D; allArguments.concat(logDetails.colors);
     }
     if (logDetails.args) {
-      allArguments = allArguments.concat(logDetails.args);
+      allArguments &#x3D; allArguments.concat(logDetails.args);
     }
     logFunc(...allArguments);
   }
@@ -143,19 +141,19 @@ class LogGroup {
   _openGroup() {
     if (this._isPrimary) {
       // Only start a group is there are child groups
-      if (this._childGroups.length === 0) {
+      if (this._childGroups.length &#x3D;&#x3D;&#x3D; 0) {
         return;
       }
 
-      const logDetails = this._logs.shift();
+      const logDetails &#x3D; this._logs.shift();
       if (this._isFirefox) {
-        // Firefox doesn't support colors logs in console.group.
+        // Firefox doesn&#x27;t support colors logs in console.group.
         this._printLogDetails(logDetails);
         return;
       }
 
       // Print the colored message with console.group
-      logDetails.logFunc = console.group;
+      logDetails.logFunc &#x3D; console.group;
       this._printLogDetails(logDetails);
     } else {
       console.groupCollapsed(this._groupTitle);
@@ -167,7 +165,7 @@ class LogGroup {
    */
   _closeGroup() {
     // Only close a group if there was a child group opened
-    if (this._isPrimary &amp;&amp; this._childGroups.length === 0) {
+    if (this._isPrimary &amp;amp;&amp;amp; this._childGroups.length &#x3D;&#x3D;&#x3D; 0) {
       return;
     }
 
@@ -177,9 +175,12 @@ class LogGroup {
 
 export default LogGroup;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

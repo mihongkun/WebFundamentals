@@ -1,35 +1,33 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-google-analytics/src/index.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-google-analytics/src/index.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-google-analytics/src/index.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
  http://www.apache.org/licenses/LICENSE-2.0
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -37,24 +35,24 @@ jsdocNav:
 
 /* eslint-env worker, serviceworker */
 
-import constants from './lib/constants.js';
-import enqueueRequest from './lib/enqueue-request.js';
-import logHelper from '../../../lib/log-helper.js';
-import replayQueuedRequests from './lib/replay-queued-requests.js';
+import constants from &#x27;./lib/constants.js&#x27;;
+import enqueueRequest from &#x27;./lib/enqueue-request.js&#x27;;
+import logHelper from &#x27;../../../lib/log-helper.js&#x27;;
+import replayQueuedRequests from &#x27;./lib/replay-queued-requests.js&#x27;;
 
 /**
- * In order to use the library, call`goog.offlineGoogleAnalytics.initialize()`.
- * It will take care of setting up service worker `fetch` handlers to ensure
+ * In order to use the library, call&#x60;goog.offlineGoogleAnalytics.initialize()&#x60;.
+ * It will take care of setting up service worker &#x60;fetch&#x60; handlers to ensure
  * that the Google Analytics JavaScript is available offline, and that any
- * Google Analytics requests made while offline are saved (using `IndexedDB`)
+ * Google Analytics requests made while offline are saved (using &#x60;IndexedDB&#x60;)
  * and retried the next time the service worker starts up.
  *
  * @example
  * // This code should live inside your service worker JavaScript, ideally
- * // before any other 'fetch' event handlers are defined:
+ * // before any other &#x27;fetch&#x27; event handlers are defined:
  *
  * // First, import the library into the service worker global scope:
- * importScripts('path/to/offline-google-analytics-import.js');
+ * importScripts(&#x27;path/to/offline-google-analytics-import.js&#x27;);
  *
  * // Then, call goog.offlineGoogleAnalytics.initialize():
  * goog.offlineGoogleAnalytics.initialize();
@@ -64,25 +62,25 @@ import replayQueuedRequests from './lib/replay-queued-requests.js';
  *
  * @example
  * // If you need to specify parameters to be sent with each hit, you can use
- * // the `parameterOverrides` configuration option. This is useful in cases
+ * // the &#x60;parameterOverrides&#x60; configuration option. This is useful in cases
  * // where you want to set a custom dimension on all hits sent by the service
  * // worker to differentiate them in your reports later.
  * goog.offlineGoogleAnalytics.initialize({
  *   parameterOverrides: {
- *     cd1: 'replay'
+ *     cd1: &#x27;replay&#x27;
  *   }
  * });
  *
  * @example
- * // In situations where you need to programmatically modify a hit's
- * // parameters you can use the `hitFilter` option. One example of when this
+ * // In situations where you need to programmatically modify a hit&#x27;s
+ * // parameters you can use the &#x60;hitFilter&#x60; option. One example of when this
  * // might be useful is if you wanted to track the amount of time that elapsed
  * // between when the hit was attempted and when it was successfully replayed.
  * goog.offlineGoogleAnalytics.initialize({
- *   hitFilter: searchParams =>
- *     // Sets the `qt` param as a custom metric.
- *     const qt = searchParams.get('qt');
- *     searchParams.set('cm1', qt);
+ *   hitFilter: searchParams &#x3D;&gt;
+ *     // Sets the &#x60;qt&#x60; param as a custom metric.
+ *     const qt &#x3D; searchParams.get(&#x27;qt&#x27;);
+ *     searchParams.set(&#x27;cm1&#x27;, qt);
  *   }
  * });
  *
@@ -91,61 +89,61 @@ import replayQueuedRequests from './lib/replay-queued-requests.js';
 
 /**
  * @alias goog.offlineGoogleAnalytics.initialize
- * @param {Object=}   config
- * @param {Object=}   config.parameterOverrides
+ * @param {Object&#x3D;}   config
+ * @param {Object&#x3D;}   config.parameterOverrides
  *                    [Measurement Protocol parameters](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters),
  *                    expressed as key/value pairs, to be added to replayed
  *                    Google Analytics requests. This can be used to, e.g., set
  *                    a custom dimension indicating that the request was
  *                    replayed.
- * @param {Function=} config.hitFilter
+ * @param {Function&#x3D;} config.hitFilter
  *                    A function that allows you to modify the hit parameters
  *                    prior to replaying the hit. The function is invoked with
- *                    the original hit's URLSearchParams object as its only
+ *                    the original hit&#x27;s URLSearchParams object as its only
  *                    argument. To abort the hit and prevent it from being
  *                    replayed, throw an error.
  * @memberof module:workbox-google-analytics
  */
-const initialize = (config) => {
-  config = config || {};
+const initialize &#x3D; (config) &#x3D;&gt; {
+  config &#x3D; config || {};
 
   // Stores whether or not the previous /collect request failed.
-  let previousHitFailed = false;
+  let previousHitFailed &#x3D; false;
 
-  self.addEventListener('fetch', (event) => {
-    const url = new URL(event.request.url);
-    const request = event.request;
+  self.addEventListener(&#x27;fetch&#x27;, (event) &#x3D;&gt; {
+    const url &#x3D; new URL(event.request.url);
+    const request &#x3D; event.request;
 
-    if (url.hostname === constants.URL.HOST) {
-      if (url.pathname === constants.URL.COLLECT_PATH) {
+    if (url.hostname &#x3D;&#x3D;&#x3D; constants.URL.HOST) {
+      if (url.pathname &#x3D;&#x3D;&#x3D; constants.URL.COLLECT_PATH) {
         // If this is a /collect request, then use a network-first strategy,
         // falling back to queueing the request in IndexedDB.
 
         // Make a clone of the request before we use it, in case we need
         // to read the request body later on.
-        const clonedRequest = request.clone();
+        const clonedRequest &#x3D; request.clone();
 
         event.respondWith(
-          fetch(request).then((response) => {
+          fetch(request).then((response) &#x3D;&gt; {
             if (previousHitFailed) {
               replayQueuedRequests(config);
             }
-            previousHitFailed = false;
+            previousHitFailed &#x3D; false;
             return response;
-          }, (error) => {
-            logHelper.log('Enqueuing failed request...');
-            previousHitFailed = true;
-            return enqueueRequest(clonedRequest).then(() => Response.error());
+          }, (error) &#x3D;&gt; {
+            logHelper.log(&#x27;Enqueuing failed request...&#x27;);
+            previousHitFailed &#x3D; true;
+            return enqueueRequest(clonedRequest).then(() &#x3D;&gt; Response.error());
           })
         );
-      } else if (url.pathname === constants.URL.ANALYTICS_JS_PATH) {
+      } else if (url.pathname &#x3D;&#x3D;&#x3D; constants.URL.ANALYTICS_JS_PATH) {
         // If this is a request for the Google Analytics JavaScript library,
         // use the network first, falling back to the previously cached copy.
         event.respondWith(
-          caches.open(constants.CACHE_NAME).then((cache) => {
-            return fetch(request).then((response) => {
-              return cache.put(request, response.clone()).then(() => response);
-            }).catch((error) => {
+          caches.open(constants.CACHE_NAME).then((cache) &#x3D;&gt; {
+            return fetch(request).then((response) &#x3D;&gt; {
+              return cache.put(request, response.clone()).then(() &#x3D;&gt; response);
+            }).catch((error) &#x3D;&gt; {
               logHelper.error(error);
               return cache.match(request);
             });
@@ -160,9 +158,12 @@ const initialize = (config) => {
 
 export default {initialize};
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

@@ -1,673 +1,155 @@
----
-layout: jsdoc
-title: "Module: workbox-routing"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Module: workbox-routing</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-
-
-    
-        
-            
-        
-    
-
-    
-        
-            <div class="description"><h1 id="workbox-routing">workbox-routing</h1>
-<p>A service worker helper library to route request URLs to handlers.</p>
-<p><strong>Install:</strong> <code>npm install --save-dev workbox-routing</code></p></div>
-        
-
-        
-            
-
-<div class="collapsing-entry method-type-module ">
-
-
-
-<div class="collapse-details js-collapse-details">
-
-
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-
-</table>
-
-</div>
-
-</div>
-
-        
-    
-
-    
-
-    
-        <h2 class="subsection-title">Classes</h2>
-
-        <div class="subsection-classes">
-        <dl>
-            <dt><a href="module-workbox-routing.ExpressRoute.html#main">ExpressRoute</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-workbox-routing.NavigationRoute.html#main">NavigationRoute</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-workbox-routing.RegExpRoute.html#main">RegExpRoute</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-workbox-routing.Route.html#main">Route</a></dt>
-            <dd></dd>
-        
-            <dt><a href="module-workbox-routing.Router.html#main">Router</a></dt>
-            <dd></dd>
-        </dl>
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1><small></small><span class="symbol-name">workbox-routing</span></h1>
+            <div class="symbol-detail-labels"><span class="label label-kind"><small>module</small></span></div>
+            <p>
+              <h1 id="workbox-routing">workbox-routing</h1>
+            </p>
+            <p>A service worker helper library to route request URLs to handlers.</p>
+            <p><strong>Install:</strong> <code>npm install --save-dev workbox-routing</code></p>
+          </header>
+          <section>
+            <h2>Classes</h2>
+            <section id='members-links'>
+              <h3 class="class-list"><a href="module-workbox-routing.ExpressRoute.html">ExpressRoute</a></h3>
+              <p><code>ExpressRoute</code> is a helper class to make defining Express-style Routes easy.</p>
+              <p>Under the hood, it uses the <a href="https://www.npmjs.com/package/path-to-regexp"><code>path-to-regexp</code></a> library to transform the <code>path</code> parameter into a regular expression, which is then matched against the URL's path.</p>
+              <p>Please note that <code>ExpressRoute</code> can match either same-origin or cross-origin requests. To match only same-origin requests, use a <code>path</code> value that begins with <code>'/'</code>, e.g. <code>'/path/to/:file'</code>. To
+                match cross-origin requests, use a <code>path</code> value that includes the origin, e.g.
+                <code>'https://example.com/path/to/:file'</code>.</p>
+              <h3 class="class-list"><a href="module-workbox-routing.NavigationRoute.html">NavigationRoute</a></h3>
+              <p>NavigationRoute is a helper class to create a <code>Route</code> that matches browser navigation requests, i.e. requests for a page.</p>
+              <p>It will only match incoming requests whose <a href="https://fetch.spec.whatwg.org/#concept-request-mode"><code>mode</code></a> is set to <code>navigate</code>.</p>
+              <p>You can optionally only apply this route to a subset of navigation requests by using one or both of the <code>blacklist</code> and <code>whitelist</code> parameters. If both lists are provided, and there's a navigation to a URL which matches
+                both, then the blacklist will take precedence and the request will not be matched by this route. The regular expressions in <code>whitelist</code> and <code>blacklist</code> are matched against the <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname"><code>pathname</code></a>                portion of the requested URL.</p>
+              <p>To match all navigations, use a <code>whitelist</code> array containing a RegExp that matches everything, i.e. <code>[/./]</code>.</p>
+              <h3 class="class-list"><a href="module-workbox-routing.RegExpRoute.html">RegExpRoute</a></h3>
+              <p>
+                <p>RegExpRoute is a helper class to make defining regular expression based Routes easy.</p>
+              </p>
+              <p>
+                <p>For same-origin requests, the route will be used if the regular expression matches <strong>any portion</strong> (not necessarily the entirety) of the full request URL.
+                </p>
+              </p>
+              <p>
+                <p>For cross-origin requests, the route will only be used if the regular expression matches <strong>from the start</strong> of the full request URL.</p>
+              </p>
+              <p>
+                <p>For example, assuming that your origin is 'https://example.com', and you use the following regular expressions when constructing your <code>RegExpRoute</code>:</p>
+              </p>
+              <ul>
+                <li>
+                  <p><code>/css$/</code> <strong>will</strong> match 'https://example.com/path/to/styles.css', but
+                    <strong>will not</strong> match 'https://cross-origin.com/path/to/styles.css'</p>
+                </li>
+                <li>
+                  <p><code>/^https://cross-origin.com/</code> <strong>will not</strong> match 'https://example.com/path/to/styles.css', but <strong>will</strong> match 'https://cross-origin.com/path/to/styles.css'
+                  </p>
+                </li>
+                <li>
+                  <p><code>/./</code> <strong>will</strong> match both 'https://example.com/path/to/styles.css' and 'https://cross-origin.com/path/to/styles.css', because the <code>.</code> wildcard matches the first character in both URLs.</p>
+                </li>
+              </ul>
+              <h3 class="class-list"><a href="module-workbox-routing.Route.html">Route</a></h3>
+              <p>A <code>Route</code> allows you to tell a service worker that it should handle certain network requests using a specific response strategy.</p>
+              <p>Instead of implementing your own handlers, you can use one of the pre-defined runtime caching strategies from the
+                <a href="module-workbox-runtime-caching.html">workbox-runtime-caching</a> module.</p>
+              <p>While you can use <code>Route</code> directly, the
+                <a href="module-workbox-routing.RegExpRoute.html">RegExpRoute</a> and <a href="module-workbox-routing.ExpressRoute.html">ExpressRoute</a> subclasses provide a convenient wrapper with a nicer interface for using regular expressions or Express-style
+                routes as the <code>match</code> criteria.</p>
+              <h3 class="class-list"><a href="module-workbox-routing.Router.html">Router</a></h3>
+              <p>The Router takes one or more Routes and registers a <a href="https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent"><code>fetch</code>
+event listener</a> that will respond to network requests if there's a matching route.</p>
+              <p>It also allows you to define a &quot;default&quot; handler that applies to any requests that don't explicitly match a <code>Route</code>, and a &quot;catch&quot; handler that responds to any requests that throw an exception while being routed.</p>
+            </section>
+            <h2>Abstract types</h2>
+            <section>
+              <h3 id=".Matcher" class="symbol-name">Matcher</h3>
+              <div class="symbol-detail-labels"><span class="label label-static"><small>static</small></span></div>
+              <p class="type-signature"> Matcher(input)&nbsp;returns&nbsp;(Array of Object or null)</p>
+              <p>A function that can be automatically invoked by a route to determine whether or not an incoming network request should trigger the route's handler.</p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>(Array of Object or null)</code>&nbsp;
+                    <p>To signify a match, return a (possibly empty) array of values which will be passed in a params to the
+                      <a href="module-workbox-routing.html#.RouteHandler">RouteHandler</a>. Otherwise, return null if the route shouldn't match.</p>
+                  </p>
+                </dd>
+              </dl>
+              <h3 id=".RouteHandler" class="symbol-name">RouteHandler</h3>
+              <div class="symbol-detail-labels"><span class="label label-static"><small>static</small></span></div>
+              <p class="type-signature"> RouteHandler(input)&nbsp;returns&nbsp;Promise containing Response</p>
+              <p>A handler that can be automatically invoked by a route, and knows how to respond to a request. It can either be a standalone function or a subclass of
+                <a href="module-workbox-runtime-caching.Handler.html">Handler</a>.</p>
+              <section>
+                <table class="function param responsive">
+                  <tr>
+                    <th colspan="2">
+                      <h4>Parameter</h4>
+                    </th>
+                  </tr>
+                  <tbody>
+                    <tr>
+                      <td class="details-table-name">
+                        <p>input</p>
+                      </td>
+                      <td>
+                        <p class="details-table-types">Object</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </section>
+              <dl class="dl-compact">
+                <dt>Returns</dt>
+                <dd>
+                  <p><code>Promise containing Response</code>&nbsp;
+                    <p>The response that will fulfill the request.</p>
+                  </p>
+                </dd>
+              </dl>
+            </section>
+          </section>
         </div>
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-        <h2 class="subsection-title">Type Definitions</h2>
-
-        <div class="subsection-definitions">
-        
-                
-
-<div class="collapsing-entry method-type-typedef ">
-
-
-    <h4 class="js-collapse-title" id=".Matcher"><span class="this">this.</span>Matcher<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"> <span class="return-arrow">&rarr;</span> Array.&lt;Object>|null</span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>A function that can be automatically invoked by a route to determine whether
-or not an incoming network request should trigger the route's handler.</p>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
   </div>
+</body>
 
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">url</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">URL</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The request's URL.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">event</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">FetchEvent</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The event that triggered the <code>fetch</code> handler.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-  <tr>
-  <th>Returns</th>
-  <td>
-  
-          
-
-
-
-<span class="param-type">Array.&lt;Object></span>
-|
-
-<span class="param-type">null</span>
-
-
-
-
-
-<div class="param-desc">
-    <p>To signify a match, return a (possibly empty)
-array of values which will be passed in a params to the
-<a href="module-workbox-routing.html#.RouteHandler">RouteHandler</a>.
-Otherwise, return null if the route shouldn't match.</p>
-</div>
-
-
-      
-  </td>
-  </tr>
-
-
-</table>
-
-</div>
-
-</div>
-
-            
-                
-
-<div class="collapsing-entry method-type-typedef ">
-
-
-    <h4 class="js-collapse-title" id=".RouteHandler"><span class="this">this.</span>RouteHandler<span class="signature">(<span class="signature-args">input</span>)</span><span class="type-signature"> <span class="return-arrow">&rarr;</span> Promise.&lt;Response></span></h4>
-
-
-<div class="collapse-details js-collapse-details">
-
-
-  
-
-  <div class="description">
-    <p>A handler that can be automatically invoked by a route, and knows how to
-respond to a request. It can either be a standalone function or a subclass of
-<a href="module-workbox-runtime-caching.Handler.html#main">Handler</a>.</p>
-  </div>
-
-
-
-
-<table class="method-info-table">
-
-  
-
-  
-
-  
-
-
-  <tr>
-    <th>Parameters</th>
-    <td>
-      
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">input</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                
-                
-                  <h6>Properties</h6>
-                  
-
-<table class="params">
-    
-
-        <tr>
-            
-              <td class="name">url</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">URL</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The request's URL.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">event</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">FetchEvent</span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>The event that triggered the <code>fetch</code> handler.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-
-        <tr>
-            
-              <td class="name">params</td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Array.&lt;Object></span>
-
-
-
-            
-
-            
-            </td>
-
-            
-              <td></td>
-            
-
-            <tr>
-              <td></td>
-              <td class="description last">
-                <p>Any additional parameters that the
-<a href="module-workbox-routing.Route.html#main">Route</a> provides, such as named parameters
-in an <a href="module-workbox-routing.ExpressRoute.html#main">ExpressRoute</a>.</p>
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-                
-              </td>
-            </tr>
-        </tr>
-
-    
-</table>
-
-    </td>
-  </tr>
-
-
-<!--
-<tr>
-<th>Details</th>
-<td>
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-</td>
-</tr>
--->
-
-
-
-
-
-
-
-
-
-
-
-
-  <tr>
-  <th>Returns</th>
-  <td>
-  
-          
-
-
-
-<span class="param-type">Promise.&lt;Response></span>
-
-
-
-
-
-<div class="param-desc">
-    <p>The response that will fulfill the request.</p>
-</div>
-
-
-      
-  </td>
-  </tr>
-
-
-</table>
-
-</div>
-
-</div>
-
-            
-        </div>
+</html>

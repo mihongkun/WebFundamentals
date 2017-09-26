@@ -1,61 +1,59 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-cli/src/index.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-cli/src/index.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-cli/src/index.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/**
  * Copyright 2016 Google Inc.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
 **/
 
-'use strict';
+&#x27;use strict&#x27;;
 
-const fs = require('fs');
-const path = require('path');
-const updateNotifier = require('update-notifier');
-const swBuild = require('workbox-build');
+const fs &#x3D; require(&#x27;fs&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const updateNotifier &#x3D; require(&#x27;update-notifier&#x27;);
+const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
 
-const cliLogHelper = require('./lib/log-helper');
-const generateGlobPattern = require('./lib/utils/generate-glob-pattern');
-const saveConfigFile = require('./lib/utils/save-config');
-const getConfigFile = require('./lib/utils/get-config');
+const cliLogHelper &#x3D; require(&#x27;./lib/log-helper&#x27;);
+const generateGlobPattern &#x3D; require(&#x27;./lib/utils/generate-glob-pattern&#x27;);
+const saveConfigFile &#x3D; require(&#x27;./lib/utils/save-config&#x27;);
+const getConfigFile &#x3D; require(&#x27;./lib/utils/get-config&#x27;);
 
-const askForRootOfWebApp = require('./lib/questions/ask-root-of-web-app');
-const askForServiceWorkerName = require('./lib/questions/ask-sw-name');
-const askSaveConfigFile = require('./lib/questions/ask-save-config');
-const askManifestFileName = require('./lib/questions/ask-manifest-name');
-const askForExtensionsToCache =
-  require('./lib/questions/ask-extensions-to-cache');
+const askForRootOfWebApp &#x3D; require(&#x27;./lib/questions/ask-root-of-web-app&#x27;);
+const askForServiceWorkerName &#x3D; require(&#x27;./lib/questions/ask-sw-name&#x27;);
+const askSaveConfigFile &#x3D; require(&#x27;./lib/questions/ask-save-config&#x27;);
+const askManifestFileName &#x3D; require(&#x27;./lib/questions/ask-manifest-name&#x27;);
+const askForExtensionsToCache &#x3D;
+  require(&#x27;./lib/questions/ask-extensions-to-cache&#x27;);
 
 /**
  * This class is a wrapper to make test easier. This is used by
@@ -74,17 +72,17 @@ class SWCli {
   argv(meowOutput) {
     updateNotifier({pkg: meowOutput.pkg}).notify();
 
-    if (meowOutput.input.length > 0) {
+    if (meowOutput.input.length &gt; 0) {
       // We have a command
       return this.handleCommand(
         meowOutput.input[0],
         meowOutput.input.splice(1),
         meowOutput.flags
       )
-      .then(() => {
+      .then(() &#x3D;&gt; {
         process.exit(0);
       })
-      .catch(() => {
+      .catch(() &#x3D;&gt; {
         process.exit(1);
       });
     } else {
@@ -98,7 +96,7 @@ class SWCli {
    */
   getHelpText() {
     return fs.readFileSync(
-      path.join(__dirname, 'cli-help.txt'), 'utf8');
+      path.join(__dirname, &#x27;cli-help.txt&#x27;), &#x27;utf8&#x27;);
   }
 
   /**
@@ -111,12 +109,12 @@ class SWCli {
    */
   handleCommand(command, args, flags) {
     switch (command) {
-      case 'generate:sw':
+      case &#x27;generate:sw&#x27;:
         return this._generateSW();
-      case 'generate:manifest':
+      case &#x27;generate:manifest&#x27;:
         return this._generateBuildManifest();
       default:
-        cliLogHelper.error(`Invlaid command given '${command}'`);
+        cliLogHelper.error(&#x60;Invlaid command given &#x27;${command}&#x27;&#x60;);
         return Promise.reject();
     }
   }
@@ -127,61 +125,61 @@ class SWCli {
    * node process cleanly or not.
    */
   _generateSW() {
-    let config = {};
+    let config &#x3D; {};
 
     return getConfigFile()
-    .then((savedConfig) => {
+    .then((savedConfig) &#x3D;&gt; {
       if (savedConfig) {
-        config = savedConfig;
-        config.wasSaved = true;
+        config &#x3D; savedConfig;
+        config.wasSaved &#x3D; true;
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       if (!config.globDirectory) {
         return askForRootOfWebApp()
-        .then((rDirectory) => {
+        .then((rDirectory) &#x3D;&gt; {
           // This will give a pretty relative path:
-          // '' => './'
-          // 'build' => './build/'
-          config.globDirectory =
-            path.join('.', path.relative(process.cwd(), rDirectory), path.sep);
+          // &#x27;&#x27; &#x3D;&gt; &#x27;./&#x27;
+          // &#x27;build&#x27; &#x3D;&gt; &#x27;./build/&#x27;
+          config.globDirectory &#x3D;
+            path.join(&#x27;.&#x27;, path.relative(process.cwd(), rDirectory), path.sep);
         });
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       if (!config.staticFileGlobs) {
         return askForExtensionsToCache(config.globDirectory)
-        .then((extensionsToCache) => {
-          config.staticFileGlobs = [
+        .then((extensionsToCache) &#x3D;&gt; {
+          config.staticFileGlobs &#x3D; [
             generateGlobPattern(extensionsToCache),
           ];
         });
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       if (!config.swDest) {
         return askForServiceWorkerName()
-        .then((swName) => {
-          config.swDest = path.join(config.globDirectory, swName);
-          config.globIgnores = [
+        .then((swName) &#x3D;&gt; {
+          config.swDest &#x3D; path.join(config.globDirectory, swName);
+          config.globIgnores &#x3D; [
             swName,
           ];
         });
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       if (!config.wasSaved) {
         return askSaveConfigFile();
       }
-      // False since it's already saved.
+      // False since it&#x27;s already saved.
       return false;
     })
-    .then((saveConfig) => {
+    .then((saveConfig) &#x3D;&gt; {
       if (saveConfig) {
         return saveConfigFile(config);
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       return swBuild.generateSW(config);
     });
   }
@@ -197,19 +195,19 @@ class SWCli {
     let fileExtentionsToCache;
 
     return askForRootOfWebApp()
-    .then((rDirectory) => {
-      rootDirPath = rDirectory;
+    .then((rDirectory) &#x3D;&gt; {
+      rootDirPath &#x3D; rDirectory;
       return askForExtensionsToCache(rootDirPath);
     })
-    .then((extensionsToCache) => {
-      fileExtentionsToCache = extensionsToCache;
+    .then((extensionsToCache) &#x3D;&gt; {
+      fileExtentionsToCache &#x3D; extensionsToCache;
       return askManifestFileName();
     })
-    .then((manifestName) => {
-      fileManifestName = manifestName;
+    .then((manifestName) &#x3D;&gt; {
+      fileManifestName &#x3D; manifestName;
     })
-    .then(() => {
-      const globPattern = generateGlobPattern(fileExtentionsToCache);
+    .then(() &#x3D;&gt; {
+      const globPattern &#x3D; generateGlobPattern(fileExtentionsToCache);
       return swBuild.generateFileManifest({
         globDirectory: rootDirPath,
         staticFileGlobs: [globPattern],
@@ -222,11 +220,14 @@ class SWCli {
   }
 }
 
-module.exports = SWCli;
+module.exports &#x3D; SWCli;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

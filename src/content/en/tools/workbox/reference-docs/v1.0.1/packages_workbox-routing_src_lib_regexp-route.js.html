@@ -1,46 +1,43 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-routing/src/lib/regexp-route.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-routing/src/lib/regexp-route.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-routing/src/lib/regexp-route.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import Route from './route';
-import assert from '../../../../lib/assert';
-import logHelper from '../../../../lib/log-helper.js';
+import Route from &#x27;./route&#x27;;
+import assert from &#x27;../../../../lib/assert&#x27;;
+import logHelper from &#x27;../../../../lib/log-helper.js&#x27;;
 
 /**
  * RegExpRoute is a helper class to make defining regular expression based
@@ -49,22 +46,22 @@ import logHelper from '../../../../lib/log-helper.js';
  * The matching for regular expressioned are slightly different between
  * same-origin requests and cross-origin requests.
  *
- * A common pattern is to use a regex pattern similar to `/styles/.*` to capture
+ * A common pattern is to use a regex pattern similar to &#x60;/styles/.*&#x60; to capture
  * all stylesheets on your site.
  *
- * If we used this on `https://workboxjs.org`,
+ * If we used this on &#x60;https://workboxjs.org&#x60;,
  * this regular expression would match for the end of
- * &lt;code>https://workboxjs.org&lt;strong>/styles/main.css&lt;/strong>&lt;/code>.
+ * &amp;lt;code&gt;https://workboxjs.org&amp;lt;strong&gt;/styles/main.css&amp;lt;/strong&gt;&amp;lt;/code&gt;.
  *
- * However, it's unlikely that we'd intend for this to match against:
- * &lt;code>https://third-party-origin.com&lt;strong>/styles/example.css&lt;/strong>&lt;/code>.
+ * However, it&#x27;s unlikely that we&#x27;d intend for this to match against:
+ * &amp;lt;code&gt;https://third-party-origin.com&amp;lt;strong&gt;/styles/example.css&amp;lt;/strong&gt;&amp;lt;/code&gt;.
  *
  * To overcome this common issue, regular expressions will only match against
  * cross-origin requests if the regular expression matches from the start.
  *
  * For example, matching the cross-origin example, we could change the
- * regular expression to: `https://third-party-origin.com/styles/.*`, meaning
- * we would now match &lt;code>&lt;strong>https://third-party-origin.com/styles/example.css&lt;/strong>&lt;/code>.
+ * regular expression to: &#x60;https://third-party-origin.com/styles/.*&#x60;, meaning
+ * we would now match &amp;lt;code&gt;&amp;lt;strong&gt;https://third-party-origin.com/styles/example.css&amp;lt;/strong&gt;&amp;lt;/code&gt;.
  *
  * If you wish your regular expression to match both, you just need to ensure
  * you account for the full URL.
@@ -75,18 +72,18 @@ import logHelper from '../../../../lib/log-helper.js';
  * @example
  * // Any requests that match the regular expression will match this route, with
  * // the capture groups passed along to the handler as an array via params.
- * const route = new workbox.routing.RegExpRoute({
- *   regExp: new RegExp('^https://example.com/path/to/(\\w+)'),
+ * const route &#x3D; new workbox.routing.RegExpRoute({
+ *   regExp: new RegExp(&#x27;^https://example.com/path/to/(\\w+)&#x27;),
  *   handler: {
- *     handle: ({event, params}) => {
+ *     handle: ({event, params}) &#x3D;&gt; {
  *       // params[0], etc. will be set based on the regexp capture groups.
- *       // Do something that returns a Promise.&lt;Response>, like:
+ *       // Do something that returns a Promise.&amp;lt;Response&gt;, like:
  *       return caches.match(event.request);
  *     },
  *   },
  * });
  *
- * const router = new workbox.routing.Router();
+ * const router &#x3D; new workbox.routing.Router();
  * router.registerRoute({route});
  */
 class RegExpRoute extends Route {
@@ -95,9 +92,9 @@ class RegExpRoute extends Route {
    *
    * @param {Object} input
    * @param {RegExp} input.regExp The regular expression to match against URLs.
-   * If the `RegExp` contains [capture groups](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references),
-   * then the array of captured values will be passed to the `handler` as
-   * `params`.
+   * If the &#x60;RegExp&#x60; contains [capture groups](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references),
+   * then the array of captured values will be passed to the &#x60;handler&#x60; as
+   * &#x60;params&#x60;.
    * @param {function|module:workbox-runtime-caching.Handler} input.handler The
    * handler to use to provide a response if the route matches.
    *
@@ -105,15 +102,15 @@ class RegExpRoute extends Route {
    *   module:workbox-routing.Route~handlerCallback} for the callback
    * definition.
    * @param {string} [input.method] Only match requests that use this
-   * HTTP method. Defaults to `'GET'` if not specified.
+   * HTTP method. Defaults to &#x60;&#x27;GET&#x27;&#x60; if not specified.
    */
   constructor({regExp, handler, method}) {
     assert.isInstance({regExp}, RegExp);
 
-    const match = ({url}) => {
-      const result = regExp.exec(url.href);
+    const match &#x3D; ({url}) &#x3D;&gt; {
+      const result &#x3D; regExp.exec(url.href);
 
-      // Return null immediately if this route doesn't match.
+      // Return null immediately if this route doesn&#x27;t match.
       if (!result) {
         return null;
       }
@@ -122,18 +119,18 @@ class RegExpRoute extends Route {
       // the start of the URL. This means that regular expressions like
       // /styles.+/ will only match same-origin requests.
       // See https://github.com/GoogleChrome/workbox/issues/281#issuecomment-285130355
-      if ((url.origin !== location.origin) &amp;&amp; (result.index !== 0)) {
+      if ((url.origin !&#x3D;&#x3D; location.origin) &amp;amp;&amp;amp; (result.index !&#x3D;&#x3D; 0)) {
         logHelper.debug({
           that: this,
-          message: `Skipping route, because the RegExp match didn't occur ` +
-            `at the start of the URL.`,
+          message: &#x60;Skipping route, because the RegExp match didn&#x27;t occur &#x60; +
+            &#x60;at the start of the URL.&#x60;,
           data: {url: url.href, regExp},
         });
 
         return null;
       }
 
-      // If the route matches, but there aren't any capture groups defined, then
+      // If the route matches, but there aren&#x27;t any capture groups defined, then
       // this will return [], which is truthy and therefore sufficient to
       // indicate a match.
       // If there are capture groups, then it will return their values.
@@ -146,9 +143,12 @@ class RegExpRoute extends Route {
 
 export default RegExpRoute;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

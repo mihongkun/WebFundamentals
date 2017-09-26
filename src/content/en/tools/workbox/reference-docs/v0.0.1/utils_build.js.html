@@ -1,37 +1,35 @@
----
-layout: jsdoc
-title: "Source: utils/build.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: utils/build.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: utils/build.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -39,39 +37,39 @@ jsdocNav:
 
 /* eslint-disable no-console, valid-jsdoc */
 
-const babel = require('rollup-plugin-babel');
-const childProcess = require('child_process');
-const commonjs = require('rollup-plugin-commonjs');
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const promisify = require('promisify-node');
-const replace = require('rollup-plugin-replace');
-const resolve = require('rollup-plugin-node-resolve');
-const rollup = require('rollup').rollup;
+const babel &#x3D; require(&#x27;rollup-plugin-babel&#x27;);
+const childProcess &#x3D; require(&#x27;child_process&#x27;);
+const commonjs &#x3D; require(&#x27;rollup-plugin-commonjs&#x27;);
+const fs &#x3D; require(&#x27;fs&#x27;);
+const os &#x3D; require(&#x27;os&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const promisify &#x3D; require(&#x27;promisify-node&#x27;);
+const replace &#x3D; require(&#x27;rollup-plugin-replace&#x27;);
+const resolve &#x3D; require(&#x27;rollup-plugin-node-resolve&#x27;);
+const rollup &#x3D; require(&#x27;rollup&#x27;).rollup;
 
-const globPromise = promisify('glob');
+const globPromise &#x3D; promisify(&#x27;glob&#x27;);
 
-const LICENSE_HEADER = fs.readFileSync('templates/LICENSE-HEADER.txt', 'utf8');
+const LICENSE_HEADER &#x3D; fs.readFileSync(&#x27;templates/LICENSE-HEADER.txt&#x27;, &#x27;utf8&#x27;);
 
 /**
  * Wrapper on top of childProcess.spawn() that returns a promise which rejects
  * when the child process has a non-zero exit code and resolves otherwise.
  *
  * @param {String} command The command to spawn.
- * @param {Array.&lt;String>} args The parameters to pass to the command.
+ * @param {Array.&amp;lt;String&gt;} args The parameters to pass to the command.
  * @return {Promise} Settles once command completes. Resolves if the exit code
  *                    is 0, and rejects otherwise.
  */
 function processPromiseWrapper(command, args) {
-  return new Promise((resolve, reject) => {
-    const process = childProcess.spawn(command, args, {stdio: 'inherit'});
-    process.on('error', reject);
-    process.on('close', (code) => {
-      if (code === 0) {
+  return new Promise((resolve, reject) &#x3D;&gt; {
+    const process &#x3D; childProcess.spawn(command, args, {stdio: &#x27;inherit&#x27;});
+    process.on(&#x27;error&#x27;, reject);
+    process.on(&#x27;close&#x27;, (code) &#x3D;&gt; {
+      if (code &#x3D;&#x3D;&#x3D; 0) {
         resolve();
       } else {
-        reject(`Error ${code} returned from ${command} ${args}`);
+        reject(&#x60;Error ${code} returned from ${command} ${args}&#x60;);
       }
     });
   });
@@ -85,9 +83,9 @@ function processPromiseWrapper(command, args) {
  * @return {Promise}
  */
 function lernaWrapper(...args) {
-  const nodeCommand = os.platform() === 'win32' ? 'npm.cmd' : 'npm';
+  const nodeCommand &#x3D; os.platform() &#x3D;&#x3D;&#x3D; &#x27;win32&#x27; ? &#x27;npm.cmd&#x27; : &#x27;npm&#x27;;
   return processPromiseWrapper(nodeCommand,
-    ['run', 'local-lerna', '--'].concat(args));
+    [&#x27;run&#x27;, &#x27;local-lerna&#x27;, &#x27;--&#x27;].concat(args));
 }
 
 /**
@@ -95,21 +93,21 @@ function lernaWrapper(...args) {
  * This wrapper will run each Promise to resolution, and if one or more
  * rejected, reject at the end with a concatenated error message.
  *
- * @param {Array.&lt;Promise>} promises The promises to wait on.
- * @return {Promise.&lt;*>} Resolves with null if all the promises resolve.
+ * @param {Array.&amp;lt;Promise&gt;} promises The promises to wait on.
+ * @return {Promise.&amp;lt;*&gt;} Resolves with null if all the promises resolve.
  *                        Otherwise, rejects with a concatenated error.
  */
 function taskPromiseWrapper(projects, task, args) {
-  let rejected = [];
-  return projects.reduce((promiseChain, project) => {
-    return promiseChain.then(() => {
-      return task(path.join(__dirname, '..', path.dirname(project)), args)
-      .catch((error) => {
+  let rejected &#x3D; [];
+  return projects.reduce((promiseChain, project) &#x3D;&gt; {
+    return promiseChain.then(() &#x3D;&gt; {
+      return task(path.join(__dirname, &#x27;..&#x27;, path.dirname(project)), args)
+      .catch((error) &#x3D;&gt; {
         rejected.push(error);
       });
     });
   }, Promise.resolve())
-  .then(() => rejected.length ? Promise.reject(rejected.join('\n')) : null);
+  .then(() &#x3D;&gt; rejected.length ? Promise.reject(rejected.join(&#x27;\n&#x27;)) : null);
 }
 
 /**
@@ -117,14 +115,14 @@ function taskPromiseWrapper(projects, task, args) {
  * It will collect all the results and reject if any of the tasks rejects.
  *
  * @param {Function} task The function to run.
- * @param {String} projectOrStar Either the name of a project, or '*' for all.
+ * @param {String} projectOrStar Either the name of a project, or &#x27;*&#x27; for all.
  * @param {...Object} [args] Optional additional arguments to pass to task.
- * @return {Promise.&lt;*>} Resolves with null if all the promises resolve.
+ * @return {Promise.&amp;lt;*&gt;} Resolves with null if all the promises resolve.
  *                        Otherwise, rejects with a concatenated error.
  */
 function taskHarness(task, projectOrStar, ...args) {
-  return globPromise(`packages/${projectOrStar}/package.json`)
-    .then((projects) => taskPromiseWrapper(projects, task));
+  return globPromise(&#x60;packages/${projectOrStar}/package.json&#x60;)
+    .then((projects) &#x3D;&gt; taskPromiseWrapper(projects, task));
 }
 
 /**
@@ -137,7 +135,7 @@ function taskHarness(task, projectOrStar, ...args) {
  */
 function buildJSBundle(options) {
   return rollup(options.rollupConfig)
-    .then((bundle) => bundle.write(options.writeConfig));
+    .then((bundle) &#x3D;&gt; bundle.write(options.writeConfig));
 }
 
 /**
@@ -147,21 +145,21 @@ function buildJSBundle(options) {
  * Both minified and unminified build configs are generated.
  *
  * @param {Object} input
- * @param {Object.&lt;String,String>} input.formatToPath A mapping of each format
- * ('iife', 'es', etc.) to the path to use for the output.
+ * @param {Object.&amp;lt;String,String&gt;} input.formatToPath A mapping of each format
+ * (&#x27;iife&#x27;, &#x27;es&#x27;, etc.) to the path to use for the output.
  * @param {String} input.baseDir The path of the project directory.
  * @param {String} input.moduleName The name of the module, for the iife output.
  * @param {boolean} [input.shouldBuildProd] Whether or not we should also build
  * a production bundle. Defaults to true.
  * @param {String} [input.entry] Used to override the default entry value of
- * `${baseDir}/src/index.js`.
- * @returns {Array.&lt;Object>}
+ * &#x60;${baseDir}/src/index.js&#x60;.
+ * @returns {Array.&amp;lt;Object&gt;}
  */
 function generateBuildConfigs({formatToPath, baseDir, moduleName,
-                               entry, shouldBuildProd=true}) {
-  const buildConfigs = [];
+                               entry, shouldBuildProd&#x3D;true}) {
+  const buildConfigs &#x3D; [];
 
-  const basePlugins = [
+  const basePlugins &#x3D; [
     resolve({
       jsnext: true,
       main: true,
@@ -170,17 +168,17 @@ function generateBuildConfigs({formatToPath, baseDir, moduleName,
     commonjs(),
   ];
 
-  const devReplacePlugin = replace({
-    '`BUILD_PROCESS_REPLACE::BUILD_TARGET`': '`dev`',
+  const devReplacePlugin &#x3D; replace({
+    &#x27;&#x60;BUILD_PROCESS_REPLACE::BUILD_TARGET&#x60;&#x27;: &#x27;&#x60;dev&#x60;&#x27;,
   });
 
-  const prodReplacePlugin = replace({
-    '`BUILD_PROCESS_REPLACE::BUILD_TARGET`': '`prod`',
-    'error-stack-parser': './error-stack-parser-no-op',
+  const prodReplacePlugin &#x3D; replace({
+    &#x27;&#x60;BUILD_PROCESS_REPLACE::BUILD_TARGET&#x60;&#x27;: &#x27;&#x60;prod&#x60;&#x27;,
+    &#x27;error-stack-parser&#x27;: &#x27;./error-stack-parser-no-op&#x27;,
   });
 
-  const babelPlugin = babel({
-    presets: [['babili', {
+  const babelPlugin &#x3D; babel({
+    presets: [[&#x27;babili&#x27;, {
       comments: false,
     }]],
   });
@@ -188,14 +186,14 @@ function generateBuildConfigs({formatToPath, baseDir, moduleName,
   for (let format of Object.keys(formatToPath)) {
     buildConfigs.push({
       rollupConfig: {
-        entry: entry || path.join(baseDir, 'src', 'index.js'),
+        entry: entry || path.join(baseDir, &#x27;src&#x27;, &#x27;index.js&#x27;),
         plugins: [devReplacePlugin, ...basePlugins],
       },
       writeConfig: {
         banner: LICENSE_HEADER,
         sourceMap: true,
         dest: path.join(baseDir,
-          formatToPath[format].replace('.prod.', '.dev.')),
+          formatToPath[format].replace(&#x27;.prod.&#x27;, &#x27;.dev.&#x27;)),
         moduleName,
         format,
       },
@@ -204,7 +202,7 @@ function generateBuildConfigs({formatToPath, baseDir, moduleName,
     if (shouldBuildProd) {
       buildConfigs.push({
         rollupConfig: {
-          entry: entry || path.join(baseDir, 'src', 'index.js'),
+          entry: entry || path.join(baseDir, &#x27;src&#x27;, &#x27;index.js&#x27;),
           plugins: [prodReplacePlugin, ...basePlugins, babelPlugin],
         },
         writeConfig: {
@@ -221,7 +219,7 @@ function generateBuildConfigs({formatToPath, baseDir, moduleName,
   return buildConfigs;
 }
 
-module.exports = {
+module.exports &#x3D; {
   buildJSBundle,
   generateBuildConfigs,
   globPromise,
@@ -230,9 +228,12 @@ module.exports = {
   taskHarness,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

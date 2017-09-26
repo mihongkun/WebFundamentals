@@ -1,70 +1,67 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-background-sync/build.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-background-sync/build.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-background-sync/build.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
      http://www.apache.org/licenses/LICENSE-2.0
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-const fsExtra = require('fs-extra');
-const glob = require('glob');
-const path = require('path');
-const pkg = require('./package.json');
-const upperCamelCase = require('uppercamelcase');
-const {buildJSBundle, generateBuildConfigs} = require('../../utils/build');
+const fsExtra &#x3D; require(&#x27;fs-extra&#x27;);
+const glob &#x3D; require(&#x27;glob&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const pkg &#x3D; require(&#x27;./package.json&#x27;);
+const upperCamelCase &#x3D; require(&#x27;uppercamelcase&#x27;);
+const {buildJSBundle, generateBuildConfigs} &#x3D; require(&#x27;../../utils/build&#x27;);
 
-const productionBuildConfigs = generateBuildConfigs({
+const productionBuildConfigs &#x3D; generateBuildConfigs({
   formatToPath: {
     es: pkg.module,
     iife: pkg.main,
   },
   baseDir: __dirname,
-  moduleName: 'workbox.backgroundSync',
+  moduleName: &#x27;workbox.backgroundSync&#x27;,
 });
 
-// We don't want the test/ build output to be published.
-fsExtra.ensureFileSync(path.join(__dirname, 'build', 'test', '.npmignore'));
+// We don&#x27;t want the test/ build output to be published.
+fsExtra.ensureFileSync(path.join(__dirname, &#x27;build&#x27;, &#x27;test&#x27;, &#x27;.npmignore&#x27;));
 
-const libFiles = glob.sync(`${__dirname}/src/lib/*.js`);
-libFiles.push(path.join('lib', 'idb-helper.js'));
+const libFiles &#x3D; glob.sync(&#x60;${__dirname}/src/lib/*.js&#x60;);
+libFiles.push(path.join(&#x27;lib&#x27;, &#x27;idb-helper.js&#x27;));
 
-const testBuildConfigs = libFiles.reduce((configs, libFile) => {
-  const className = upperCamelCase(path.basename(libFile, '.js'));
-  const moduleName = `workbox.backgroundSync.test.${className}`;
+const testBuildConfigs &#x3D; libFiles.reduce((configs, libFile) &#x3D;&gt; {
+  const className &#x3D; upperCamelCase(path.basename(libFile, &#x27;.js&#x27;));
+  const moduleName &#x3D; &#x60;workbox.backgroundSync.test.${className}&#x60;;
 
   return configs.concat(generateBuildConfigs({
     formatToPath: {
-      iife: path.join('build', 'test', path.basename(libFile)),
+      iife: path.join(&#x27;build&#x27;, &#x27;test&#x27;, path.basename(libFile)),
     },
     baseDir: __dirname,
     shouldBuildProd: false,
@@ -73,13 +70,16 @@ const testBuildConfigs = libFiles.reduce((configs, libFile) => {
   }));
 }, []);
 
-module.exports = () => Promise.all(
+module.exports &#x3D; () &#x3D;&gt; Promise.all(
   [...productionBuildConfigs, ...testBuildConfigs].map(buildJSBundle)
 );
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

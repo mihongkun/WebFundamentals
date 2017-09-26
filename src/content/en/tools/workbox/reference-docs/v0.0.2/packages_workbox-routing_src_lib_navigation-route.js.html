@@ -1,63 +1,61 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-routing/src/lib/navigation-route.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-routing/src/lib/navigation-route.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-routing/src/lib/navigation-route.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
  */
 
-import Route from './route';
-import assert from '../../../../lib/assert';
-import logHelper from '../../../../lib/log-helper';
+import Route from &#x27;./route&#x27;;
+import assert from &#x27;../../../../lib/assert&#x27;;
+import logHelper from &#x27;../../../../lib/log-helper&#x27;;
 
 /**
- * NavigationRoute is a helper class to create a [`Route`]{@link Route}
+ * NavigationRoute is a helper class to create a [&#x60;Route&#x60;]{@link Route}
  * that matches browser navigation requests, i.e. requests for a page.
  *
- * It will only match incoming requests whose [`mode`](https://fetch.spec.whatwg.org/#concept-request-mode)
- * is set to `navigate`.
+ * It will only match incoming requests whose [&#x60;mode&#x60;](https://fetch.spec.whatwg.org/#concept-request-mode)
+ * is set to &#x60;navigate&#x60;.
  *
  * You can optionally only apply this route to a subset of navigation requests
- * by using one or both of the `blacklist` and `whitelist` parameters. If
- * both lists are provided, and there's a navigation to a URL which matches
+ * by using one or both of the &#x60;blacklist&#x60; and &#x60;whitelist&#x60; parameters. If
+ * both lists are provided, and there&#x27;s a navigation to a URL which matches
  * both, then the blacklist will take precedence and the request will not be
- * matched by this route. The regular expressions in `whitelist` and `blacklist`
- * are matched against the [`pathname`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname)
+ * matched by this route. The regular expressions in &#x60;whitelist&#x60; and &#x60;blacklist&#x60;
+ * are matched against the [&#x60;pathname&#x60;](https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname)
  * portion of the requested URL.
  *
- * To match all navigations, use a `whitelist` array containing a RegExp that
- * matches everything, i.e. `[/./]`.
+ * To match all navigations, use a &#x60;whitelist&#x60; array containing a RegExp that
+ * matches everything, i.e. &#x60;[/./]&#x60;.
  *
  * @memberof module:workbox-routing
  * @extends Route
@@ -66,12 +64,12 @@ import logHelper from '../../../../lib/log-helper';
  * // Any navigation requests that match the whitelist (i.e. URLs whose path
  * // starts with /article/) will be handled with the cache entry for
  * // app-shell.html.
- * const route = new workbox.routing.NavigationRoute({
- *   whitelist: [new RegExp('^/article/')],
- *   handler: {handle: () => caches.match('app-shell.html')},
+ * const route &#x3D; new workbox.routing.NavigationRoute({
+ *   whitelist: [new RegExp(&#x27;^/article/&#x27;)],
+ *   handler: {handle: () &#x3D;&gt; caches.match(&#x27;app-shell.html&#x27;)},
  * });
  *
- * const router = new workbox.routing.Router();
+ * const router &#x3D; new workbox.routing.Router();
  * router.registerRoute({route});
  */
 class NavigationRoute extends Route {
@@ -79,58 +77,61 @@ class NavigationRoute extends Route {
    * Constructor for NavigationRoute.
    *
    * @param {Object} input
-   * @param {Array&lt;RegExp>} input.whitelist If any of these patterns match,
-   * the route will handle the request (assuming the blacklist doesn't match).
-   * @param {Array&lt;RegExp>} [input.blacklist] If any of these patterns match,
+   * @param {Array&amp;lt;RegExp&gt;} input.whitelist If any of these patterns match,
+   * the route will handle the request (assuming the blacklist doesn&#x27;t match).
+   * @param {Array&amp;lt;RegExp&gt;} [input.blacklist] If any of these patterns match,
    * the route will not handle the request (even if a whitelist entry matches).
    * @param {module:workbox-routing.RouteHandler} input.handler The handler to
    * use to provide a response if the route matches.
    */
-  constructor({whitelist, blacklist, handler} = {}) {
+  constructor({whitelist, blacklist, handler} &#x3D; {}) {
     assert.isArrayOfClass({whitelist}, RegExp);
     if (blacklist) {
       assert.isArrayOfClass({blacklist}, RegExp);
     } else {
-      blacklist = [];
+      blacklist &#x3D; [];
     }
 
-    const match = ({event, url}) => {
-      let matched = false;
+    const match &#x3D; ({event, url}) &#x3D;&gt; {
+      let matched &#x3D; false;
       let message;
 
-      if (event.request.mode === 'navigate') {
-        if (whitelist.some((regExp) => regExp.test(url.pathname))) {
-          if (blacklist.some((regExp) => regExp.test(url.pathname))) {
-            message = `The navigation route is not being used, since the ` +
-              `request URL matches both the whitelist and blacklist.`;
+      if (event.request.mode &#x3D;&#x3D;&#x3D; &#x27;navigate&#x27;) {
+        if (whitelist.some((regExp) &#x3D;&gt; regExp.test(url.pathname))) {
+          if (blacklist.some((regExp) &#x3D;&gt; regExp.test(url.pathname))) {
+            message &#x3D; &#x60;The navigation route is not being used, since the &#x60; +
+              &#x60;request URL matches both the whitelist and blacklist.&#x60;;
           } else {
-            message = `The navigation route is being used.`;
-            matched = true;
+            message &#x3D; &#x60;The navigation route is being used.&#x60;;
+            matched &#x3D; true;
           }
         } else {
-          message = `The navigation route is not being used, since the ` +
-            `URL being navigated to doesn't match the whitelist.`;
+          message &#x3D; &#x60;The navigation route is not being used, since the &#x60; +
+            &#x60;URL being navigated to doesn&#x27;t match the whitelist.&#x60;;
         }
 
         logHelper.debug({
           that: this,
           message,
-          data: {'request-url': url.href, whitelist, blacklist, handler},
+          data: {&#x27;request-url&#x27;: url.href, whitelist, blacklist, handler},
         });
       }
 
       return matched;
     };
 
-    super({match, handler, method: 'GET'});
+    super({match, handler, method: &#x27;GET&#x27;});
   }
 }
 
 export default NavigationRoute;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

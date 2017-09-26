@@ -1,62 +1,59 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-cli/src/index.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-cli/src/index.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/**
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-cli/src/index.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/**
  * Copyright 2016 Google Inc.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
 **/
 
-'use strict';
+&#x27;use strict&#x27;;
 
-const path = require('path');
-const updateNotifier = require('update-notifier');
-const workboxBuild = require('workbox-build');
+const path &#x3D; require(&#x27;path&#x27;);
+const updateNotifier &#x3D; require(&#x27;update-notifier&#x27;);
+const workboxBuild &#x3D; require(&#x27;workbox-build&#x27;);
 
-const cliLogHelper = require('./lib/log-helper');
-const generateGlobPattern = require('./lib/utils/generate-glob-pattern');
-const saveConfigFile = require('./lib/utils/save-config');
-const getConfig = require('./lib/utils/get-config');
-const errors = require('./lib/errors');
+const cliLogHelper &#x3D; require(&#x27;./lib/log-helper&#x27;);
+const generateGlobPattern &#x3D; require(&#x27;./lib/utils/generate-glob-pattern&#x27;);
+const saveConfigFile &#x3D; require(&#x27;./lib/utils/save-config&#x27;);
+const getConfig &#x3D; require(&#x27;./lib/utils/get-config&#x27;);
+const errors &#x3D; require(&#x27;./lib/errors&#x27;);
 
-const askForRootOfWebApp = require('./lib/questions/ask-root-of-web-app');
-const askForServiceWorkerSrc = require('./lib/questions/ask-sw-src');
-const askForServiceWorkerDest = require('./lib/questions/ask-sw-dest');
-const askSaveConfigFile = require('./lib/questions/ask-save-config');
-const askForExtensionsToCache =
-  require('./lib/questions/ask-extensions-to-cache');
+const askForRootOfWebApp &#x3D; require(&#x27;./lib/questions/ask-root-of-web-app&#x27;);
+const askForServiceWorkerSrc &#x3D; require(&#x27;./lib/questions/ask-sw-src&#x27;);
+const askForServiceWorkerDest &#x3D; require(&#x27;./lib/questions/ask-sw-dest&#x27;);
+const askSaveConfigFile &#x3D; require(&#x27;./lib/questions/ask-save-config&#x27;);
+const askForExtensionsToCache &#x3D;
+  require(&#x27;./lib/questions/ask-extensions-to-cache&#x27;);
 
 /**
  * This class is a wrapper to make test easier. This is used by
@@ -75,17 +72,17 @@ class SWCli {
   argv(meowOutput) {
     updateNotifier({pkg: meowOutput.pkg}).notify();
 
-    if (meowOutput.input.length > 0) {
+    if (meowOutput.input.length &gt; 0) {
       // We have a command
       return this.handleCommand(
         meowOutput.input[0],
         meowOutput.input.splice(1),
         meowOutput.flags
       )
-      .then(() => {
+      .then(() &#x3D;&gt; {
         process.exit(0);
       })
-      .catch(() => {
+      .catch(() &#x3D;&gt; {
         process.exit(1);
       });
     } else {
@@ -103,12 +100,12 @@ class SWCli {
    */
   handleCommand(command, args, flags) {
     switch (command) {
-      case 'generate:sw':
+      case &#x27;generate:sw&#x27;:
         return this._generateSW(flags);
-      case 'inject:manifest':
+      case &#x27;inject:manifest&#x27;:
         return this._injectManifest(flags);
       default:
-        cliLogHelper.error(`Invalid command given '${command}'`);
+        cliLogHelper.error(&#x60;Invalid command given &#x27;${command}&#x27;&#x60;);
         return Promise.reject();
     }
   }
@@ -120,33 +117,33 @@ class SWCli {
    * node process cleanly or not.
    */
   _generateSW(flags) {
-    let config = {};
-    let configFile = null;
+    let config &#x3D; {};
+    let configFile &#x3D; null;
     if (flags) {
-      configFile = flags.configFile;
-      // Remove configFile from flags (if it was present) so that it doesn't
-      // trigger the 'config-supplied-missing-fields' error later on.
+      configFile &#x3D; flags.configFile;
+      // Remove configFile from flags (if it was present) so that it doesn&#x27;t
+      // trigger the &#x27;config-supplied-missing-fields&#x27; error later on.
       delete flags.configFile;
     }
 
     return getConfig(configFile)
-    .then((savedConfig) => {
+    .then((savedConfig) &#x3D;&gt; {
       if (savedConfig) {
-        config = savedConfig;
+        config &#x3D; savedConfig;
       }
-      config = Object.assign(config, flags);
+      config &#x3D; Object.assign(config, flags);
     })
-    .then(() => {
-      const requiredFields = [
-        'globDirectory',
-        'globPatterns',
-        'swDest',
+    .then(() &#x3D;&gt; {
+      const requiredFields &#x3D; [
+        &#x27;globDirectory&#x27;,
+        &#x27;globPatterns&#x27;,
+        &#x27;swDest&#x27;,
       ];
 
-      let askQuestions = false;
-      requiredFields.forEach((requiredField) => {
+      let askQuestions &#x3D; false;
+      requiredFields.forEach((requiredField) &#x3D;&gt; {
         if (!config[requiredField]) {
-          askQuestions = true;
+          askQuestions &#x3D; true;
         }
       });
 
@@ -154,9 +151,9 @@ class SWCli {
         // If some configuration is defined but not all required fields
         // throw an error forcing the developer to either go through
         // the guided flow OR go through the config only flow.
-        if (Object.keys(config).length > 0) {
-          cliLogHelper.error(errors['config-supplied-missing-fields'] +
-            requiredFields.join(', '));
+        if (Object.keys(config).length &gt; 0) {
+          cliLogHelper.error(errors[&#x27;config-supplied-missing-fields&#x27;] +
+            requiredFields.join(&#x27;, &#x27;));
           return Promise.reject();
         }
 
@@ -165,7 +162,7 @@ class SWCli {
 
       return Promise.resolve(config);
     })
-    .then((config) => {
+    .then((config) &#x3D;&gt; {
       return workboxBuild.generateSW(config);
     });
   }
@@ -174,61 +171,61 @@ class SWCli {
    * Ask questions required for input.
    * @param  {object} config The config options.
    * @param  {object} requiredFields The required fields to ask questions for.
-   * @return {Promise&lt;object>} Promise resolves to the config object.
+   * @return {Promise&amp;lt;object&gt;} Promise resolves to the config object.
    */
   _askGenerateQuestions(config, requiredFields) {
     return Promise.resolve()
-    .then(() => {
-      if (!config.globDirectory &amp;&amp;
-        requiredFields.indexOf('globDirectory') !== -1) {
+    .then(() &#x3D;&gt; {
+      if (!config.globDirectory &amp;amp;&amp;amp;
+        requiredFields.indexOf(&#x27;globDirectory&#x27;) !&#x3D;&#x3D; -1) {
         return askForRootOfWebApp()
-        .then((rDirectory) => {
+        .then((rDirectory) &#x3D;&gt; {
           // This will give a pretty relative path:
-          // '' => './'
-          // 'build' => './build/'
-          config.globDirectory =
-            path.join('.', path.relative(process.cwd(), rDirectory), path.sep);
+          // &#x27;&#x27; &#x3D;&gt; &#x27;./&#x27;
+          // &#x27;build&#x27; &#x3D;&gt; &#x27;./build/&#x27;
+          config.globDirectory &#x3D;
+            path.join(&#x27;.&#x27;, path.relative(process.cwd(), rDirectory), path.sep);
         });
       }
     })
-    .then(() => {
-      if (!config.globPatterns &amp;&amp;
-        requiredFields.indexOf('globPatterns') !== -1) {
+    .then(() &#x3D;&gt; {
+      if (!config.globPatterns &amp;amp;&amp;amp;
+        requiredFields.indexOf(&#x27;globPatterns&#x27;) !&#x3D;&#x3D; -1) {
         return askForExtensionsToCache(config.globDirectory)
-        .then((extensionsToCache) => {
-          config.globPatterns = [
+        .then((extensionsToCache) &#x3D;&gt; {
+          config.globPatterns &#x3D; [
             generateGlobPattern(extensionsToCache),
           ];
         });
       }
     })
-    .then(() => {
-      if (!config.swSrc &amp;&amp;
-        requiredFields.indexOf('swSrc') !== -1) {
+    .then(() &#x3D;&gt; {
+      if (!config.swSrc &amp;amp;&amp;amp;
+        requiredFields.indexOf(&#x27;swSrc&#x27;) !&#x3D;&#x3D; -1) {
         return askForServiceWorkerSrc()
-        .then((swSrc) => {
-          config.swSrc = swSrc;
+        .then((swSrc) &#x3D;&gt; {
+          config.swSrc &#x3D; swSrc;
         });
       }
     })
-    .then(() => {
-      if (!config.swDest &amp;&amp;
-        requiredFields.indexOf('swDest') !== -1) {
+    .then(() &#x3D;&gt; {
+      if (!config.swDest &amp;amp;&amp;amp;
+        requiredFields.indexOf(&#x27;swDest&#x27;) !&#x3D;&#x3D; -1) {
         return askForServiceWorkerDest()
-        .then((swDest) => {
-          config.swDest = swDest;
+        .then((swDest) &#x3D;&gt; {
+          config.swDest &#x3D; swDest;
         });
       }
     })
-    .then(() => {
+    .then(() &#x3D;&gt; {
       return askSaveConfigFile();
     })
-    .then((saveConfig) => {
+    .then((saveConfig) &#x3D;&gt; {
       if (saveConfig) {
         return saveConfigFile(config);
       }
     })
-    .then(() => config);
+    .then(() &#x3D;&gt; config);
   }
 
   /**
@@ -238,34 +235,34 @@ class SWCli {
    * @return {Promise} Resolves on
    */
   _injectManifest(flags) {
-    let config = {};
-    let configFile = null;
+    let config &#x3D; {};
+    let configFile &#x3D; null;
     if (flags) {
-      configFile = flags.configFile;
-      // Remove configFile from flags (if it was present) so that it doesn't
-      // trigger the 'config-supplied-missing-fields' error later on.
+      configFile &#x3D; flags.configFile;
+      // Remove configFile from flags (if it was present) so that it doesn&#x27;t
+      // trigger the &#x27;config-supplied-missing-fields&#x27; error later on.
       delete flags.configFile;
     }
 
     return getConfig(configFile)
-    .then((savedConfig) => {
+    .then((savedConfig) &#x3D;&gt; {
       if (savedConfig) {
-        config = savedConfig;
+        config &#x3D; savedConfig;
       }
-      config = Object.assign(config, flags);
+      config &#x3D; Object.assign(config, flags);
     })
-    .then(() => {
-      const requiredFields = [
-        'swSrc',
-        'swDest',
-        'globDirectory',
-        'globPatterns',
+    .then(() &#x3D;&gt; {
+      const requiredFields &#x3D; [
+        &#x27;swSrc&#x27;,
+        &#x27;swDest&#x27;,
+        &#x27;globDirectory&#x27;,
+        &#x27;globPatterns&#x27;,
       ];
 
-      let askQuestions = false;
-      requiredFields.forEach((requiredField) => {
+      let askQuestions &#x3D; false;
+      requiredFields.forEach((requiredField) &#x3D;&gt; {
         if (!config[requiredField]) {
-          askQuestions = true;
+          askQuestions &#x3D; true;
         }
       });
 
@@ -273,9 +270,9 @@ class SWCli {
         // If some configuration is defined but not all required fields
         // throw an error forcing the developer to either go through
         // the guided flow OR go through the config only flow.
-        if (Object.keys(config).length > 0) {
-          cliLogHelper.error(errors['config-supplied-missing-fields'] +
-            requiredFields.join(', '));
+        if (Object.keys(config).length &gt; 0) {
+          cliLogHelper.error(errors[&#x27;config-supplied-missing-fields&#x27;] +
+            requiredFields.join(&#x27;, &#x27;));
           return Promise.reject();
         }
 
@@ -284,17 +281,20 @@ class SWCli {
 
       return Promise.resolve(config);
     })
-    .then((config) => {
+    .then((config) &#x3D;&gt; {
       return workboxBuild.injectManifest(config);
     });
   }
 }
 
-module.exports = SWCli;
+module.exports &#x3D; SWCli;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

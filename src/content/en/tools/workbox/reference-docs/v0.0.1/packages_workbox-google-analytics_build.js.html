@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html devsite>
+
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-google-analytics/build.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-google-analytics/build.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
+ Copyright 2016 Google Inc. All Rights Reserved.
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
+
+const fsExtra &#x3D; require(&#x27;fs-extra&#x27;);
+const glob &#x3D; require(&#x27;glob&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const pkg &#x3D; require(&#x27;./package.json&#x27;);
+const upperCamelCase &#x3D; require(&#x27;uppercamelcase&#x27;);
+const {buildJSBundle, generateBuildConfigs} &#x3D; require(&#x27;../../utils/build&#x27;);
+
+const productionBuildConfigs &#x3D; generateBuildConfigs({
+  formatToPath: {
+    iife: pkg.main,
+  },
+  baseDir: __dirname,
+  moduleName: &#x27;goog.offlineGoogleAnalytics&#x27;,
+});
+
+
+// We don&#x27;t want the test/ build output to be published.
+fsExtra.ensureFileSync(path.join(__dirname, &#x27;build&#x27;, &#x27;test&#x27;, &#x27;.npmignore&#x27;));
+
+const libFiles &#x3D; glob.sync(&#x60;${__dirname}/src/lib/*.js&#x60;);
+libFiles.push(path.join(&#x27;lib&#x27;, &#x27;idb-helper.js&#x27;));
+
+const testBuildConfigs &#x3D; libFiles.reduce((configs, libFile) &#x3D;&gt; {
+  const className &#x3D; upperCamelCase(path.basename(libFile, &#x27;.js&#x27;));
+  const moduleName &#x3D; &#x60;goog.offlineGoogleAnalytics.test.${className}&#x60;;
+
+  return configs.concat(generateBuildConfigs({
+    formatToPath: {
+      iife: path.join(&#x27;build&#x27;, &#x27;test&#x27;, path.basename(libFile)),
+    },
+    baseDir: __dirname,
+    shouldBuildProd: false,
+    entry: libFile,
+    moduleName,
+  }));
+}, []);
+
+module.exports &#x3D; () &#x3D;&gt; Promise.all(
+  [...productionBuildConfigs, ...testBuildConfigs].map(buildJSBundle)
+);
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,38 +1,35 @@
----
-layout: jsdoc
-title: "Source: gulp-tasks/build.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: gulp-tasks/build.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: gulp-tasks/build.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -40,20 +37,20 @@ jsdocNav:
 
 /* eslint-disable no-console */
 
-const chalk = require('chalk');
-const fse = require('fs-extra');
-const gulp = require('gulp');
-const path = require('path');
-const {taskHarness, buildJSBundle} = require('../utils/build');
-const commonjs = require('rollup-plugin-commonjs');
-const resolve = require('rollup-plugin-node-resolve');
+const chalk &#x3D; require(&#x27;chalk&#x27;);
+const fse &#x3D; require(&#x27;fs-extra&#x27;);
+const gulp &#x3D; require(&#x27;gulp&#x27;);
+const path &#x3D; require(&#x27;path&#x27;);
+const {taskHarness, buildJSBundle} &#x3D; require(&#x27;../utils/build&#x27;);
+const commonjs &#x3D; require(&#x27;rollup-plugin-commonjs&#x27;);
+const resolve &#x3D; require(&#x27;rollup-plugin-node-resolve&#x27;);
 
-const printHeading = (heading) => {
-  process.stdout.write(chalk.inverse(`  ⚒  ${heading}  `));
+const printHeading &#x3D; (heading) &#x3D;&gt; {
+  process.stdout.write(chalk.inverse(&#x60;  ⚒  ${heading}  &#x60;));
 };
 
-const printBuildTime = (buildTime) => {
-  process.stdout.write(chalk.inverse(`(${buildTime})\n`));
+const printBuildTime &#x3D; (buildTime) &#x3D;&gt; {
+  process.stdout.write(chalk.inverse(&#x60;(${buildTime})\n&#x60;));
 };
 
 /**
@@ -61,21 +58,21 @@ const printBuildTime = (buildTime) => {
  * @param {String} projectPath The path to a project directory.
  * @return {Promise} Resolves if building succeeds, rejects if it fails.
  */
-const buildPackage = (projectPath) => {
-  printHeading(`Building ${path.basename(projectPath)}`);
-  const startTime = Date.now();
-  const buildDir = `${projectPath}/build`;
-  const projectBuildProcess = require(`${projectPath}/build.js`);
+const buildPackage &#x3D; (projectPath) &#x3D;&gt; {
+  printHeading(&#x60;Building ${path.basename(projectPath)}&#x60;);
+  const startTime &#x3D; Date.now();
+  const buildDir &#x3D; &#x60;${projectPath}/build&#x60;;
+  const projectBuildProcess &#x3D; require(&#x60;${projectPath}/build.js&#x60;);
 
   return fse.emptyDir(buildDir)
-    .then(() => projectBuildProcess())
-    .then(() => fse.copy(path.join(__dirname, '..', 'LICENSE'),
-      path.join(projectPath, 'LICENSE')))
-    .then(() => printBuildTime(`${(Date.now() - startTime) / 1000}s`));
+    .then(() &#x3D;&gt; projectBuildProcess())
+    .then(() &#x3D;&gt; fse.copy(path.join(__dirname, &#x27;..&#x27;, &#x27;LICENSE&#x27;),
+      path.join(projectPath, &#x27;LICENSE&#x27;)))
+    .then(() &#x3D;&gt; printBuildTime(&#x60;${(Date.now() - startTime) / 1000}s&#x60;));
 };
 
-gulp.task('build:shared', () => {
-  const basePlugins = [
+gulp.task(&#x27;build:shared&#x27;, () &#x3D;&gt; {
+  const basePlugins &#x3D; [
     resolve({
       jsnext: true,
       main: true,
@@ -86,44 +83,47 @@ gulp.task('build:shared', () => {
 
   return buildJSBundle({
     rollupConfig: {
-      entry: path.join(__dirname, '..', 'lib', 'log-helper.js'),
+      entry: path.join(__dirname, &#x27;..&#x27;, &#x27;lib&#x27;, &#x27;log-helper.js&#x27;),
       plugins: [],
     },
     writeConfig: {
       sourceMap: true,
-      format: 'umd',
-      moduleName: 'goog.logHelper',
-      dest: path.join(__dirname, '..', 'build', 'log-helper.js'),
+      format: &#x27;umd&#x27;,
+      moduleName: &#x27;goog.logHelper&#x27;,
+      dest: path.join(__dirname, &#x27;..&#x27;, &#x27;build&#x27;, &#x27;log-helper.js&#x27;),
     },
   })
-  .then(() => {
+  .then(() &#x3D;&gt; {
     return buildJSBundle({
       rollupConfig: {
-        entry: path.join(__dirname, '..', 'lib', 'assert.js'),
+        entry: path.join(__dirname, &#x27;..&#x27;, &#x27;lib&#x27;, &#x27;assert.js&#x27;),
         plugins: basePlugins,
       },
       writeConfig: {
         sourceMap: true,
-        format: 'umd',
-        moduleName: 'goog.assert',
-        dest: path.join(__dirname, '..', 'build', 'assert.js'),
+        format: &#x27;umd&#x27;,
+        moduleName: &#x27;goog.assert&#x27;,
+        dest: path.join(__dirname, &#x27;..&#x27;, &#x27;build&#x27;, &#x27;assert.js&#x27;),
       },
     });
   });
 });
 
-gulp.task('build', () => {
+gulp.task(&#x27;build&#x27;, () &#x3D;&gt; {
   return taskHarness(buildPackage, global.projectOrStar);
 });
 
-gulp.task('build:watch', ['build'], (unusedCallback) => {
-  gulp.watch(`packages/${global.projectOrStar}/src/**/*`, ['build']);
-  gulp.watch(`lib/**/*`, ['build']);
+gulp.task(&#x27;build:watch&#x27;, [&#x27;build&#x27;], (unusedCallback) &#x3D;&gt; {
+  gulp.watch(&#x60;packages/${global.projectOrStar}/src/**/*&#x60;, [&#x27;build&#x27;]);
+  gulp.watch(&#x60;lib/**/*&#x60;, [&#x27;build&#x27;]);
 });
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

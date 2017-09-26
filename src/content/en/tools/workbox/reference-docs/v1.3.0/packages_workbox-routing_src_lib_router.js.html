@@ -1,76 +1,73 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-routing/src/lib/router.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-routing/src/lib/router.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-routing/src/lib/router.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
 */
 
-import Route from './route';
-import {isArrayOfClass, isInstance} from '../../../../lib/assert';
-import logHelper from '../../../../lib/log-helper.js';
-import normalizeHandler from './normalize-handler';
+import Route from &#x27;./route&#x27;;
+import {isArrayOfClass, isInstance} from &#x27;../../../../lib/assert&#x27;;
+import logHelper from &#x27;../../../../lib/log-helper.js&#x27;;
+import normalizeHandler from &#x27;./normalize-handler&#x27;;
 
 /**
- * The Router takes one or more [Routes]{@link Route} and registers a [`fetch`
+ * The Router takes one or more [Routes]{@link Route} and registers a [&#x60;fetch&#x60;
  * event listener](https://developer.mozilla.org/en-US/docs/Web/API/FetchEvent)
- * that will respond to network requests if there's a matching route.
+ * that will respond to network requests if there&#x27;s a matching route.
  *
- * It also allows you to define a "default" handler that applies to any requests
- * that don't explicitly match a `Route`, and a "catch" handler that responds
+ * It also allows you to define a &quot;default&quot; handler that applies to any requests
+ * that don&#x27;t explicitly match a &#x60;Route&#x60;, and a &quot;catch&quot; handler that responds
  * to any requests that throw an exception while being routed.
  *
  * @memberof module:workbox-routing
  *
  * @example
  * // The following example sets up two routes, one to match requests with
- * // "assets" in their URL, and the other for requests with "images", along
+ * // &quot;assets&quot; in their URL, and the other for requests with &quot;images&quot;, along
  * // different runtime caching handlers for each.
  * // Both the routes are registered with the router, and any requests that
- * // don't match either route will be handled using the default NetworkFirst
+ * // don&#x27;t match either route will be handled using the default NetworkFirst
  * // strategy.
- * const assetRoute = new RegExpRoute({
+ * const assetRoute &#x3D; new RegExpRoute({
  *   regExp: /assets/,
  *   handler: new workbox.runtimeCaching.StaleWhileRevalidate(),
  * });
- * const imageRoute = new RegExpRoute({
+ * const imageRoute &#x3D; new RegExpRoute({
  *   regExp: /images/,
  *   handler: new workbox.runtimeCaching.CacheFirst(),
  * });
  *
- * const router = new workbox.routing.Router();
+ * const router &#x3D; new workbox.routing.Router();
  * router.registerRoutes({routes: [assetRoute, imageRoute]});
  * router.setDefaultHandler({
  *   handler: new workbox.runtimeCaching.NetworkFirst(),
@@ -78,22 +75,22 @@ import normalizeHandler from './normalize-handler';
  */
 class Router {
   /**
-   * Start with an empty array of routes, and by default, sets up the `fetch`
+   * Start with an empty array of routes, and by default, sets up the &#x60;fetch&#x60;
    * handler.
    *
-   * @param {Boolean} [handleFetch=true] Whether or not the Router should
-   * register a `fetch` handler and respond to requests. This can be set to
-   * `false` in a development environment, to prevent the service worker
+   * @param {Boolean} [handleFetch&#x3D;true] Whether or not the Router should
+   * register a &#x60;fetch&#x60; handler and respond to requests. This can be set to
+   * &#x60;false&#x60; in a development environment, to prevent the service worker
    * from responding with cached responses.
    */
-  constructor({handleFetch} = {}) {
-    if (typeof handleFetch === 'undefined') {
-      handleFetch = true;
+  constructor({handleFetch} &#x3D; {}) {
+    if (typeof handleFetch &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      handleFetch &#x3D; true;
     }
 
-    // _routes will contain a mapping of HTTP method name ('GET', etc.) to an
+    // _routes will contain a mapping of HTTP method name (&#x27;GET&#x27;, etc.) to an
     // array of all the corresponding Route instances that are registered.
-    this._routes = new Map();
+    this._routes &#x3D; new Map();
 
     if (handleFetch) {
       this._addFetchListener();
@@ -105,13 +102,13 @@ class Router {
    * @private
    */
   _addFetchListener() {
-    self.addEventListener('fetch', (event) => {
-      const url = new URL(event.request.url);
-      if (!url.protocol.startsWith('http')) {
+    self.addEventListener(&#x27;fetch&#x27;, (event) &#x3D;&gt; {
+      const url &#x3D; new URL(event.request.url);
+      if (!url.protocol.startsWith(&#x27;http&#x27;)) {
         logHelper.log({
           that: this,
-          message: 'URL does not start with HTTP and so not passing ' +
-            'through the router.',
+          message: &#x27;URL does not start with HTTP and so not passing &#x27; +
+            &#x27;through the router.&#x27;,
           data: {
             request: event.request,
           },
@@ -122,51 +119,51 @@ class Router {
       let responsePromise;
       let matchingRoute;
       for (let route of (this._routes.get(event.request.method) || [])) {
-        const matchResult = route.match({url, event});
+        const matchResult &#x3D; route.match({url, event});
         if (matchResult) {
-          matchingRoute = route;
+          matchingRoute &#x3D; route;
 
           logHelper.log({
             that: this,
-            message: 'The router found a matching route.',
+            message: &#x27;The router found a matching route.&#x27;,
             data: {
               route: matchingRoute,
               request: event.request,
             },
           });
 
-          let params = matchResult;
+          let params &#x3D; matchResult;
 
-          if (Array.isArray(params) &amp;&amp; params.length === 0) {
+          if (Array.isArray(params) &amp;amp;&amp;amp; params.length &#x3D;&#x3D;&#x3D; 0) {
             // Instead of passing an empty array in as params, use undefined.
-            params = undefined;
-          } else if (params.constructor === Object &amp;&amp;
-                     Object.keys(params).length === 0) {
+            params &#x3D; undefined;
+          } else if (params.constructor &#x3D;&#x3D;&#x3D; Object &amp;amp;&amp;amp;
+                     Object.keys(params).length &#x3D;&#x3D;&#x3D; 0) {
             // Instead of passing an empty object in as params, use undefined.
-            params = undefined;
+            params &#x3D; undefined;
           }
 
-          responsePromise = route.handler.handle({url, event, params});
+          responsePromise &#x3D; route.handler.handle({url, event, params});
           break;
         }
       }
 
-      if (!responsePromise &amp;&amp; this.defaultHandler) {
-        responsePromise = this.defaultHandler.handle({url, event});
+      if (!responsePromise &amp;amp;&amp;amp; this.defaultHandler) {
+        responsePromise &#x3D; this.defaultHandler.handle({url, event});
       }
 
-      if (responsePromise &amp;&amp; this.catchHandler) {
-        responsePromise = responsePromise.catch((error) => {
+      if (responsePromise &amp;amp;&amp;amp; this.catchHandler) {
+        responsePromise &#x3D; responsePromise.catch((error) &#x3D;&gt; {
           return this.catchHandler.handle({url, event, error});
         });
       }
 
       if (responsePromise) {
         event.respondWith(responsePromise
-          .then((response) => {
+          .then((response) &#x3D;&gt; {
             logHelper.debug({
               that: this,
-              message: 'The router is managing a route with a response.',
+              message: &#x27;The router is managing a route with a response.&#x27;,
               data: {
                 route: matchingRoute,
                 request: event.request,
@@ -181,7 +178,7 @@ class Router {
   }
 
   /**
-   * An optional `handler` that's called by default when no routes
+   * An optional &#x60;handler&#x60; that&#x27;s called by default when no routes
    * explicitly match the incoming request.
    *
    * If the default is not provided, unmatched requests will go against the
@@ -195,26 +192,26 @@ class Router {
    * @param {Object} input
    * @param {function|module:workbox-runtime-caching.Handler} input.handler
    * This parameter can be either a function or an object which is a subclass
-   * of `Handler`.
+   * of &#x60;Handler&#x60;.
    *
-   * Either option should result in a `Response` that the `Route` can use to
-   * handle the `fetch` event.
+   * Either option should result in a &#x60;Response&#x60; that the &#x60;Route&#x60; can use to
+   * handle the &#x60;fetch&#x60; event.
    *
    * See [handlerCallback]{@link module:workbox-routing.Route~handlerCallback}
-   * for full details on using a callback function as the `handler`.
+   * for full details on using a callback function as the &#x60;handler&#x60;.
    */
-  setDefaultHandler({handler} = {}) {
-    this.defaultHandler = normalizeHandler(handler);
+  setDefaultHandler({handler} &#x3D; {}) {
+    this.defaultHandler &#x3D; normalizeHandler(handler);
   }
 
   /**
-   * If a Route throws an error while handling a request, this `handler`
+   * If a Route throws an error while handling a request, this &#x60;handler&#x60;
    * will be called and given a chance to provide a response.
    *
    * @example
-   * router.setCatchHandler(({event}) => {
-   *   if (event.request.mode === 'navigate') {
-   *     return caches.match('/error-page.html');
+   * router.setCatchHandler(({event}) &#x3D;&gt; {
+   *   if (event.request.mode &#x3D;&#x3D;&#x3D; &#x27;navigate&#x27;) {
+   *     return caches.match(&#x27;/error-page.html&#x27;);
    *   }
    *   return Response.error();
    * });
@@ -222,16 +219,16 @@ class Router {
    * @param {Object} input
    * @param {function|module:workbox-runtime-caching.Handler} input.handler
    * This parameter can be either a function or an object which is a subclass
-   * of `Handler`.
+   * of &#x60;Handler&#x60;.
    *
-   * Either option should result in a `Response` that the `Route` can use to
-   * handle the `fetch` event.
+   * Either option should result in a &#x60;Response&#x60; that the &#x60;Route&#x60; can use to
+   * handle the &#x60;fetch&#x60; event.
    *
    * See [handlerCallback]{@link module:workbox-routing.Route~handlerCallback}
-   * for full details on using a callback function as the `handler`.
+   * for full details on using a callback function as the &#x60;handler&#x60;.
    */
-  setCatchHandler({handler} = {}) {
-    this.catchHandler = normalizeHandler(handler);
+  setCatchHandler({handler} &#x3D; {}) {
+    this.catchHandler &#x3D; normalizeHandler(handler);
   }
 
   /**
@@ -247,10 +244,10 @@ class Router {
    * });
    *
    * @param {Object} input
-   * @param {Array&lt;module:workbox-routing.Route>} input.routes An array of
+   * @param {Array&amp;lt;module:workbox-routing.Route&gt;} input.routes An array of
    * routes to register.
    */
-  registerRoutes({routes} = {}) {
+  registerRoutes({routes} &#x3D; {}) {
     isArrayOfClass({routes}, Route);
 
     for (let route of routes) {
@@ -274,7 +271,7 @@ class Router {
    * @param {Object} input
    * @param {module:workbox-routing.Route} input.route The route to register.
    */
-  registerRoute({route} = {}) {
+  registerRoute({route} &#x3D; {}) {
     isInstance({route}, Route);
 
     this.registerRoutes({routes: [route]});
@@ -284,38 +281,38 @@ class Router {
    * Unregisters an array of routes with the router.
    *
    * @example
-   * const firstRoute = new RegExpRoute({ ... });
-   * const secondRoute = new RegExpRoute({ ... });
+   * const firstRoute &#x3D; new RegExpRoute({ ... });
+   * const secondRoute &#x3D; new RegExpRoute({ ... });
    * router.registerRoutes({routes: [firstRoute, secondRoute]});
    *
    * // Later, if you no longer want the routes to be used:
    * router.unregisterRoutes({routes: [firstRoute, secondRoute]});
    *
    * @param {Object} input
-   * @param {Array&lt;module:workbox-routing.Route>} input.routes An array of
+   * @param {Array&amp;lt;module:workbox-routing.Route&gt;} input.routes An array of
    * routes to unregister.
    */
-  unregisterRoutes({routes} = {}) {
+  unregisterRoutes({routes} &#x3D; {}) {
     isArrayOfClass({routes}, Route);
 
     for (let route of routes) {
       if (!this._routes.has(route.method)) {
         logHelper.error({
           that: this,
-          message: `Can't unregister route; there are no ${route.method}
-            routes registered.`,
+          message: &#x60;Can&#x27;t unregister route; there are no ${route.method}
+            routes registered.&#x60;,
           data: {route},
         });
       }
 
-      const routeIndex = this._routes.get(route.method).indexOf(route);
-      if (routeIndex > -1) {
+      const routeIndex &#x3D; this._routes.get(route.method).indexOf(route);
+      if (routeIndex &gt; -1) {
         this._routes.get(route.method).splice(routeIndex, 1);
       } else {
         logHelper.error({
           that: this,
-          message: `Can't unregister route; the route wasn't previously
-            registered.`,
+          message: &#x60;Can&#x27;t unregister route; the route wasn&#x27;t previously
+            registered.&#x60;,
           data: {route},
         });
       }
@@ -326,7 +323,7 @@ class Router {
    * Unregisters a single route with the router.
    *
    * @example
-   * const route = new RegExpRoute({ ... });
+   * const route &#x3D; new RegExpRoute({ ... });
    * router.registerRoute({route});
    *
    * // Later, if you no longer want the route to be used:
@@ -335,7 +332,7 @@ class Router {
    * @param {Object} input
    * @param {module:workbox-routing.Route} input.route The route to unregister.
    */
-  unregisterRoute({route} = {}) {
+  unregisterRoute({route} &#x3D; {}) {
     isInstance({route}, Route);
 
     this.unregisterRoutes({routes: [route]});
@@ -344,9 +341,12 @@ class Router {
 
 export default Router;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

@@ -1,48 +1,46 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-build/src/lib/generate-sw.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-build/src/lib/generate-sw.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const path = require('path');
-const copySWLib = require('./utils/copy-workbox-sw');
-const getFileManifestEntries = require('./get-file-manifest-entries');
-const writeServiceWorker = require('./write-sw');
-const errors = require('./errors');
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-build/src/lib/generate-sw.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const path &#x3D; require(&#x27;path&#x27;);
+const copySWLib &#x3D; require(&#x27;./utils/copy-workbox-sw&#x27;);
+const getFileManifestEntries &#x3D; require(&#x27;./get-file-manifest-entries&#x27;);
+const writeServiceWorker &#x3D; require(&#x27;./write-sw&#x27;);
+const errors &#x3D; require(&#x27;./errors&#x27;);
 
 /**
- * @example &lt;caption>Generate a service worker for a project.&lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Generate a service worker for a project.&amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.generateSW({
- *   globDirectory: './build/',
- *   swDest: './build/sw.js',
- *   staticFileGlobs: ['**\/*.{html,js,css}'],
- *   globIgnores: ['admin.html'],
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   swDest: &#x27;./build/sw.js&#x27;,
+ *   staticFileGlobs: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;admin.html&#x27;],
  *   templatedUrls: {
- *     '/shell': ['shell.hbs', 'main.css', 'shell.css'],
+ *     &#x27;/shell&#x27;: [&#x27;shell.hbs&#x27;, &#x27;main.css&#x27;, &#x27;shell.css&#x27;],
  *   },
  * })
- * .then(() => {
- *   console.log('Service worker generated.');
+ * .then(() &#x3D;&gt; {
+ *   console.log(&#x27;Service worker generated.&#x27;);
  * });
  *
  * This method will generate a working service worker with an inlined
@@ -51,22 +49,22 @@ const errors = require('./errors');
  * @param {String} input.globDirectory The root of the files you wish to
  * be cached. This will also be the directory the service worker and library
  * files are written to.
- * @param {Array&lt;String>} input.staticFileGlobs Patterns to glob for when
+ * @param {Array&amp;lt;String&gt;} input.staticFileGlobs Patterns to glob for when
  * generating the build manifest.
- * @param {String|Array&lt;String>} [input.globIgnores] Patterns to exclude when
+ * @param {String|Array&amp;lt;String&gt;} [input.globIgnores] Patterns to exclude when
  * generating the build manifest.
  * @param {String} input.swDest The name you wish to give to your
  * service worker file.
- * @param {Object&lt;String,Array|String>} [input.templatedUrls]
+ * @param {Object&amp;lt;String,Array|String&gt;} [input.templatedUrls]
  * If a URL is rendered/templated on the server, its contents may not depend on
  * a single file. This maps URLs to a list of file names, or to a string
- * value, that uniquely determines each URL's contents.
+ * value, that uniquely determines each URL&#x27;s contents.
  * @param {String} [input.modifyUrlPrefix] An optional object of key value pairs
  * where the key will be replaced at the start of a url with the corresponding
  * value.
  * @param {String} [input.cacheId] An optional ID to be prepended to caches
  * used by workbox-build. This is primarily useful for local development where
- * multiple sites may be served from `http://localhost`.
+ * multiple sites may be served from &#x60;http://localhost&#x60;.
  * @param {Boolean} [input.handleFetch] Stops the generated service worker
  * from handling fetch events, i.e. everything goes to the network.
  * (Defaults to true.)
@@ -75,7 +73,7 @@ const errors = require('./errors');
  * @param {Boolean} [input.clientsClaim] An optional boolean that indicates if
  * the new service worker should claim current pages (Defaults to false).
  * @param {string} [input.directoryIndex] An optional string that will
- * append this string to urls ending with '/' (Defaults to 'index.html').
+ * append this string to urls ending with &#x27;/&#x27; (Defaults to &#x27;index.html&#x27;).
  * @param {number} [input.maximumFileSizeToCacheInBytes] An optional number to
  * define the maximum file size to consider whether the file should be
  * precached. (Defaults to 2MB).
@@ -84,62 +82,62 @@ const errors = require('./errors');
  * regex. Useful if you have assets with file revisions in the URL.
  * @param {string} [input.navigateFallback] An optional string that will
  * attempt to serve the response for the URL defined as this option from cache.
- * @param {Array&lt;Regexp>} [input.navigateFallbackWhitelist] An optional Array
- * of regexs to restrict which URL's use the navigateFallback cached response.
- * @param {Array&lt;Object>} [input.runtimeCaching] An optional Array
+ * @param {Array&amp;lt;Regexp&gt;} [input.navigateFallbackWhitelist] An optional Array
+ * of regexs to restrict which URL&#x27;s use the navigateFallback cached response.
+ * @param {Array&amp;lt;Object&gt;} [input.runtimeCaching] An optional Array
  * of objects to define run time caching strategies.
- * @param {Array&lt;RegExp>} [input.ignoreUrlParametersMatching] An array of
- * regex's to remove search params when looking for a cache match.
+ * @param {Array&amp;lt;RegExp&gt;} [input.ignoreUrlParametersMatching] An array of
+ * regex&#x27;s to remove search params when looking for a cache match.
  * @return {Promise} Resolves once the service worker has been generated
  * with a precache list.
  *
  * @memberof module:workbox-build
  */
-const generateSW = function(input) {
-  if (!input || typeof input !== 'object' || Array.isArray(input)) {
-    return Promise.reject(new Error(errors['invalid-generate-sw-input']));
+const generateSW &#x3D; function(input) {
+  if (!input || typeof input !&#x3D;&#x3D; &#x27;object&#x27; || Array.isArray(input)) {
+    return Promise.reject(new Error(errors[&#x27;invalid-generate-sw-input&#x27;]));
   }
 
   // Type check input so that defaults can be used if appropriate.
-  if (input.globIgnores &amp;&amp; !(Array.isArray(input.globIgnores))) {
+  if (input.globIgnores &amp;amp;&amp;amp; !(Array.isArray(input.globIgnores))) {
     return Promise.reject(
-      new Error(errors['invalid-glob-ignores']));
+      new Error(errors[&#x27;invalid-glob-ignores&#x27;]));
   }
 
-  if (typeof input.globDirectory !== 'string' ||
-    input.globDirectory.length === 0) {
+  if (typeof input.globDirectory !&#x3D;&#x3D; &#x27;string&#x27; ||
+    input.globDirectory.length &#x3D;&#x3D;&#x3D; 0) {
     return Promise.reject(
-      new Error(errors['invalid-glob-directory']));
+      new Error(errors[&#x27;invalid-glob-directory&#x27;]));
   }
 
-  if (typeof input.swDest !== 'string' || input.swDest.length === 0) {
+  if (typeof input.swDest !&#x3D;&#x3D; &#x27;string&#x27; || input.swDest.length &#x3D;&#x3D;&#x3D; 0) {
     return Promise.reject(
-      new Error(errors['invalid-sw-dest']));
+      new Error(errors[&#x27;invalid-sw-dest&#x27;]));
   }
 
-  if (input.runtimeCaching &amp;&amp; !(Array.isArray(input.runtimeCaching))) {
+  if (input.runtimeCaching &amp;amp;&amp;amp; !(Array.isArray(input.runtimeCaching))) {
     return Promise.reject(
-      new Error(errors['invalid-runtime-caching']));
+      new Error(errors[&#x27;invalid-runtime-caching&#x27;]));
   }
 
-  const globDirectory = input.globDirectory;
-  input.globIgnores = input.globIgnores || [];
-  const swDest = input.swDest;
+  const globDirectory &#x3D; input.globDirectory;
+  input.globIgnores &#x3D; input.globIgnores || [];
+  const swDest &#x3D; input.swDest;
 
   let swlibPath;
-  let destDirectory = path.dirname(swDest);
+  let destDirectory &#x3D; path.dirname(swDest);
   return copySWLib(destDirectory)
-  .then((libPath) => {
+  .then((libPath) &#x3D;&gt; {
     // If sw file is in build/sw.js, the swlib file will be build/swlib.***.js
     // So the sw.js file should import swlib.***.js (i.e. not include build/).
-    swlibPath = path.relative(destDirectory, libPath);
+    swlibPath &#x3D; path.relative(destDirectory, libPath);
     input.globIgnores.push(libPath);
     input.globIgnores.push(swDest);
   })
-  .then(() => {
+  .then(() &#x3D;&gt; {
     return getFileManifestEntries(input);
   })
-  .then((manifestEntries) => {
+  .then((manifestEntries) &#x3D;&gt; {
     return writeServiceWorker(
       swDest,
       manifestEntries,
@@ -150,11 +148,14 @@ const generateSW = function(input) {
   });
 };
 
-module.exports = generateSW;
+module.exports &#x3D; generateSW;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

@@ -1,37 +1,35 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-sw/src/lib/workbox-sw.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-sw/src/lib/workbox-sw.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-sw/src/lib/workbox-sw.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -39,17 +37,17 @@ jsdocNav:
 
 /* eslint-env browser, serviceworker */
 
-import ErrorFactory from './error-factory.js';
-import Router from './router.js';
-import Strategies from './strategies';
-import environment from '../../../../lib/environment.js';
-import logHelper from '../../../../lib/log-helper';
+import ErrorFactory from &#x27;./error-factory.js&#x27;;
+import Router from &#x27;./router.js&#x27;;
+import Strategies from &#x27;./strategies&#x27;;
+import environment from &#x27;../../../../lib/environment.js&#x27;;
+import logHelper from &#x27;../../../../lib/log-helper&#x27;;
 import {BroadcastCacheUpdatePlugin} from
-  '../../../workbox-broadcast-cache-update/src/index.js';
-import {RevisionedCacheManager} from '../../../workbox-precaching/src/index.js';
-import {Route} from '../../../workbox-routing/src/index.js';
+  &#x27;../../../workbox-broadcast-cache-update/src/index.js&#x27;;
+import {RevisionedCacheManager} from &#x27;../../../workbox-precaching/src/index.js&#x27;;
+import {Route} from &#x27;../../../workbox-routing/src/index.js&#x27;;
 import {
-  getDefaultCacheName} from '../../../workbox-runtime-caching/src/index.js';
+  getDefaultCacheName} from &#x27;../../../workbox-runtime-caching/src/index.js&#x27;;
 
 /**
  * A high level library to make it as easy as possible to precache assets
@@ -59,7 +57,7 @@ import {
  */
 class WorkboxSW {
   /**
-   * You should instantiate this class with `new self.WorkboxSW()`.
+   * You should instantiate this class with &#x60;new self.WorkboxSW()&#x60;.
    * @param {Object} input
    * @param {string} [input.cacheId] Defining a cacheId is useful to ensure
    * uniqueness across cache names. Useful if you have multiple sites served
@@ -67,81 +65,81 @@ class WorkboxSW {
    * @param {boolean} [input.clientsClaim] To claim currently open clients set
    * this value to true. (Defaults to false).
    * @param  {String} [input.directoryIndex]  The directoryIndex will
-   * check cache entries for a URLs ending with '/' to see if there is a hit
-   * when appending the directoryIndex (i.e. '/index.html').
+   * check cache entries for a URLs ending with &#x27;/&#x27; to see if there is a hit
+   * when appending the directoryIndex (i.e. &#x27;/index.html&#x27;).
    * @param {string} [input.precacheChannelName] This value will be used as
-   * the `channelName` to construct a {@link BroadcastCacheUpdate} plugin. The
+   * the &#x60;channelName&#x60; to construct a {@link BroadcastCacheUpdate} plugin. The
    * plugin sends a message whenever a precached URL is updated. To disable this
-   * plugin, set `precacheChannelName` to an empty string.
-   * (Defaults to `'precache-updates'`)
-   * @param {Array&lt;RegExp>} [input.ignoreUrlParametersMatching] An array of
-   * regex's to remove search params when looking for a cache match.
+   * plugin, set &#x60;precacheChannelName&#x60; to an empty string.
+   * (Defaults to &#x60;&#x27;precache-updates&#x27;&#x60;)
+   * @param {Array&amp;lt;RegExp&gt;} [input.ignoreUrlParametersMatching] An array of
+   * regex&#x27;s to remove search params when looking for a cache match.
    */
   constructor({cacheId, clientsClaim, handleFetch,
-               directoryIndex = 'index.html',
-               precacheChannelName = 'precache-updates',
-               ignoreUrlParametersMatching = [/^utm_/]} = {}) {
+               directoryIndex &#x3D; &#x27;index.html&#x27;,
+               precacheChannelName &#x3D; &#x27;precache-updates&#x27;,
+               ignoreUrlParametersMatching &#x3D; [/^utm_/]} &#x3D; {}) {
     if (!environment.isServiceWorkerGlobalScope()) {
       // If we are not running in a service worker, fail early.
-      throw ErrorFactory.createError('not-in-sw');
+      throw ErrorFactory.createError(&#x27;not-in-sw&#x27;);
     }
 
     if (environment.isDevBuild()) {
       if (environment.isLocalhost()) {
         // If this is a dev bundle on localhost, print a welcome message.
         logHelper.debug({
-          message: 'Welcome to Workbox!',
+          message: &#x27;Welcome to Workbox!&#x27;,
           data: {
-            '📖': 'Read the guides and documentation\n' +
-              'https://googlechrome.github.io/workbox/',
-            '❓': 'Use the [workbox] tag on StackOverflow to ask questions\n' +
-              'https://stackoverflow.com/questions/ask?tags=workbox',
-            '🐛': 'Found a bug? Report it on GitHub\n' +
-              'https://github.com/GoogleChrome/workbox/issues/new',
+            &#x27;📖&#x27;: &#x27;Read the guides and documentation\n&#x27; +
+              &#x27;https://googlechrome.github.io/workbox/&#x27;,
+            &#x27;❓&#x27;: &#x27;Use the [workbox] tag on StackOverflow to ask questions\n&#x27; +
+              &#x27;https://stackoverflow.com/questions/ask?tags&#x3D;workbox&#x27;,
+            &#x27;🐛&#x27;: &#x27;Found a bug? Report it on GitHub\n&#x27; +
+              &#x27;https://github.com/GoogleChrome/workbox/issues/new&#x27;,
           },
         });
       } else {
         // If this is a dev bundle not on localhost, recommend the prod bundle.
-        logHelper.warn(`This appears to be a production server. Please switch
-          to the smaller, optimized production build of Workbox.`);
+        logHelper.warn(&#x60;This appears to be a production server. Please switch
+          to the smaller, optimized production build of Workbox.&#x60;);
       }
     }
 
-    if (cacheId &amp;&amp; (typeof cacheId !== 'string' || cacheId.length === 0)) {
-      throw ErrorFactory.createError('bad-cache-id');
+    if (cacheId &amp;amp;&amp;amp; (typeof cacheId !&#x3D;&#x3D; &#x27;string&#x27; || cacheId.length &#x3D;&#x3D;&#x3D; 0)) {
+      throw ErrorFactory.createError(&#x27;bad-cache-id&#x27;);
     }
-    if (clientsClaim &amp;&amp; (typeof clientsClaim !== 'boolean')) {
-      throw ErrorFactory.createError('bad-clients-claim');
+    if (clientsClaim &amp;amp;&amp;amp; (typeof clientsClaim !&#x3D;&#x3D; &#x27;boolean&#x27;)) {
+      throw ErrorFactory.createError(&#x27;bad-clients-claim&#x27;);
     }
-    if (typeof directoryIndex !== 'undefined') {
-      if (directoryIndex === false || directoryIndex === null) {
-        directoryIndex = false;
-      } else if (typeof directoryIndex !== 'string' ||
-        directoryIndex.length === 0) {
-        throw ErrorFactory.createError('bad-directory-index');
+    if (typeof directoryIndex !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      if (directoryIndex &#x3D;&#x3D;&#x3D; false || directoryIndex &#x3D;&#x3D;&#x3D; null) {
+        directoryIndex &#x3D; false;
+      } else if (typeof directoryIndex !&#x3D;&#x3D; &#x27;string&#x27; ||
+        directoryIndex.length &#x3D;&#x3D;&#x3D; 0) {
+        throw ErrorFactory.createError(&#x27;bad-directory-index&#x27;);
       }
     }
 
-    const plugins = [];
+    const plugins &#x3D; [];
     if (precacheChannelName) {
       plugins.push(new BroadcastCacheUpdatePlugin({
         channelName: precacheChannelName,
-        source: registration &amp;&amp; registration.scope ?
+        source: registration &amp;amp;&amp;amp; registration.scope ?
           registration.scope :
           location,
       }));
     }
 
-    this._runtimeCacheName = getDefaultCacheName({cacheId});
-    this._revisionedCacheManager = new RevisionedCacheManager({
+    this._runtimeCacheName &#x3D; getDefaultCacheName({cacheId});
+    this._revisionedCacheManager &#x3D; new RevisionedCacheManager({
       cacheId,
       plugins,
     });
-    this._strategies = new Strategies({
+    this._strategies &#x3D; new Strategies({
       cacheId,
     });
 
-    this._router = new Router(
+    this._router &#x3D; new Router(
       this._revisionedCacheManager.getCacheName(),
       handleFetch
     );
@@ -155,19 +153,19 @@ class WorkboxSW {
    * are added to the cache and unchanged files are left as is).
    *
    * The input needs to be an array of URL strings which having revisioning
-   * details in them otherwise the entry should be an object with `url` and
-   * `revision` parameters.
+   * details in them otherwise the entry should be an object with &#x60;url&#x60; and
+   * &#x60;revision&#x60; parameters.
    *
    * In addition to maintaining the cache, this method will also set up the
    * necessary routes to serve the precached assets using a cache-first
    * strategy.
    *
-   * @example &lt;caption>Cache revisioned assets.&lt;/caption>
+   * @example &amp;lt;caption&gt;Cache revisioned assets.&amp;lt;/caption&gt;
    * // Cache a set of revisioned URLs
-   * const workboxSW = new WorkboxSW();
+   * const workboxSW &#x3D; new WorkboxSW();
    * workboxSW.precache([
-   *     '/styles/main.613e6c7332dd83e848a8b00c403827ed.css',
-   *     '/images/logo.59a325f32baad11bd47a8c515ec44ae5.jpg'
+   *     &#x27;/styles/main.613e6c7332dd83e848a8b00c403827ed.css&#x27;,
+   *     &#x27;/images/logo.59a325f32baad11bd47a8c515ec44ae5.jpg&#x27;
    * ]);
    *
    * // ...precache() can also take objects to cache
@@ -176,22 +174,22 @@ class WorkboxSW {
    * // you.
    * workboxSW.precache([
    *     {
-   *       url: '/index.html',
-   *       revision: '613e6c7332dd83e848a8b00c403827ed'
+   *       url: &#x27;/index.html&#x27;,
+   *       revision: &#x27;613e6c7332dd83e848a8b00c403827ed&#x27;
    *     },
    *     {
-   *       url: '/about.html',
-   *       revision: '59a325f32baad11bd47a8c515ec44ae5'
+   *       url: &#x27;/about.html&#x27;,
+   *       revision: &#x27;59a325f32baad11bd47a8c515ec44ae5&#x27;
    *     }
    * ]);
    *
-   * @param {Array&lt;String|Object>} revisionedFiles A set of urls to cache
+   * @param {Array&amp;lt;String|Object&gt;} revisionedFiles A set of urls to cache
    * when the service worker is installed.
    */
   precache(revisionedFiles) {
     // Add a more helpful error message than assertion error.
     if (!Array.isArray(revisionedFiles)) {
-      throw ErrorFactory.createError('bad-revisioned-cache-list');
+      throw ErrorFactory.createError(&#x27;bad-revisioned-cache-list&#x27;);
     }
 
     this._revisionedCacheManager.addToCacheList({
@@ -200,12 +198,12 @@ class WorkboxSW {
   }
 
   /**
-   * The router for this library is exposed via the `router` parameter.
+   * The router for this library is exposed via the &#x60;router&#x60; parameter.
    * This is an instance of the {@link module:workbox-sw.Router|Router}.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * workboxSW.router.registerRoute('/', workboxSW.workbox.cacheFirst());
+   * const workboxSW &#x3D; new WorkboxSW();
+   * workboxSW.router.registerRoute(&#x27;/&#x27;, workboxSW.workbox.cacheFirst());
    *
    * @type {Router}
    */
@@ -217,25 +215,25 @@ class WorkboxSW {
    * RuntimeStrategyOptions is just a JavaScript object, but the structure
    * explains the options for runtime strategies used in workbox-sw.
    *
-   * See the example of how this can be used with the `cacheFirst()` caching
+   * See the example of how this can be used with the &#x60;cacheFirst()&#x60; caching
    * strategy.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * const cacheFirstStrategy = workboxSW.strategies.cacheFirst({
-   *   cacheName: 'example-cache',
+   * const workboxSW &#x3D; new WorkboxSW();
+   * const cacheFirstStrategy &#x3D; workboxSW.strategies.cacheFirst({
+   *   cacheName: &#x27;example-cache&#x27;,
    *   cacheExpiration: {
    *     maxEntries: 10,
    *     maxAgeSeconds: 7 * 24 * 60 * 60
    *   },
    *   broadcastCacheUpdate: {
-   *     channelName: 'example-channel-name'
+   *     channelName: &#x27;example-channel-name&#x27;
    *   },
    *   cacheableResponse: {
    *     statuses: [0, 200, 404],
    *     headers: {
-   *       'Example-Header-1': 'Header-Value-1',
-   *       'Example-Header-2': 'Header-Value-2'
+   *       &#x27;Example-Header-1&#x27;: &#x27;Header-Value-1&#x27;,
+   *       &#x27;Example-Header-2&#x27;: &#x27;Header-Value-2&#x27;
    *     }
    *   }
    *   plugins: [
@@ -251,31 +249,31 @@ class WorkboxSW {
    * @property {Number} cacheExpiration.maxEntries
    * The maximum number of entries to store in a cache.
    * @property {Number} cacheExpiration.maxAgeSeconds
-   * The maximum lifetime of a request to stay in the cache before it's removed.
+   * The maximum lifetime of a request to stay in the cache before it&#x27;s removed.
    * @property {Object} broadcastCacheUpdate Defining
    * this object will add a broadcast cache update plugin.
    * @property {String} broadcastCacheUpdate.channelName
    * The name of the broadcast channel to dispatch messages on.
-   * @property {Array&lt;plugins>} plugins For
+   * @property {Array&amp;lt;plugins&gt;} plugins For
    * any additional plugins you wish to add, simply include them in this
    * array.
    * @property {Object} cacheableResponse Specifies types of responses to cache
    * by status codes, headers, or both.
-   * @property {Array&lt;Number>} cacheableResponse.statuses An array of status
+   * @property {Array&amp;lt;Number&gt;} cacheableResponse.statuses An array of status
    * codes to cache.
-   * @property {Array&lt;Object>} cacheableResponse.headers An array of
+   * @property {Array&amp;lt;Object&gt;} cacheableResponse.headers An array of
    * header-value paris for HTTP headers to cache. See the example, above.
    * @memberof module:workbox-sw.SWLib
    */
 
   /**
    * The supported caching strategies shipped with workbox-sw are provided via
-   * the `strategies` object.
+   * the &#x60;strategies&#x60; object.
    * {@link module:workbox-sw.Strategies|See Strategies for a complete list}.
    *
    * @example
-   * const workboxSW = new WorkboxSW();
-   * workboxSW.router.registerRoute('/styles/*',
+   * const workboxSW &#x3D; new WorkboxSW();
+   * workboxSW.router.registerRoute(&#x27;/styles/*&#x27;,
    *  workboxSW.strategies.cacheFirst());
    */
   get strategies() {
@@ -285,23 +283,23 @@ class WorkboxSW {
   /**
    * The name of the cache used by default by the runtime caching strategies.
    *
-   * Entries that are managed via `precache()` are stored in a separate cache
+   * Entries that are managed via &#x60;precache()&#x60; are stored in a separate cache
    * with a different name.
    *
    * You can override the default cache name when constructing a strategy if
-   * you'd prefer, via
-   * `workboxSW.strategies.cacheFirst({cacheName: 'my-cache-name'});`
+   * you&#x27;d prefer, via
+   * &#x60;workboxSW.strategies.cacheFirst({cacheName: &#x27;my-cache-name&#x27;});&#x60;
    *
    * If you would like to explicitly add to, remove, or check the contents of
    * the default cache, you can use the [Cache Storage API](https://developer.mozilla.org/en-US/docs/Web/API/CacheStorage)
-   * to pass in the default cache name to `caches.open()`. This can be useful if
-   * you want to "prime" your cache with remote resources that can't be properly
-   * managed via `precache()`.
+   * to pass in the default cache name to &#x60;caches.open()&#x60;. This can be useful if
+   * you want to &quot;prime&quot; your cache with remote resources that can&#x27;t be properly
+   * managed via &#x60;precache()&#x60;.
    *
    * @example
-   * const cache = await caches.open(workboxSW.runtimeCacheName);
-   * await cache.add('https://third-party.com/path/to/file');
-   * const contentsOfRuntimeCache = await cache.keys();
+   * const cache &#x3D; await caches.open(workboxSW.runtimeCacheName);
+   * await cache.add(&#x27;https://third-party.com/path/to/file&#x27;);
+   * const contentsOfRuntimeCache &#x3D; await cache.keys();
    */
   get runtimeCacheName() {
     return this._runtimeCacheName;
@@ -313,24 +311,24 @@ class WorkboxSW {
    * @param {boolean} clientsClaim Whether to claim clients in activate or not.
    */
   _registerInstallActivateEvents(clientsClaim) {
-    self.addEventListener('install', (event) => {
-      const cachedUrls = this._revisionedCacheManager.getCachedUrls();
-      if (cachedUrls.length > 0) {
+    self.addEventListener(&#x27;install&#x27;, (event) &#x3D;&gt; {
+      const cachedUrls &#x3D; this._revisionedCacheManager.getCachedUrls();
+      if (cachedUrls.length &gt; 0) {
         logHelper.debug({
           that: this,
-          message: `The precached URLs will automatically be served using a
-            cache-first strategy.`,
-          data: {'Precached URLs': JSON.stringify(cachedUrls)},
+          message: &#x60;The precached URLs will automatically be served using a
+            cache-first strategy.&#x60;,
+          data: {&#x27;Precached URLs&#x27;: JSON.stringify(cachedUrls)},
         });
       }
 
       event.waitUntil(this._revisionedCacheManager.install());
     });
 
-    self.addEventListener('activate', (event) => {
+    self.addEventListener(&#x27;activate&#x27;, (event) &#x3D;&gt; {
       event.waitUntil(
         this._revisionedCacheManager.cleanup()
-        .then(() => {
+        .then(() &#x3D;&gt; {
           if (clientsClaim) {
             return self.clients.claim();
           }
@@ -342,13 +340,13 @@ class WorkboxSW {
   /**
    * This method will register any default routes the library will need.
    * @private
-   * @param {Array&lt;RegExp>} ignoreUrlParametersMatching An array of regex's
+   * @param {Array&amp;lt;RegExp&gt;} ignoreUrlParametersMatching An array of regex&#x27;s
    * used to remove search parameters which match on of them.
    * @param {string} directoryIndex The directory index is appended to URLs
-   * ending with '/'.
+   * ending with &#x27;/&#x27;.
    */
   _registerDefaultRoutes(ignoreUrlParametersMatching, directoryIndex) {
-    const plugins = [];
+    const plugins &#x3D; [];
 
     // Add custom directory index plugin.
     if (ignoreUrlParametersMatching || directoryIndex) {
@@ -357,27 +355,27 @@ class WorkboxSW {
       );
     }
 
-    const cacheFirstHandler = this.strategies.cacheFirst({
+    const cacheFirstHandler &#x3D; this.strategies.cacheFirst({
       cacheName: this._revisionedCacheManager.getCacheName(),
       plugins,
     });
 
-    const route = new Route({
-      match: ({url}) => {
-        const cachedUrls = this._revisionedCacheManager.getCachedUrls();
-        if (cachedUrls.indexOf(url.href) !== -1) {
+    const route &#x3D; new Route({
+      match: ({url}) &#x3D;&gt; {
+        const cachedUrls &#x3D; this._revisionedCacheManager.getCachedUrls();
+        if (cachedUrls.indexOf(url.href) !&#x3D;&#x3D; -1) {
           return true;
         }
 
-        let strippedUrl =
+        let strippedUrl &#x3D;
           this._removeIgnoreUrlParams(url.href, ignoreUrlParametersMatching);
-        if (cachedUrls.indexOf(strippedUrl.href) !== -1) {
+        if (cachedUrls.indexOf(strippedUrl.href) !&#x3D;&#x3D; -1) {
           return true;
         }
 
-        if (directoryIndex &amp;&amp; strippedUrl.pathname.endsWith('/')) {
-          url.pathname += directoryIndex;
-          return cachedUrls.indexOf(url.href) !== -1;
+        if (directoryIndex &amp;amp;&amp;amp; strippedUrl.pathname.endsWith(&#x27;/&#x27;)) {
+          url.pathname +&#x3D; directoryIndex;
+          return cachedUrls.indexOf(url.href) !&#x3D;&#x3D; -1;
         }
 
         return false;
@@ -389,30 +387,30 @@ class WorkboxSW {
 
   /**
    * @private
-   * @param  {Array&lt;RegExp>} ignoreUrlParametersMatching An array of regex's to
+   * @param  {Array&amp;lt;RegExp&gt;} ignoreUrlParametersMatching An array of regex&#x27;s to
    * define which search parameters should be removed before looking for cache
    * match.
    * @param {string} directoryIndex The directory index is appended to URLs
-   * ending with '/'.
-   * @return {Promise&lt;Object>} Returns a plugin that attempts to match the
+   * ending with &#x27;/&#x27;.
+   * @return {Promise&amp;lt;Object&gt;} Returns a plugin that attempts to match the
    * URL with /index.html
    */
   _getCacheMatchPlugin(ignoreUrlParametersMatching, directoryIndex) {
-    const cacheMatchFunction = async (
-      {request, cache, cachedResponse, matchOptions}) => {
+    const cacheMatchFunction &#x3D; async (
+      {request, cache, cachedResponse, matchOptions}) &#x3D;&gt; {
       // If we already have a cache hit, then just return that.
       if (cachedResponse) {
         return cachedResponse;
       }
 
-      let strippedUrl =
+      let strippedUrl &#x3D;
         this._removeIgnoreUrlParams(request.url, ignoreUrlParametersMatching);
       return cache.match(strippedUrl.toString(), matchOptions)
-      .then((response) => {
+      .then((response) &#x3D;&gt; {
         if (!response) {
           // Otherwise, try again with the indexHtmlString value.
-          if (strippedUrl.pathname.endsWith('/')) {
-            strippedUrl.pathname += directoryIndex;
+          if (strippedUrl.pathname.endsWith(&#x27;/&#x27;)) {
+            strippedUrl.pathname +&#x3D; directoryIndex;
             return cache.match(strippedUrl.toString(), matchOptions);
           }
         }
@@ -426,40 +424,40 @@ class WorkboxSW {
 
   /**
    * @param {string} originalUrl The original url to remove the search params.
-   * @param  {Array&lt;RegExp>} ignoreUrlParametersMatching An array of regex's to
+   * @param  {Array&amp;lt;RegExp&gt;} ignoreUrlParametersMatching An array of regex&#x27;s to
    * define which search parameters should be removed before looking for cache
    * match.
    * @return {string} An object that can be used as a plugin within a
    * RequestWrapper.
    */
   _removeIgnoreUrlParams(originalUrl, ignoreUrlParametersMatching) {
-    const url = new URL(originalUrl);
+    const url &#x3D; new URL(originalUrl);
 
-    // Exclude initial '?'
-    const searchString = url.search.slice(1);
+    // Exclude initial &#x27;?&#x27;
+    const searchString &#x3D; url.search.slice(1);
 
-    // Split into an array of 'key=value' strings
-    const keyValueStrings = searchString.split('&amp;');
-    const keyValuePairs = keyValueStrings.map((keyValueString) => {
-      // Split each 'key=value' string into a [key, value] array
-      return keyValueString.split('=');
+    // Split into an array of &#x27;key&#x3D;value&#x27; strings
+    const keyValueStrings &#x3D; searchString.split(&#x27;&amp;amp;&#x27;);
+    const keyValuePairs &#x3D; keyValueStrings.map((keyValueString) &#x3D;&gt; {
+      // Split each &#x27;key&#x3D;value&#x27; string into a [key, value] array
+      return keyValueString.split(&#x27;&#x3D;&#x27;);
     });
 
-    const filteredKeyValuesPairs = keyValuePairs.filter((keyValuePair) => {
+    const filteredKeyValuesPairs &#x3D; keyValuePairs.filter((keyValuePair) &#x3D;&gt; {
       return ignoreUrlParametersMatching
-        .every((ignoredRegex) => {
-          // Return true iff the key doesn't match any of the regexes.
+        .every((ignoredRegex) &#x3D;&gt; {
+          // Return true iff the key doesn&#x27;t match any of the regexes.
           return !ignoredRegex.test(keyValuePair[0]);
         });
     });
-    const filteredStrings = filteredKeyValuesPairs.map((keyValuePair) => {
-       // Join each [key, value] array into a 'key=value' string
-      return keyValuePair.join('=');
+    const filteredStrings &#x3D; filteredKeyValuesPairs.map((keyValuePair) &#x3D;&gt; {
+       // Join each [key, value] array into a &#x27;key&#x3D;value&#x27; string
+      return keyValuePair.join(&#x27;&#x3D;&#x27;);
     });
 
-    // Join the array of 'key=value' strings into a string with '&amp;' in
+    // Join the array of &#x27;key&#x3D;value&#x27; strings into a string with &#x27;&amp;amp;&#x27; in
     // between each
-    url.search = filteredStrings.join('&amp;');
+    url.search &#x3D; filteredStrings.join(&#x27;&amp;amp;&#x27;);
 
     return url;
   }
@@ -467,9 +465,12 @@ class WorkboxSW {
 
 export default WorkboxSW;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

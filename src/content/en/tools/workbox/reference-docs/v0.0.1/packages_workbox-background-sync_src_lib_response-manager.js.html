@@ -1,28 +1,26 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-background-sync/src/lib/response-manager.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-background-sync/src/lib/response-manager.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import IDBHelper from '../../../../lib/idb-helper';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-background-sync/src/lib/response-manager.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import IDBHelper from &#x27;../../../../lib/idb-helper&#x27;;
 
 /**
  * Puts the fetched response in the IDB
@@ -31,8 +29,8 @@ jsdocNav:
  * @private
  */
 async function putResponse({hash, idbObject, response, idbQDb}) {
-	const _idbQHelper = idbQDb;
-	idbObject.response = {
+	const _idbQHelper &#x3D; idbQDb;
+	idbObject.response &#x3D; {
 		headers: JSON.stringify([...response.headers]),
 		status: response.status,
 		body: await response.blob(),
@@ -50,9 +48,9 @@ async function putResponse({hash, idbObject, response, idbQDb}) {
  * @return {Object} response Fetched response of the request.
  */
 async function getResponse({id, dbName}) {
-	const _idbQHelper = new IDBHelper(dbName, 1, 'QueueStore');
-	const object = await _idbQHelper.get(id);
-	if (object &amp;&amp; object.response) {
+	const _idbQHelper &#x3D; new IDBHelper(dbName, 1, &#x27;QueueStore&#x27;);
+	const object &#x3D; await _idbQHelper.get(id);
+	if (object &amp;amp;&amp;amp; object.response) {
 		return object.response;
 	} else {
 		return null;
@@ -64,9 +62,12 @@ export {
 	getResponse,
 };
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

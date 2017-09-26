@@ -1,34 +1,31 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-precaching/src/lib/controllers/unrevisioned-cache-manager.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-precaching/src/lib/controllers/unrevisioned-cache-manager.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import ErrorFactory from '../error-factory';
-import BaseCacheManager from './base-cache-manager';
-import RequestCacheEntry from '../models/precache-entries/request-entry';
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-precaching/src/lib/controllers/unrevisioned-cache-manager.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>import ErrorFactory from &#x27;../error-factory&#x27;;
+import BaseCacheManager from &#x27;./base-cache-manager&#x27;;
+import RequestCacheEntry from &#x27;../models/precache-entries/request-entry&#x27;;
 import StringPrecacheEntry from
-  '../models/precache-entries/string-cache-entry';
-import {isInstance} from '../../../../../lib/assert';
+  &#x27;../models/precache-entries/string-cache-entry&#x27;;
+import {isInstance} from &#x27;../../../../../lib/assert&#x27;;
 
 /**
  * This class extends a lot of the internal methods from BaseCacheManager
@@ -45,11 +42,11 @@ class UnrevisionedCacheManager extends BaseCacheManager {
    * @param {String} [input.cacheName] This is the cache name to store requested
    * assets.
    * @param {String} [input.cacheId] The cacheId can be used to ensure that
-   * multiple projects sharing `http://localhost` have unique cache names.
-   * @param {Array&lt;Object>} [input.plugins] Any plugins that should be
-   * invoked by the underlying `RequestWrapper`.
+   * multiple projects sharing &#x60;http://localhost&#x60; have unique cache names.
+   * @param {Array&amp;lt;Object&gt;} [input.plugins] Any plugins that should be
+   * invoked by the underlying &#x60;RequestWrapper&#x60;.
    */
-   constructor(input = {}) {
+   constructor(input &#x3D; {}) {
      super(input);
   }
 
@@ -62,17 +59,17 @@ class UnrevisionedCacheManager extends BaseCacheManager {
    *
    * unrevisionedManager.addToCacheList({
    *   unrevisionedFiles: [
-   *     '/styles/hello.css',
-   *     new Request('/images/logo.png', {
+   *     &#x27;/styles/hello.css&#x27;,
+   *     new Request(&#x27;/images/logo.png&#x27;, {
    *       // Custom Request Options.
    *     })
    *   ]
    * ]});
    *
-   * @param {Array&lt;String|Request>} rawEntries A raw entry that can be
+   * @param {Array&amp;lt;String|Request&gt;} rawEntries A raw entry that can be
    * parsed into a BaseCacheEntry.
    */
-   addToCacheList({unrevisionedFiles} = {}) {
+   addToCacheList({unrevisionedFiles} &#x3D; {}) {
      isInstance({unrevisionedFiles}, Array);
      super._addEntries(unrevisionedFiles);
    }
@@ -87,18 +84,18 @@ class UnrevisionedCacheManager extends BaseCacheManager {
    * @return {BaseCacheEntry} Returns a parsed version of the file entry.
    */
   _parseEntry(input) {
-    if (typeof input === 'undefined' || input === null) {
-      throw ErrorFactory.createError('invalid-unrevisioned-entry',
-        new Error('Invalid file entry: ' + JSON.stringify(input)));
+    if (typeof input &#x3D;&#x3D;&#x3D; &#x27;undefined&#x27; || input &#x3D;&#x3D;&#x3D; null) {
+      throw ErrorFactory.createError(&#x27;invalid-unrevisioned-entry&#x27;,
+        new Error(&#x27;Invalid file entry: &#x27; + JSON.stringify(input)));
     }
 
-    if (typeof input === 'string') {
+    if (typeof input &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) {
       return new StringPrecacheEntry(input);
     } else if (input instanceof Request) {
       return new RequestCacheEntry(input);
     } else {
-      throw ErrorFactory.createError('invalid-unrevisioned-entry',
-        new Error('Invalid file entry: ' +
+      throw ErrorFactory.createError(&#x27;invalid-unrevisioned-entry&#x27;,
+        new Error(&#x27;Invalid file entry: &#x27; +
           JSON.stringify(input))
         );
     }
@@ -117,9 +114,9 @@ class UnrevisionedCacheManager extends BaseCacheManager {
   /**
    * We always want to override previously cached versions.
    * @private
-   * @param {BaseCacheEntry} precacheEntry A file entry with `path` and
-   * `revision` parameters.
-   * @return {Promise&lt;Boolean>} Returns true is the fileEntry is already
+   * @param {BaseCacheEntry} precacheEntry A file entry with &#x60;path&#x60; and
+   * &#x60;revision&#x60; parameters.
+   * @return {Promise&amp;lt;Boolean&gt;} Returns true is the fileEntry is already
    * cached, false otherwise.
    */
   async _isAlreadyCached(precacheEntry) {
@@ -128,8 +125,8 @@ class UnrevisionedCacheManager extends BaseCacheManager {
 
   /**
    * @private
-   * @param {BaseCacheEntry} precacheEntry A file entry with `path` and
-   * `revision` parameters.
+   * @param {BaseCacheEntry} precacheEntry A file entry with &#x60;path&#x60; and
+   * &#x60;revision&#x60; parameters.
    */
   _onEntryCached(precacheEntry) {
     // NOOP
@@ -148,9 +145,12 @@ class UnrevisionedCacheManager extends BaseCacheManager {
 
 export default UnrevisionedCacheManager;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

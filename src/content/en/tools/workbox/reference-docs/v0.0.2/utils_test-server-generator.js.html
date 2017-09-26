@@ -1,37 +1,35 @@
----
-layout: jsdoc
-title: "Source: utils/test-server-generator.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: utils/test-server-generator.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>/*
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: utils/test-server-generator.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>/*
  Copyright 2016 Google Inc. All Rights Reserved.
- Licensed under the Apache License, Version 2.0 (the "License");
+ Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
 
      http://www.apache.org/licenses/LICENSE-2.0
 
  Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
+ distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
@@ -40,7 +38,7 @@ jsdocNav:
 /**
  * README:
  * This test server is used in unit tests as well as
- * by the 'gulp serve' task, so please make sure
+ * by the &#x27;gulp serve&#x27; task, so please make sure
  * changes here work in all scenarios.
  *
  * There are two servers so tests can make requests to a foreign origin.
@@ -48,9 +46,9 @@ jsdocNav:
 
 /* eslint-disable valid-jsdoc */
 
-const ServerInstance = require('./server-instance');
+const ServerInstance &#x3D; require(&#x27;./server-instance&#x27;);
 
-const getNewServerInstance = () => {
+const getNewServerInstance &#x3D; () &#x3D;&gt; {
   let primaryServer;
   let secondaryServer;
 
@@ -59,31 +57,31 @@ const getNewServerInstance = () => {
      * Calling start will create two servers. The primary port will be returned
      * and the secondary server will be on the primary port + 1;
      */
-    start: (rootDirectory, port) => {
+    start: (rootDirectory, port) &#x3D;&gt; {
       if (primaryServer || secondaryServer) {
-        return Promise.reject('Server already running');
+        return Promise.reject(&#x27;Server already running&#x27;);
       }
 
       if (!port) {
-        port = 3004;
+        port &#x3D; 3004;
       }
 
-      primaryServer = new ServerInstance();
-      secondaryServer = new ServerInstance();
+      primaryServer &#x3D; new ServerInstance();
+      secondaryServer &#x3D; new ServerInstance();
 
       return primaryServer.start(rootDirectory, port)
-      .then((primaryPort) => {
-        let secondaryPort = primaryPort + 1;
+      .then((primaryPort) &#x3D;&gt; {
+        let secondaryPort &#x3D; primaryPort + 1;
         return secondaryServer.start(rootDirectory, secondaryPort)
-        .then((actualSecondaryPort) => {
-          if (actualSecondaryPort !== secondaryPort) {
+        .then((actualSecondaryPort) &#x3D;&gt; {
+          if (actualSecondaryPort !&#x3D;&#x3D; secondaryPort) {
             return Promise.all([
               primaryServer.stop(),
               secondaryServer.stop(),
             ])
-            .then(() => {
-              Promise.reject(new Error('Server could not get the required ' +
-                'ports or primaryPort and primaryPort + 1.'));
+            .then(() &#x3D;&gt; {
+              Promise.reject(new Error(&#x27;Server could not get the required &#x27; +
+                &#x27;ports or primaryPort and primaryPort + 1.&#x27;));
             });
           } else {
             return primaryPort;
@@ -91,24 +89,27 @@ const getNewServerInstance = () => {
         });
       });
     },
-    stop: () => {
+    stop: () &#x3D;&gt; {
       return Promise.all([
         primaryServer.stop(),
         secondaryServer.stop(),
       ])
-      .then(() => {
-        primaryServer = null;
-        secondaryServer = null;
+      .then(() &#x3D;&gt; {
+        primaryServer &#x3D; null;
+        secondaryServer &#x3D; null;
       });
     },
   };
 };
 
-module.exports = getNewServerInstance;
+module.exports &#x3D; getNewServerInstance;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>

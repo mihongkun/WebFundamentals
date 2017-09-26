@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html devsite>
+
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: workbox-build/src/lib/utils/warn-about-config.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: workbox-build/src/lib/utils/warn-about-config.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>&#x27;use strict&#x27;;
+
+const logHelper &#x3D; require(&#x27;../log-helper&#x27;);
+
+/**
+ * A helper to find and log any configuration options that were set which are
+ * not valid for a given usage mode.
+ *
+ * @param {Array&amp;lt;String&gt;} blacklist The names of invalid configuration options.
+ * @param {Object&amp;lt;String,String&gt;} fullConfig The configuration options to check.
+ * @param {String} methodName The type of build that&#x27;s being attempted
+ * (injectManifest, etc.).
+ */
+module.exports &#x3D; (blacklist, fullConfig, methodName) &#x3D;&gt; {
+  const invalidConfigKeys &#x3D; Object.keys(fullConfig)
+    .filter((configKey) &#x3D;&gt; blacklist.indexOf(configKey) !&#x3D;&#x3D; -1);
+
+  if (invalidConfigKeys.length &gt; 0) {
+    logHelper.warn(&#x60;The configuration options &#x60; +
+      &#x60;&#x27;${invalidConfigKeys.join(&#x27;,&#x27;)}&#x27; will be ignored in the context of &#x60; +
+      &#x60;Workbox&#x27;s ${methodName} mode.&#x60;);
+  }
+};
+</code></pre>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
+
+</html>

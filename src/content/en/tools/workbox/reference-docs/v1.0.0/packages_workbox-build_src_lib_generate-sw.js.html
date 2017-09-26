@@ -1,33 +1,30 @@
----
-layout: jsdoc
-title: "Source: packages/workbox-build/src/lib/generate-sw.js"
-jsdocNav: 
-  - Modules:
-    - <a href="module-workbox-background-sync.html#main">workbox-background-sync</a>
-    - <a href="module-workbox-broadcast-cache-update.html#main">workbox-broadcast-cache-update</a>
-    - <a href="module-workbox-build.html#main">workbox-build</a>
-    - <a href="module-workbox-cache-expiration.html#main">workbox-cache-expiration</a>
-    - <a href="module-workbox-cacheable-response.html#main">workbox-cacheable-response</a>
-    - <a href="module-workbox-google-analytics.html#main">workbox-google-analytics</a>
-    - <a href="module-workbox-precaching.html#main">workbox-precaching</a>
-    - <a href="module-workbox-routing.html#main">workbox-routing</a>
-    - <a href="module-workbox-runtime-caching.html#main">workbox-runtime-caching</a>
-    - <a href="module-workbox-sw.html#main">workbox-sw</a>
-    - <a href="module-workbox-webpack-plugin.html#main">workbox-webpack-plugin</a>
----
+<!DOCTYPE html>
+<html devsite>
 
+<head>
+  <meta name="project_path" value="_project.yaml" />
+  <meta name="book_path" value="_book.yaml" />
+  <meta name="gtm_var" data-key="docType" data-value="reference">
+  <title>Source: packages/workbox-build/src/lib/generate-sw.js</title>
+  <link href="jsdoc.css" rel="stylesheet">
+</head>
 
-
-
-
-    
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const path = require('path');
-const copyWorkboxSW = require('./utils/copy-workbox-sw');
-const getFileManifestEntries = require('./get-file-manifest-entries');
-const writeServiceWorker = require('./write-sw');
-const errors = require('./errors');
+<body>
+  <div id="jsdoc-body-container">
+    <div id="jsdoc-content">
+      <div id="jsdoc-content-container">
+        <div id="jsdoc-banner" role="banner">
+        </div>
+        <div id="jsdoc-main" role="main">
+          <header class="page-header">
+            <h1>Source: packages/workbox-build/src/lib/generate-sw.js</h1>
+          </header>
+          <article>
+            <pre class="prettyprint linenums"><code>const path &#x3D; require(&#x27;path&#x27;);
+const copyWorkboxSW &#x3D; require(&#x27;./utils/copy-workbox-sw&#x27;);
+const getFileManifestEntries &#x3D; require(&#x27;./get-file-manifest-entries&#x27;);
+const writeServiceWorker &#x3D; require(&#x27;./write-sw&#x27;);
+const errors &#x3D; require(&#x27;./errors&#x27;);
 
 /**
  * This method will generate a working service worker with an inlined
@@ -37,25 +34,25 @@ const errors = require('./errors');
  * @param {String} input.swDest The file path and name you wish to writh the
  * service worker file to.
  * @param {String} input.globDirectory The directory you wish to run the
- * `globPatterns` against.
- * @param {Array&lt;String>} input.globPatterns Files matching against any of
+ * &#x60;globPatterns&#x60; against.
+ * @param {Array&amp;lt;String&gt;} input.globPatterns Files matching against any of
  * these glob patterns will be included in the file manifest.
- * @param {String|Array&lt;String>} [input.globIgnores] Files matching against any
+ * @param {String|Array&amp;lt;String&gt;} [input.globIgnores] Files matching against any
  * of these glob patterns will be excluded from the file manifest, even if the
- * file matches against a `globPatterns` pattern.
- * @param {Object&lt;String,Array|String>} [input.templatedUrls]
+ * file matches against a &#x60;globPatterns&#x60; pattern.
+ * @param {Object&amp;lt;String,Array|String&gt;} [input.templatedUrls]
  * If a URL is rendered with templates on the server, its contents may
  * depend on multiple files. This maps URLs to an array of file names, or to a
- * string value, that uniquely determines the URL's contents.
+ * string value, that uniquely determines the URL&#x27;s contents.
  * @param {string} [input.navigateFallback] This URL will be used as a fallback
- * if a navigation request can't be fulfilled. Normally this URL would be
- * precached so it's always available. This is particularly useful for single
+ * if a navigation request can&#x27;t be fulfilled. Normally this URL would be
+ * precached so it&#x27;s always available. This is particularly useful for single
  * page apps where requests should go to a single URL.
- * @param {Array&lt;Regexp>} [input.navigateFallbackWhitelist] An optional Array
- * of regexs to restrict which URL's use the `navigateFallback` URL.
+ * @param {Array&amp;lt;Regexp&gt;} [input.navigateFallbackWhitelist] An optional Array
+ * of regexs to restrict which URL&#x27;s use the &#x60;navigateFallback&#x60; URL.
  * @param {String} [input.cacheId] An optional ID to be prepended to caches
  * used by workbox-build. This is primarily useful for local development where
- * multiple sites may be served from the same `http://localhost` origin.
+ * multiple sites may be served from the same &#x60;http://localhost&#x60; origin.
  * @param {Boolean} [input.skipWaiting] When set to true the generated service
  * worker activate immediately.
  *
@@ -64,23 +61,23 @@ const errors = require('./errors');
  * worker will claim any currently open pages.
  *
  * Defaults to false.
- * @param {string} [input.directoryIndex] If a request for a URL ending in '/'
+ * @param {string} [input.directoryIndex] If a request for a URL ending in &#x27;/&#x27;
  * fails, this value will be appended to the URL and a second request will be
  * made.
  *
- * Defaults to 'index.html'.
- * @param {Array&lt;Object>} [input.runtimeCaching] Passing in an array of objects
- * containing a `urlPattern` and a `handler` parameter will add the appropriate
- * code to the service work to handle run time caching for URL's matching the
+ * Defaults to &#x27;index.html&#x27;.
+ * @param {Array&amp;lt;Object&gt;} [input.runtimeCaching] Passing in an array of objects
+ * containing a &#x60;urlPattern&#x60; and a &#x60;handler&#x60; parameter will add the appropriate
+ * code to the service work to handle run time caching for URL&#x27;s matching the
  * pattern with the associated handler behavior.
  * @param {String} [input.modifyUrlPrefix] An object of key value pairs
- * where URL's starting with the key value will be replaced with the
+ * where URL&#x27;s starting with the key value will be replaced with the
  * corresponding value.
- * @param {Array&lt;RegExp>} [input.ignoreUrlParametersMatching] Any search
- * parameters matching against one of the regex's in this array will be removed
+ * @param {Array&amp;lt;RegExp&gt;} [input.ignoreUrlParametersMatching] Any search
+ * parameters matching against one of the regex&#x27;s in this array will be removed
  * before looking for a cache match.
  * @param {Boolean} [input.handleFetch] When set to false all requests will
- * go to the network. This is useful during development if you don't want the
+ * go to the network. This is useful during development if you don&#x27;t want the
  * service worker from preventing updates.
  *
  * Defaults to true.
@@ -94,71 +91,71 @@ const errors = require('./errors');
  * @return {Promise} Resolves once the service worker has been generated
  * with a precache list.
  *
- * @example &lt;caption>Generate a service worker with precaching support.
- * &lt;/caption>
- * const swBuild = require('workbox-build');
+ * @example &amp;lt;caption&gt;Generate a service worker with precaching support.
+ * &amp;lt;/caption&gt;
+ * const swBuild &#x3D; require(&#x27;workbox-build&#x27;);
  *
  * swBuild.generateSW({
- *   swDest: './build/sw.js',
- *   globDirectory: './build/',
- *   globPatterns: ['**\/*.{html,js,css}'],
- *   globIgnores: ['admin.html'],
+ *   swDest: &#x27;./build/sw.js&#x27;,
+ *   globDirectory: &#x27;./build/&#x27;,
+ *   globPatterns: [&#x27;**\/*.{html,js,css}&#x27;],
+ *   globIgnores: [&#x27;admin.html&#x27;],
  *   templatedUrls: {
- *     '/shell': ['shell.hbs', 'main.css', 'shell.css'],
+ *     &#x27;/shell&#x27;: [&#x27;shell.hbs&#x27;, &#x27;main.css&#x27;, &#x27;shell.css&#x27;],
  *   },
  * })
- * .then(() => {
- *   console.log('Service worker generated.');
+ * .then(() &#x3D;&gt; {
+ *   console.log(&#x27;Service worker generated.&#x27;);
  * });
  *
  * @memberof module:workbox-build
  */
-const generateSW = function(input) {
-  if (!input || typeof input !== 'object' || Array.isArray(input)) {
-    return Promise.reject(new Error(errors['invalid-generate-sw-input']));
+const generateSW &#x3D; function(input) {
+  if (!input || typeof input !&#x3D;&#x3D; &#x27;object&#x27; || Array.isArray(input)) {
+    return Promise.reject(new Error(errors[&#x27;invalid-generate-sw-input&#x27;]));
   }
 
   // Type check input so that defaults can be used if appropriate.
-  if (input.globIgnores &amp;&amp; !(Array.isArray(input.globIgnores))) {
+  if (input.globIgnores &amp;amp;&amp;amp; !(Array.isArray(input.globIgnores))) {
     return Promise.reject(
-      new Error(errors['invalid-glob-ignores']));
+      new Error(errors[&#x27;invalid-glob-ignores&#x27;]));
   }
 
-  if (typeof input.globDirectory !== 'string' ||
-    input.globDirectory.length === 0) {
+  if (typeof input.globDirectory !&#x3D;&#x3D; &#x27;string&#x27; ||
+    input.globDirectory.length &#x3D;&#x3D;&#x3D; 0) {
     return Promise.reject(
-      new Error(errors['invalid-glob-directory']));
+      new Error(errors[&#x27;invalid-glob-directory&#x27;]));
   }
 
-  if (typeof input.swDest !== 'string' || input.swDest.length === 0) {
+  if (typeof input.swDest !&#x3D;&#x3D; &#x27;string&#x27; || input.swDest.length &#x3D;&#x3D;&#x3D; 0) {
     return Promise.reject(
-      new Error(errors['invalid-sw-dest']));
+      new Error(errors[&#x27;invalid-sw-dest&#x27;]));
   }
 
-  if (input.runtimeCaching &amp;&amp; !(Array.isArray(input.runtimeCaching))) {
+  if (input.runtimeCaching &amp;amp;&amp;amp; !(Array.isArray(input.runtimeCaching))) {
     return Promise.reject(
-      new Error(errors['invalid-runtime-caching']));
+      new Error(errors[&#x27;invalid-runtime-caching&#x27;]));
   }
 
-  const globDirectory = input.globDirectory;
-  input.globIgnores = input.globIgnores || [];
-  const swDest = input.swDest;
+  const globDirectory &#x3D; input.globDirectory;
+  input.globIgnores &#x3D; input.globIgnores || [];
+  const swDest &#x3D; input.swDest;
 
   let workboxSWPath;
-  let destDirectory = path.dirname(swDest);
+  let destDirectory &#x3D; path.dirname(swDest);
   return copyWorkboxSW(destDirectory)
-  .then((libPath) => {
+  .then((libPath) &#x3D;&gt; {
     // If sw file is in build/sw.js, the workboxSW file will be
     // build/workboxSW.***.js. So the sw.js file should import workboxSW.***.js
     // (i.e. not include build/).
-    workboxSWPath = path.relative(destDirectory, libPath);
+    workboxSWPath &#x3D; path.relative(destDirectory, libPath);
     input.globIgnores.push(libPath);
     input.globIgnores.push(swDest);
   })
-  .then(() => {
+  .then(() &#x3D;&gt; {
     return getFileManifestEntries(input);
   })
-  .then((manifestEntries) => {
+  .then((manifestEntries) &#x3D;&gt; {
     return writeServiceWorker(
       swDest,
       manifestEntries,
@@ -169,11 +166,14 @@ const generateSW = function(input) {
   });
 };
 
-module.exports = generateSW;
+module.exports &#x3D; generateSW;
 </code></pre>
-        </article>
-    </section>
+          </article>
+        </div>
+      </div>
+      <nav id="jsdoc-toc-nav" role="navigation"></nav>
+    </div>
+  </div>
+</body>
 
-
-
-
+</html>
