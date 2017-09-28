@@ -1,9 +1,24 @@
 toc:
 - title: Overview
   path: /web/tools/workbox/
-- title: Workbox Documentation
-  status: external
-  path: https://workboxjs.org/
+- title: Get Started
+  section:
+    - title: WebPack
+      path: /web/tools/workbox/get-started/webpack
+    - title: Gulp
+      path: /web/tools/workbox/get-started/gulp
+    - title: NPM
+      path: /web/tools/workbox/get-started/npm-script
+- title: Examples
+  path: /web/tools/workbox/examples/
+- title: How Tos
+  section:
+  - title: Generate a Service Worker with workbox-cli
+    path: /web/tools/workbox/how_tos/workbox-cli
+- title: Reference Docs
+  section:
+  - title: workbox-background-sync
+    path: /web/tools/workbox/reference-docs/latest/module-workbox-background-sync.html
 - title: Workbox Git Repository
   status: external
   path: https://github.com/GoogleChrome/workbox

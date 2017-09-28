@@ -1,0 +1,151 @@
+project_path: /web/_project.yaml
+book_path: /web/tools/_book.yaml
+description: Reference Docs for workbox-background-sync.
+
+{# wf_updated_on: 2017-10-14 #}
+{# wf_published_on: 2017-10-14 #}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <div class="description"><h1 id="workbox-background-sync">workbox-background-sync</h1>
+<p>A helper library that queues specified requests if they fail over network.
+Later it uses the Background Sync API to replay these queued requests
+when the network state has changed.</p>
+<p>The main use of this module will be instantiating a new
+<a href="module-workbox-background-sync.QueuePlugin.html#main">QueuePlugin</a> and passing
+it to a <a href="module-workbox-runtime-caching.RequestWrapper.html#main">RequestWrapper</a>,
+as shown in the first example below.</p></div>
+
+
+
+
+
+<div class="collapsing-entry method-type-module ">
+
+
+
+<div class="collapse-details js-collapse-details">
+
+
+
+
+    <h5>Example</h5>
+
+        <p class="code-caption">Using the QueuePlugin class in a service worker.</p>
+
+    <pre class="prettyprint"><code>let bgQueue = new workbox.backgroundSync.QueuePlugin();
+const requestWrapper = new workbox.runtimeCaching.RequestWrapper({
+  plugins: [bgQueue],
+});
+
+const route = new workbox.routing.RegExpRoute({
+  regExp: new RegExp('^http://localhost:3000/__echo/counter'),
+  handler: new workbox.runtimeCaching.NetworkOnly({requestWrapper}),
+});
+
+const router = new workbox.routing.Router();
+router.registerRoute({route});</code></pre>
+
+
+
+<table class="method-info-table">
+
+
+
+
+
+
+
+
+
+<!--
+<tr>
+<th>Details</th>
+<td>
+
+
+<dl class="details">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</dl>
+
+</td>
+</tr>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</table>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+        <h2 class="subsection-title">Classes</h2>
+
+        <div class="subsection-classes">
+        <dl>
+            <dt><a href="module-workbox-background-sync.Queue.html#main">Queue</a></dt>
+            <dd></dd>
+
+            <dt><a href="module-workbox-background-sync.QueuePlugin.html#main">QueuePlugin</a></dt>
+            <dd></dd>
+        </dl>
+        </div>
