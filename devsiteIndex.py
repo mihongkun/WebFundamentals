@@ -13,7 +13,7 @@ def getPage(requestPath, lang):
     os.path.join(SOURCE_PATH, 'en', requestPath, '_index.yaml'),
     os.path.join(SOURCE_PATH, lang, requestPath, 'index.md'),
     os.path.join(SOURCE_PATH, 'en', requestPath, 'index.md'),
-    os.path.join(SOURCE_PATH, 'lang', requestPath, 'index.html'),
+    os.path.join(SOURCE_PATH, lang, requestPath, 'index.html'),
     os.path.join(SOURCE_PATH, 'en', requestPath, 'index.html')
   ]
   for fileLocation in fileLocations:
@@ -21,7 +21,13 @@ def getPage(requestPath, lang):
       content = open(fileLocation, 'r').read()
       content = content.decode('utf8')
       if fileLocation.endswith('_index.yaml'):
-        return devsiteParseYAML.parse(requestPath, fileLocation, content, lang)
+        response = generateYaml(lang, requestPath, fileContent)
+        break
+
+      if fileLocation.endswith('index.html'):
+        response = fileContent
+        break
+
       if fileLocation.endswith('index.md'):
         return devsiteParseMD.parse(requestPath, fileLocation, content, lang)
       if fileLocation.endswith('index.html'):
@@ -42,7 +48,7 @@ def getDirIndex(requestPath):
     for f in fileList:
       if not f.startswith('_'):
         link = os.path.join('/web', requestPath, os.path.splitext(f)[0])
-        result += '<li><a href="' + link + '">' + link + '</a></li>' 
+        result += '<li><a href="' + link + '">' + link + '</a></li>'
   return result
 
 
@@ -114,3 +120,78 @@ def parseIndexYamlItems(yamlItems):
     item = item.replace('[[DESCRIPTION_CLASSES]]', ' '.join(descriptionClasses))
     result += item
   return result
+
+def generateYaml(lang, requestPath, rawYaml):
+  content = ''
+  parsedYaml = yaml.load(rawYaml)
+  page = parsedYaml['landing_page']
+  rows = page['rows']
+  title = 'Web'
+  banner = devsiteHelper.getAnnouncementBanner(lang)
+  header = 'Generic Page Header Here'
+  customCss = ''
+  if 'custom_css_path' in page:
+    customCss = '<link rel="stylesheet" href="'
+    customCss += page['custom_css_path']
+    customCss += '">'
+  if 'header' in page:
+    header = '<div class="devsite-collapsible-section">'
+    header += '<div class="devsite-header-background devsite-full-site-width">'
+    header += '<div class="devsite-product-id-row devsite-full-site-width">'
+
+    if 'description' in page['header']:
+      header += '<div class="devsite-product-description-row">'
+      header += '<div class="devsite-product-description">'
+      header += page['header']['description']
+      header += '</div></div>'
+    if 'buttons' in page['header']:
+      header += '<div class="devsite-product-button-row">'
+      for button in page['header']['buttons']:
+        header += '<a class="button" href="'
+        header += button['path'] + '">' + button['label'] + '</a>'
+      header += '</div>'
+    header += '</div></div></div>'
+    if 'name' in page['header']:
+      title = page['header']['name']
+  for row in rows:
+    sectionClass = ['devsite-landing-row']
+    section = '<section class="[[SECTION_CLASSES]]">'
+    if 'classname' in row:
+      sectionClass.append(row['classname'])
+    numItems = None
+    if 'columns' in row:
+      numItems = len(row['columns'])
+    elif 'items' in row:
+      numItems = len(row['items'])
+    if numItems:
+      sectionClass.append('devsite-landing-row-' + str(numItems) + '-up')
+    if 'heading' in row:
+      section += '<h2 id="' + devsiteHelper.slugify(row['heading']) +'">'
+      section += row['heading'] + '</h2>'
+    if 'items' in row:
+      section += '<div class="devsite-landing-row-group">'
+      section += parseIndexYamlItems(row['items'])
+      section += '</div>'
+    if 'columns' in row:
+      for column in row['columns']:
+        section += '<div class="devsite-landing-row-column">'
+        if 'items' in column:
+          section += parseIndexYamlItems(column['items'])
+        section += '</div>'
+    section += '</section>'
+    section = section.replace('[[SECTION_CLASSES]]', ' '.join(sectionClass))
+    content += section
+    content = devsiteHelper.renderDevSiteContent(content, lang)
+  text = render('gae/home.tpl', {
+                'title': title,
+                'announcementBanner': banner,
+                'requestPath': requestPath,
+                'customcss': customCss,
+                'header': header,
+                'content': content,
+                'lang': lang,
+                'footerPromo': devsiteHelper.getFooterPromo(),
+                'footerLinks': devsiteHelper.getFooterLinkBox()
+                }
+              )
+  return text

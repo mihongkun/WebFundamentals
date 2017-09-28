@@ -16,9 +16,7 @@ toc:
   - title: Generate a Service Worker with workbox-cli
     path: /web/tools/workbox/how_tos/workbox-cli
 - title: Reference Docs
-  section:
-  - title: workbox-background-sync
-    path: /web/tools/workbox/reference-docs/latest/module-workbox-background-sync.html
+  - include: /web/tools/workbox/reference-docs/latest/_toc.yaml
 - title: Workbox Git Repository
   status: external
   path: https://github.com/GoogleChrome/workbox
